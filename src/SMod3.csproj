@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>SMod3</RootNamespace>
+		<ProjectGuid>6b3c975a-ca75-4764-8192-e1d8ec8e6475</ProjectGuid>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>8.0</LangVersion>
+        <Optimize>true</Optimize>
+        <DebugType>pdbonly</DebugType>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+    </PropertyGroup>
+
+	<PropertyGroup>
+		<!-- These attributes are assigned independently -->
+		<GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+
+		<Copyright>Copyright 2020</Copyright>
+		<AssemblyName>SMod3</AssemblyName>
+		<AssemblyTitle>Server-side API for SCP: Secret Laboratory</AssemblyTitle>
+		<RepositoryType>Git</RepositoryType>
+		<RepositoryUrl>git://github.com/iRebbok/SMod3</RepositoryUrl>
+	</PropertyGroup>
+	
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <DefineConstants>DEBUG</DefineConstants>
+    </PropertyGroup>
+
+</Project>
