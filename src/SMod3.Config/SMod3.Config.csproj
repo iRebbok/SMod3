@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\SMod3.targets"/>
+
+  <PropertyGroup>
+    <AssemblyName>SMod3.Config</AssemblyName>
+    <RootNamespace>SMod3.Module.Config</RootNamespace>
+    <AssemblyTitle>SMod3 module for interaction with the configuration</AssemblyTitle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SMod3.Core\SMod3.Core.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

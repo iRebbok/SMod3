@@ -12,12 +12,17 @@ charset = utf-8
 insert_final_newline = true
 trim_trailing_whitespace = true
 # Project files
-[*.{csproj,sln}]
+[*.{csproj,json,md,nuspec,yml,targets,props}]
+indent_size = 2
+[*.{sln,xml}]
 indent_style = tab
 ############################### 
 # .NET Coding Conventions     # 
 ############################### 
-[*.{cs,vb}] 
+[*.{cs,vb}]
+dotnet_separate_import_directive_groups = true
+dotnet_sort_system_directives_first = true
+csharp_using_directive_placement = outside_namespace:warning
 # this. preferences 
 dotnet_style_qualification_for_field = false:silent 
 dotnet_style_qualification_for_property = false:silent 

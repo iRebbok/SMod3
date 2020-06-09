@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\SMod3.targets" />
+
+  <PropertyGroup>
+    <AssemblyName>SMod3.Core</AssemblyName>
+    <RootNamespace>SMod3.Core</RootNamespace>
+    <AssemblyTitle>SMod3 kernel containing basic functionality</AssemblyTitle>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\SMod3.targets" />
+
+  <PropertyGroup>
+    <AssemblyName>SMod3.API.Subtype</AssemblyName>
+    <RootNamespace>SMod3.API</RootNamespace>
+    <AssemblyTitle>SMod3 API subtype module</AssemblyTitle>
+  </PropertyGroup>
+
+</Project>

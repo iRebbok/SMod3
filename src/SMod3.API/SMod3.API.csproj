@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\SMod3.targets" />
+
+  <PropertyGroup>
+    <AssemblyName>SMod3.API</AssemblyName>
+    <RootNamespace>SMod3.API</RootNamespace>
+    <AssemblyTitle>SMod3 API root module</AssemblyTitle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SMod3.Core\SMod3.Core.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SMod3.Command\SMod3.Command.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SMod3.API.Subtype\SMod3.API.Subtype.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="..\..\libs\UnityEngine.CoreModule.dll">
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>
