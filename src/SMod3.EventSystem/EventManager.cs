@@ -1,11 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using SMod3.Core;
 using SMod3.Core.Meta;
 using SMod3.Module.EventSystem.EventHandlers.Meta;
 using SMod3.Module.EventSystem.Events.Meta;
 using SMod3.Module.EventSystem.Meta;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SMod3.Module.EventSystem
 {

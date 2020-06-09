@@ -1,7 +1,8 @@
-using SMod3.Core;
-using SMod3.Core.Meta;
 using System;
 using System.Reflection;
+
+using SMod3.Core;
+using SMod3.Core.Meta;
 
 namespace SMod3.Module.Attributes.Meta
 {

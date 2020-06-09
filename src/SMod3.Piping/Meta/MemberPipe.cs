@@ -1,6 +1,7 @@
-using SMod3.Core;
 using System;
 using System.Reflection;
+
+using SMod3.Core;
 
 namespace SMod3.Module.Piping.Meta
 {

@@ -1,5 +1,5 @@
-using SMod3.Module.Command.Meta;
 using SMod3.API;
+using SMod3.Module.Command.Meta;
 
 namespace SMod3.Module.Command.Console
 {

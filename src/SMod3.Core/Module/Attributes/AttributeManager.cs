@@ -1,8 +1,9 @@
-using SMod3.Core;
-using SMod3.Module.Attributes.Meta;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+
+using SMod3.Core;
+using SMod3.Module.Attributes.Meta;
 
 namespace SMod3.Module.Attributes
 {

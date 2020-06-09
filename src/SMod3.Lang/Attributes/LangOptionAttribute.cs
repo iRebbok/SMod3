@@ -1,5 +1,6 @@
-using SMod3.Module.Attributes.Meta;
 using System;
+
+using SMod3.Module.Attributes.Meta;
 
 namespace SMod3.Module.Lang.Attributes
 {

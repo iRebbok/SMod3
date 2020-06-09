@@ -1,12 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
 using SMod3.Core;
 using SMod3.Core.Meta;
 using SMod3.Module.Attributes;
 using SMod3.Module.Piping.Attributes;
 using SMod3.Module.Piping.Meta;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
 namespace SMod3.Module.Piping
 {

@@ -3,8 +3,9 @@
 //			Don't touch.
 //------------------------------------------------------------------------------
 
-using SMod3.Core;
 using System.Reflection;
+
+using SMod3.Core;
 
 [assembly: AssemblyFileVersion(PluginManager.VERSION)]
 [assembly: AssemblyInformationalVersion(PluginManager.VERSION)]

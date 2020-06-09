@@ -1,8 +1,9 @@
+using System.Collections.Generic;
+
 using SMod3.API;
 using SMod3.Module.EventHandlers;
 using SMod3.Module.EventSystem.EventHandlers.Meta;
 using SMod3.Module.EventSystem.Events.Meta;
-using System.Collections.Generic;
 
 namespace SMod3.Module.EventSystem.Events
 {

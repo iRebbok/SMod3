@@ -1,10 +1,11 @@
+using System;
+using System.Collections.Generic;
+
 using SMod3.Core;
 using SMod3.Module.Attributes;
 using SMod3.Module.Attributes.Meta;
 using SMod3.Module.Config.Attributes;
 using SMod3.Module.Config.Meta;
-using System;
-using System.Collections.Generic;
 
 namespace SMod3.Module.Config
 {

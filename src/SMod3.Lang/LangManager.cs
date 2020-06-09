@@ -1,12 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
 using SMod3.Core;
 using SMod3.Module.Attributes;
 using SMod3.Module.Attributes.Meta;
 using SMod3.Module.Lang.Attributes;
 using SMod3.Module.Lang.Meta;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace SMod3.Module.Lang
 {

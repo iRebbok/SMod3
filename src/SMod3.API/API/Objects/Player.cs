@@ -1,5 +1,7 @@
-using SMod3.Module.Command.Meta;
 using System.Collections.Generic;
+
+using SMod3.Module.Command.Meta;
+
 using UnityEngine;
 
 namespace SMod3.API

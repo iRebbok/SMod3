@@ -1,8 +1,9 @@
+using System;
+using System.Reflection;
+
 using SMod3.Core;
 using SMod3.Module.Attributes.Meta;
 using SMod3.Module.Piping.Meta;
-using System;
-using System.Reflection;
 
 namespace SMod3.Module.Piping.Attributes
 {

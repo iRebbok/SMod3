@@ -1,11 +1,12 @@
-using SMod3.Core.Logging;
-using SMod3.Core.Meta;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+
+using SMod3.Core.Logging;
+using SMod3.Core.Meta;
 
 namespace SMod3.Core
 {

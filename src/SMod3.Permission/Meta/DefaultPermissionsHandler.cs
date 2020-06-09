@@ -1,5 +1,6 @@
-using SMod3.API;
 using System.Collections.Generic;
+
+using SMod3.API;
 
 namespace SMod3.Module.Permissions
 {
