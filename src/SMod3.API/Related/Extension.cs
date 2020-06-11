@@ -5,6 +5,9 @@ namespace SMod3.API
 {
     public static class Extension
     {
+        /// <summary>
+        ///     Available colors in console.
+        /// </summary>
         public static IReadOnlyList<ColorType> ColorsConsole { get; } = Array.AsReadOnly<ColorType>(new ColorType[10]
         {
             ColorType.GRAY,
@@ -19,6 +22,9 @@ namespace SMod3.API
             ColorType.BLACK,
         });
 
+        /// <summary>
+        ///     Available colors in the player list.
+        /// </summary>
         public static IReadOnlyList<ColorType> ColorsPlayerList { get; } = Array.AsReadOnly<ColorType>(new ColorType[22]
         {
             ColorType.DEFAULT,
@@ -45,7 +51,10 @@ namespace SMod3.API
             ColorType.PUMPKIN
         });
 
-        public static IReadOnlyList<RoleType> RolePlayables { get; } = Array.AsReadOnly<RoleType>(new RoleType[18]
+        /// <summary>
+        ///     Playable role types.
+        /// </summary>
+        public static IReadOnlyList<RoleType> RolePlayables { get; } = Array.AsReadOnly<RoleType>(new RoleType[17]
         {
             RoleType.SCP_049,
             RoleType.SCP_049_2,
@@ -53,7 +62,6 @@ namespace SMod3.API
             RoleType.SCP_096,
             RoleType.SCP_106,
             RoleType.SCP_173,
-            RoleType.SCP_457,
             RoleType.SCP_939_53,
             RoleType.SCP_939_89,
             RoleType.CLASSD,
@@ -67,7 +75,10 @@ namespace SMod3.API
             RoleType.TUTORIAL
         });
 
-        public static IReadOnlyList<RoleType> RoleSCPs { get; } = Array.AsReadOnly<RoleType>(new RoleType[9]
+        /// <summary>
+        ///     SCP roles.
+        /// </summary>
+        public static IReadOnlyList<RoleType> RoleSCPs { get; } = Array.AsReadOnly<RoleType>(new RoleType[8]
         {
             RoleType.SCP_049,
             RoleType.SCP_049_2,
@@ -75,23 +86,27 @@ namespace SMod3.API
             RoleType.SCP_096,
             RoleType.SCP_106,
             RoleType.SCP_173,
-            RoleType.SCP_457,
             RoleType.SCP_939_53,
             RoleType.SCP_939_89
         });
 
-        public static IReadOnlyList<RoleType> RoleBannableSCPs { get; } = Array.AsReadOnly<RoleType>(new RoleType[8]
+        /// <summary>
+        ///     SCP roles that are available to block during spawn.
+        /// </summary>
+        public static IReadOnlyList<RoleType> RoleBannableSCPs { get; } = Array.AsReadOnly<RoleType>(new RoleType[7]
         {
             RoleType.SCP_049,
             RoleType.SCP_079,
             RoleType.SCP_096,
             RoleType.SCP_106,
             RoleType.SCP_173,
-            RoleType.SCP_457,
             RoleType.SCP_939_53,
             RoleType.SCP_939_89
         });
 
+        /// <summary>
+        ///     SCP roles that are available to pickup.
+        /// </summary>
         public static IReadOnlyList<RoleType> RolePickableSCPs { get; } = Array.AsReadOnly<RoleType>(new RoleType[7]
         {
             RoleType.SCP_049,
@@ -103,6 +118,9 @@ namespace SMod3.API
             RoleType.SCP_939_89
         });
 
+        /// <summary>
+        ///     Override for lowercase return.
+        /// </summary>
         public static string ToString(this ColorType enumtype)
         {
             return enumtype.ToString().ToLowerInvariant();
@@ -110,7 +128,7 @@ namespace SMod3.API
 
         public static bool TryGetColorType(string color, out ColorType result)
         {
-            return Enum.TryParse<ColorType>(color, true, out result);
+            return Enum.TryParse(color, true, out result);
         }
 
         public static ColorType GetColorType(string color)
@@ -122,9 +140,7 @@ namespace SMod3.API
         public static ColorType GetColorType(string color, ColorType defaultColor)
         {
             if (TryGetColorType(color, out ColorType result))
-            {
                 defaultColor = result;
-            }
             return defaultColor;
         }
     }

@@ -51,7 +51,6 @@ namespace SMod3.API
     public enum RoleType
     {
         UNASSIGNED = -1,
-        SCP_457 = -1,
 
         SCP_173 = 0,
         CLASSD = 1,
