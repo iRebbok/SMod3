@@ -106,7 +106,7 @@ namespace SMod3.Module.Piping
             List<FieldInfo> fields = new List<FieldInfo>();
             foreach (var pair in attributes)
             {
-                Debug($"Linking {pair.Value.Name} of {plugin.Definer.Id} to {pair.Key.Pipe} of {pair.Key.Plugin}.");
+                Debug($"Linking {pair.Value.Name} of {plugin.Metadata.Id} to {pair.Key.Pipe} of {pair.Key.Plugin}.");
                 SetPipeLink(plugin, pair.Value, pair.Key.Plugin, pair.Key.Pipe);
             }
 
@@ -160,7 +160,7 @@ namespace SMod3.Module.Piping
             foreach (EventPipe pipe in events[eventName])
             {
                 // Skip if event pipe is disabled
-                if (PluginManager.Manager.GetDisabledPlugin(pipe.Source.Definer.Id) != null)
+                if (PluginManager.Manager.GetDisabledPlugin(pipe.Source.Metadata.Id) != null)
                 {
                     continue;
                 }

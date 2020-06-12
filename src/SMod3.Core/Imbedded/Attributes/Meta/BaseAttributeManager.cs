@@ -1,7 +1,7 @@
 using SMod3.Core;
 using SMod3.Core.Meta;
 
-namespace SMod3.Module.Attributes.Meta
+namespace SMod3.Imbedded.Attribute
 {
     public abstract class BaseAttributeManager : BaseManager
     {

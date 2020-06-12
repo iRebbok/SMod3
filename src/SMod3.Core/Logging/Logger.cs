@@ -1,13 +1,24 @@
 using System;
 
+using SMod3.Core.Misc;
+
 namespace SMod3.Core.Logging
 {
     public static class Logger
     {
+        private static readonly EventBuffer<LogMessage> eventBuffer = new EventBuffer<LogMessage>($"{typeof(Logger).FullName}.{nameof(NewLog)}")
+        {
+            RequiredSubscribers = 1
+        };
+
         /// <summary>
         ///     Fires when a new log is received.
         /// </summary>
-        public static event Action<LogMessage>? NewLog;
+        public static event Action<LogMessage>? NewLog
+        {
+            add => eventBuffer.Delegates.Add(value ?? throw new ArgumentNullException("You cannot subscribe null"));
+            remove => eventBuffer.Delegates.Remove(value ?? throw new ArgumentNullException("You cannot unsubscribe null"));
+        }
 
         /// <summary>
         ///     Logging under the <see cref="LogSensitivity.CRITICAL"/> level.
@@ -86,12 +97,6 @@ namespace SMod3.Core.Logging
             if (string.IsNullOrWhiteSpace(message))
                 throw new ArgumentException("Message cannot be null, empty or whitespace", nameof(message));
 
-            // This should never happen,
-            // the main and first listener is SMBootstrapper,
-            // but still check.
-            if (NewLog is null)
-                return;
-
             var logMessage = new LogMessage(sensitivity, tag, message);
             SendLog(logMessage);
         }
@@ -101,11 +106,7 @@ namespace SMod3.Core.Logging
         /// </summary>
         public static void SendLog(LogMessage logMessage)
         {
-            // The final validation
-            if (NewLog is null)
-                return;
-
-            NewLog.Invoke(logMessage);
+            eventBuffer.Enqueue(logMessage);
         }
     }
 }

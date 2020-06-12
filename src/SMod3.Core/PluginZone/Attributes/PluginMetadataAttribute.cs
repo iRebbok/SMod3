@@ -3,10 +3,10 @@ using System;
 namespace SMod3.Core
 {
     /// <summary>
-    ///		The main attribute for identifying the plugin.
+    ///		Plugin information attribute that is used on the plugin class.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public sealed class PluginInfoAttribute : Attribute
+    public sealed class PluginMetadataAttribute : Attribute
     {
         /// <summary>
         ///		The main identifier of the plugin.
@@ -18,7 +18,7 @@ namespace SMod3.Core
         /// </summary>
         public string? Name { get; set; }
         /// <summary>
-        ///		Author of the plugin.
+        ///		Authors of the plugin.
         /// </summary>
         public string[]? Authors { get; set; }
         /// <summary>
@@ -26,17 +26,15 @@ namespace SMod3.Core
         /// </summary>
         public string[]? Collaborators { get; set; }
         /// <summary>
-        ///		Priority for launching the plugin.
-        ///		Works on <see cref="Plugin.OnDisable"/>,
-        ///		<see cref="Plugin.OnEnable"/> and <see cref="Plugin.OnDestroy"/> events,
-        ///		but not on <see cref="Plugin.Awake"/>.
+        ///     Priority on plugin initialization.
         /// </summary>
-        public byte LoadPriority { get; set; } = 0;
+        public byte Priority { get; set; } = 0;
+
         /// <param name="id">
         ///		The main identifier of the plugin.
         ///		It is converted to lower case and is unique.
         /// </param>
-        public PluginInfoAttribute(string id)
+        public PluginMetadataAttribute(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
                 throw new ArgumentException("Id cannot be null, empty or whitespace", nameof(id));
