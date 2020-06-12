@@ -1,11 +1,9 @@
 using System;
 
-using SMod3.Module.Attributes.Meta;
-
 namespace SMod3.Module.Piping.Attributes
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class PipeLinkAttribute : BaseAttribute
+    public sealed class PipeLinkAttribute : Attribute
     {
         public string Plugin { get; }
         public string Pipe { get; }

@@ -5,7 +5,7 @@ using System.Reflection;
 
 using SMod3.Core;
 using SMod3.Core.Meta;
-using SMod3.Module.Attributes;
+using SMod3.Imbedded.Attribute;
 using SMod3.Module.Piping.Attributes;
 using SMod3.Module.Piping.Meta;
 
@@ -101,7 +101,7 @@ namespace SMod3.Module.Piping
         {
             if (plugin == null || instance == null) return;
 
-            var attributes = AttributeManager.Manager.PullAttributes<PipeLinkAttribute, TInstance>(instance);
+            var attributes = AttributeManager.PullAttributes<PipeLinkAttribute, TInstance>(instance);
 
             List<FieldInfo> fields = new List<FieldInfo>();
             foreach (var pair in attributes)
@@ -160,10 +160,8 @@ namespace SMod3.Module.Piping
             foreach (EventPipe pipe in events[eventName])
             {
                 // Skip if event pipe is disabled
-                if (PluginManager.Manager.GetDisabledPlugin(pipe.Source.Metadata.Id) != null)
-                {
+                if (PluginManager.Manager.GetPluginStatus(pipe.Source) != PluginStatus.ENABLED)
                     continue;
-                }
 
                 // Skip if event pipe is specific to certain plugins AND the scope does not contain the invoker
                 string[] pluginScope = pipe.GetPluginScope();

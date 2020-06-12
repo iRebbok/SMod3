@@ -3,13 +3,12 @@ using System.Linq;
 using System.Reflection;
 
 using SMod3.Core;
-using SMod3.Module.Attributes.Meta;
 using SMod3.Module.Piping.Meta;
 
 namespace SMod3.Module.Piping.Attributes
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public sealed class PipeEventAttribute : BaseAttribute
+    public sealed class PipeEventAttribute : Attribute
     {
         public string[] PluginScope { get; }
         public string EventName { get; }

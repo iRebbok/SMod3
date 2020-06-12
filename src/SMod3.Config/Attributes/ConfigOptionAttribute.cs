@@ -1,11 +1,9 @@
 using System;
 
-using SMod3.Module.Attributes.Meta;
-
 namespace SMod3.Module.Config.Attributes
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
-    public sealed class ConfigOptionAttribute : BaseAttribute
+    public sealed class ConfigOptionAttribute : Attribute
     {
         public string Key { get; }
         public string Description { get; }

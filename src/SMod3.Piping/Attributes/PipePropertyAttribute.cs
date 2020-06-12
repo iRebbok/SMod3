@@ -2,13 +2,12 @@ using System;
 using System.Reflection;
 
 using SMod3.Core;
-using SMod3.Module.Attributes.Meta;
 using SMod3.Module.Piping.Meta;
 
 namespace SMod3.Module.Piping.Attributes
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class PipePropertyAttribute : BaseAttribute
+    public sealed class PipePropertyAttribute : Attribute
     {
         public bool Gettable { get; private set; }
         public bool Settable { get; private set; }

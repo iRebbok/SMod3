@@ -1,14 +1,12 @@
 using System;
 
-using SMod3.Module.Attributes.Meta;
-
 namespace SMod3.Module.Command.Attributes
 {
     /// <summary>
     ///		Attribute used to define the command.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class CommandDetailsAttribute : BaseAttribute
+    public class CommandDetailsAttribute : Attribute
     {
         /// <summary>
         ///		The aliases that the handler will trigger.

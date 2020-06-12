@@ -1,11 +1,9 @@
 using System;
 
-using SMod3.Module.Attributes.Meta;
-
 namespace SMod3.Module.Lang.Attributes
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
-    public sealed class LangOptionAttribute : BaseAttribute
+    public sealed class LangOptionAttribute : Attribute
     {
         public string Key { get; }
 

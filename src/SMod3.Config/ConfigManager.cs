@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 
 using SMod3.Core;
-using SMod3.Module.Attributes;
-using SMod3.Module.Attributes.Meta;
+using SMod3.Core.Misc;
+using SMod3.Imbedded.Attribute;
 using SMod3.Module.Config.Attributes;
 using SMod3.Module.Config.Meta;
 
@@ -86,10 +86,10 @@ namespace SMod3.Module.Config
             //    return;
             //}
 
-            var attributes = AttributeManager.Manager.PullAttributes<ConfigOptionAttribute, TInstance>(instance);
+            var attributes = AttributeManager.PullAttributes<ConfigOptionAttribute, TInstance>(instance);
             foreach (var pair in attributes)
             {
-                string key = pair.Key.Key ?? PluginManager.ToLowerSnakeCase(pair.Value.Name, false);
+                string key = pair.Key.Key ?? StringMisc.ToLowerSnakeCase(pair.Value.Name);
 
                 if (!configFields.TryGetValue(plugin, out HashSet<ConfigAttributeWrapper> hashset))
                 {
@@ -106,11 +106,11 @@ namespace SMod3.Module.Config
             if (plugin == null) return;
             if (!configFields.TryGetValue(plugin, out HashSet<ConfigAttributeWrapper> hashset)) return;
 
-            foreach (var wrapper in hashset)
-            {
-                var value = ProcessValue(wrapper.ConfigKey, wrapper.Field.GetValue(wrapper.Instance), wrapper.Randomized, wrapper.Field.FieldType);
-                if (value != null && wrapper.Field.FieldType.IsAssignableFrom(value.GetType())) wrapper.Field.SetValue(wrapper.Instance, value);
-            }
+            //foreach (var wrapper in hashset)
+            //{
+            //    var value = ProcessValue(wrapper.ConfigKey, wrapper.Field.GetValue(wrapper.Instance), wrapper.Randomized, wrapper.Field.FieldType);
+            //    if (value != null && wrapper..FieldType.IsAssignableFrom(value.GetType())) wrapper.Field.SetValue(wrapper.Instance, value);
+            //}
         }
 
         private object? ProcessValue(string configKey, object def, bool isRandomized, Type fieldType)

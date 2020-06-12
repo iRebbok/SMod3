@@ -3,13 +3,12 @@ using System.Linq;
 using System.Reflection;
 
 using SMod3.Core;
-using SMod3.Module.Attributes.Meta;
 using SMod3.Module.Piping.Meta;
 
 namespace SMod3.Module.Piping.Attributes
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public abstract class PipeMethodAttribute : BaseAttribute { }
+    public abstract class PipeMethodAttribute : Attribute { }
 
     public class MethodPipe : MemberPipe
     {

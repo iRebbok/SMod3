@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 
 using SMod3.Core;
-using SMod3.Module.Attributes;
-using SMod3.Module.Attributes.Meta;
+using SMod3.Core.Misc;
+using SMod3.Imbedded.Attribute;
 using SMod3.Module.Lang.Attributes;
 using SMod3.Module.Lang.Meta;
 
@@ -27,7 +27,7 @@ namespace SMod3.Module.Lang
 
         #endregion
 
-        public override string LoggingTag => "LANG_MANAGER";
+        public override string LoggingTag { get; } = StringMisc.ToUpperSnakeCase(nameof(LangManager));
 
         private string langPath;
         public string LangPath
@@ -192,7 +192,7 @@ namespace SMod3.Module.Lang
             if (plugin == null || instance == null) return;
 
 
-            var attributes = AttributeManager.Manager.PullAttributes<LangOptionAttribute, TInstance>(instance);
+            var attributes = AttributeManager.PullAttributes<LangOptionAttribute, TInstance>(instance);
             //foreach (var pair in attributes)
             //{
             //    var key = pair.Key.Key ?? PluginManager.ToLowerSnakeCase(pair.Value.Name, true);
@@ -231,11 +231,11 @@ namespace SMod3.Module.Lang
         public override void RefreshAttributes(Plugin plugin)
         {
             if (!langFields.TryGetValue(plugin, out var fields)) return;
-            foreach (var field in fields)
-            {
-                var value = GetTranslation(field.Key);
-                if (value != null) field.Field.SetValue(field.Instance, value);
-            }
+            //foreach (var field in fields)
+            //{
+            //    var value = GetTranslation(field.Key);
+            //    if (value != null) field.Field.SetValue(field.Instance, value);
+            //}
         }
     }
 }

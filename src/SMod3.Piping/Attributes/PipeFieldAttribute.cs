@@ -2,13 +2,12 @@ using System;
 using System.Reflection;
 
 using SMod3.Core;
-using SMod3.Module.Attributes.Meta;
 using SMod3.Module.Piping.Meta;
 
 namespace SMod3.Module.Piping.Attributes
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
-    public sealed class PipeFieldAttribute : BaseAttribute
+    public sealed class PipeFieldAttribute : Attribute
     {
         public bool Readonly { get; }
 
