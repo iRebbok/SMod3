@@ -86,7 +86,7 @@ namespace SMod3.Module.Config
             //    return;
             //}
 
-            var attributes = AttributeManager.PullAttributes<ConfigOptionAttribute, TInstance>(instance);
+            var attributes = AttributeHelper.PullAttributes<ConfigOptionAttribute, TInstance>(instance);
             foreach (var pair in attributes)
             {
                 string key = pair.Key.Key ?? StringMisc.ToLowerSnakeCase(pair.Value.Name);

@@ -192,7 +192,7 @@ namespace SMod3.Module.Lang
             if (plugin == null || instance == null) return;
 
 
-            var attributes = AttributeManager.PullAttributes<LangOptionAttribute, TInstance>(instance);
+            var attributes = AttributeHelper.PullAttributes<LangOptionAttribute, TInstance>(instance);
             //foreach (var pair in attributes)
             //{
             //    var key = pair.Key.Key ?? PluginManager.ToLowerSnakeCase(pair.Value.Name, true);

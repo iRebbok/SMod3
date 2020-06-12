@@ -101,7 +101,7 @@ namespace SMod3.Module.Piping
         {
             if (plugin == null || instance == null) return;
 
-            var attributes = AttributeManager.PullAttributes<PipeLinkAttribute, TInstance>(instance);
+            var attributes = AttributeHelper.PullAttributes<PipeLinkAttribute, TInstance>(instance);
 
             List<FieldInfo> fields = new List<FieldInfo>();
             foreach (var pair in attributes)

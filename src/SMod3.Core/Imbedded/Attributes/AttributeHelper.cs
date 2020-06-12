@@ -6,7 +6,10 @@ using SMod3.Core;
 
 namespace SMod3.Imbedded.Attribute
 {
-    public static class AttributeManager
+    /// <summary>
+    ///     Attribute interaction helper.
+    /// </summary>
+    public static class AttributeHelper
     {
         /// <summary>
         ///		Gets Map of attributes and FieldInfo.
