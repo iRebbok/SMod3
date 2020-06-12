@@ -5,7 +5,8 @@
   <PropertyGroup>
     <AssemblyName>SMod3.API.Subtype</AssemblyName>
     <RootNamespace>SMod3.API</RootNamespace>
-    <AssemblyTitle>SMod3 API subtype module</AssemblyTitle>
+    <AssemblyTitle>SMod3 API standalone subtype module</AssemblyTitle>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
 </Project>

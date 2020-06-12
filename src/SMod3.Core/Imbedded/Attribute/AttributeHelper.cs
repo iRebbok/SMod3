@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-using SMod3.Core;
-
-namespace SMod3.Imbedded.Attribute
+namespace SMod3.Core.Imbedded.Attribute
 {
     /// <summary>
     ///     Attribute interaction helper.

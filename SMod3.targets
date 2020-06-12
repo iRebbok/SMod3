@@ -2,19 +2,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <NeutralLanguage>en-US</NeutralLanguage>
-
     <Copyright>Copyright 2020 - $([System.DateTime]::Now.ToString("yyyy"))</Copyright>
     <RepositoryType>Git</RepositoryType>
     <RepositoryUrl>git://github.com/iRebbok/SMod3</RepositoryUrl>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <!-- Disable automatic generation of version attribute -->
-    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <GenerateDependencyFile>false</GenerateDependencyFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -25,5 +15,26 @@
     <WarningsAsErrors>true</WarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+
+  <!-- Custom output path for projects -->
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  
+  <!-- Disable dependency file generation -->
+  <PropertyGroup>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+
+  <!-- Include cultural attribute -->
+  <Target Name="IncludeCultureAttribute"
+          AfterTargets="GetAssemblyAttributes">
+    <ItemGroup>
+      <AssemblyAttribute Include="System.Reflection.AssemblyCultureAttribute">
+        <_Parameter1>en-US</_Parameter1>
+      </AssemblyAttribute>
+    </ItemGroup>
+  </Target>
 
 </Project>

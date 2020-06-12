@@ -7,6 +7,6 @@ using System.Reflection;
 
 using SMod3.Core;
 
-[assembly: AssemblyFileVersion(PluginManager.VERSION)]
-[assembly: AssemblyInformationalVersion(PluginManager.VERSION)]
-[assembly: AssemblyVersion(PluginManager.VERSION)]
+[assembly: AssemblyFileVersion(Entry.VERSION)]
+[assembly: AssemblyInformationalVersion(Entry.VERSION)]
+[assembly: AssemblyVersion(Entry.VERSION)]

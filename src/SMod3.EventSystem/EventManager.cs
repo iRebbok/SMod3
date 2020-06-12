@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using SMod3.Core;
-using SMod3.Core.Meta;
+using SMod3.Core.Fundamental;
+using SMod3.Core.Misc;
 using SMod3.Module.EventSystem.EventHandlers.Meta;
 using SMod3.Module.EventSystem.Events.Meta;
 using SMod3.Module.EventSystem.Meta;
@@ -14,7 +15,7 @@ namespace SMod3.Module.EventSystem
     {
         public static EventManager Manager { get; } = new EventManager();
 
-        public override string LoggingTag => "EVENT_MANAGER";
+        public override string LoggingTag { get; } = StringMisc.ToFullyUpperSnakeCase(nameof(EventManager));
 
         private static readonly PriorityComparator priorityComparator = new PriorityComparator();
         private readonly Dictionary<Type, List<EventHandlerWrapper>> eventMeta = new Dictionary<Type, List<EventHandlerWrapper>>();

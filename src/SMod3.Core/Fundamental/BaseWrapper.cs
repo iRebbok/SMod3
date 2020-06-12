@@ -1,4 +1,4 @@
-namespace SMod3.Core.Meta
+namespace SMod3.Core.Fundamental
 {
     public class BaseWrapper
     {

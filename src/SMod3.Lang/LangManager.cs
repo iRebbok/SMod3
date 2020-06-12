@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 
 using SMod3.Core;
+using SMod3.Core.Imbedded.Attribute;
 using SMod3.Core.Misc;
-using SMod3.Imbedded.Attribute;
 using SMod3.Module.Lang.Attributes;
 using SMod3.Module.Lang.Meta;
 
@@ -29,16 +29,14 @@ namespace SMod3.Module.Lang
 
         public override string LoggingTag { get; } = StringMisc.ToUpperSnakeCase(nameof(LangManager));
 
-        private string langPath;
+        private string? langPath;
         public string LangPath
         {
             get
             {
                 if (string.IsNullOrEmpty(langPath))
-                {
                     langPath = Path.Combine(PluginManager.Manager.GamePath, "sm_translations");
-                }
-                return langPath;
+                return langPath!;
             }
         }
 

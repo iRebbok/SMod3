@@ -1,5 +1,5 @@
 using SMod3.Core;
-using SMod3.Core.Meta;
+using SMod3.Core.Fundamental;
 using SMod3.Module.EventSystem.EventHandlers.Meta;
 
 namespace SMod3.Module.EventSystem.Meta

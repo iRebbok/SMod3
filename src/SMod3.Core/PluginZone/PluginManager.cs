@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using SMod3.Core.Meta;
+using SMod3.Core.Fundamental;
 using SMod3.Core.Misc;
 
 namespace SMod3.Core
@@ -22,17 +22,6 @@ namespace SMod3.Core
     public sealed class PluginManager : BaseManager
     {
         #region Static zone
-
-        /// <summary>
-        ///     Versioning constant for SMod3.Core.
-        /// </summary>
-        internal const string VERSION = "4.0.1.0";
-
-        public static readonly int SMOD_VERSION_MAJOR = int.Parse(VERSION.Split('.')[0]);
-        public static readonly int SMOD_VERSION_MINOR = int.Parse(VERSION.Split('.')[1]);
-        public static readonly int SMOD_VERSION_REVISION = int.Parse(VERSION.Split('.')[2]);
-        public static readonly int SMOD_VERSION_BUILD = int.Parse(VERSION.Split('.')[3]);
-        public static readonly string SMOD_VERSION = $"{SMOD_VERSION_MAJOR}.{SMOD_VERSION_MINOR}.{SMOD_VERSION_REVISION}";
 
         public const BindingFlags ALL_BINDING_FLAGS = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 

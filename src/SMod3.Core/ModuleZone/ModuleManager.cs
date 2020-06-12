@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-using SMod3.Core.Meta;
+using SMod3.Core.Fundamental;
 using SMod3.Core.Misc;
 
 namespace SMod3.Core
@@ -69,6 +69,7 @@ namespace SMod3.Core
                             Warn($"The constructor called turned out to be null");
                             continue;
                         }
+                        module.Metadata = new ModuleMetadata(assembly);
 
                         _modules.Add(module);
 
@@ -80,6 +81,8 @@ namespace SMod3.Core
                             Error($"An exception occurred while calling Awake in a module");
                             Debug(ex.ToString());
                         }
+
+                        Info($"Module '{module.Metadata.Id}' ({module.Metadata.Version}) loaded successfully");
                     }
                     catch (Exception ex)
                     {

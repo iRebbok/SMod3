@@ -1,7 +1,7 @@
 using System.Reflection;
 
 using SMod3.Core;
-using SMod3.Imbedded.Attribute;
+using SMod3.Core.Imbedded.Attribute;
 
 namespace SMod3.Module.Config.Meta
 {

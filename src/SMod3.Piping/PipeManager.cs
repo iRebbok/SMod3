@@ -4,8 +4,9 @@ using System.Linq;
 using System.Reflection;
 
 using SMod3.Core;
-using SMod3.Core.Meta;
-using SMod3.Imbedded.Attribute;
+using SMod3.Core.Fundamental;
+using SMod3.Core.Imbedded.Attribute;
+using SMod3.Core.Misc;
 using SMod3.Module.Piping.Attributes;
 using SMod3.Module.Piping.Meta;
 
@@ -17,7 +18,7 @@ namespace SMod3.Module.Piping
 
         private PipeManager() { }
 
-        public override string LoggingTag => "PIPE_MANAGER";
+        public override string LoggingTag { get; } = StringMisc.ToFullyUpperSnakeCase(nameof(PipeManager));
 
         private readonly Dictionary<Plugin, List<FieldInfo>> linkFields = new Dictionary<Plugin, List<FieldInfo>>();
         private readonly Dictionary<Plugin, Dictionary<Plugin, List<FieldInfo>>> linkFieldReferences = new Dictionary<Plugin, Dictionary<Plugin, List<FieldInfo>>>();
@@ -32,7 +33,7 @@ namespace SMod3.Module.Piping
 
         private void SetPipeLink(Plugin source, FieldInfo info, string pluginId, string pipeName)
         {
-            Plugin target = PluginManager.Manager.GetPlugin(pluginId);
+            Plugin? target = PluginManager.Manager.GetPlugin(pluginId);
 
             Type fieldType = info.FieldType;
             if (!pipeGetters.ContainsKey(fieldType))

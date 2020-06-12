@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 using SMod3.Core;
-using SMod3.Core.Meta;
+using SMod3.Core.Fundamental;
 
 namespace SMod3.Module.Command.Meta
 {

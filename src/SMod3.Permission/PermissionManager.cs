@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 
 using SMod3.API;
-using SMod3.Core.Meta;
+using SMod3.Core.Fundamental;
+using SMod3.Core.Misc;
 
 namespace SMod3.Module.Permissions
 {
@@ -9,7 +10,7 @@ namespace SMod3.Module.Permissions
     {
         public static PermissionManager Manager { get; } = new PermissionManager();
 
-        public override string LoggingTag => "PERMISSION_MANAGER";
+        public override string LoggingTag { get; } = StringMisc.ToFullyUpperSnakeCase(nameof(PermissionManager));
 
         private PermissionManager() { /* Immediately registers the default permissions handler */ RegisterHandler(DefaultPermissionsHandler.Handler); }
 

@@ -6,6 +6,7 @@
     <AssemblyName>SMod3.Config</AssemblyName>
     <RootNamespace>SMod3.Module.Config</RootNamespace>
     <AssemblyTitle>SMod3 module for interaction with the configuration</AssemblyTitle>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

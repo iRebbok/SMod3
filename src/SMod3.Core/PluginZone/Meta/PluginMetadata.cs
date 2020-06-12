@@ -1,16 +1,18 @@
 using System.Reflection;
 
+using SMod3.Core.Fundamental;
+
 namespace SMod3.Core
 {
     /// <summary>
     ///     Endpoint metadata for the plugin.
     /// </summary>
-    public sealed class PluginMetadata
+    public sealed class PluginMetadata : BaseMetadata
     {
         /// <summary>
         ///     The main identifier of the plugin.
         /// </summary>
-        public string Id { get; }
+        public override string Id { get; }
         /// <summary>
         ///     Name of the plugin.
         /// </summary>
@@ -27,24 +29,14 @@ namespace SMod3.Core
         ///     Priority for the plugin.
         /// </summary>
         public byte Priority { get; }
-        /// <summary>
-        ///     Plugin assembly version.
-        /// </summary>
-        /// <remarks>
-        ///     <see cref="AssemblyVersionAttribute"/> is used to determine,
-        ///     if null, then the version is set to '0.0.0'.
-        /// </remarks>
-        public string Version { get; }
 
-        internal PluginMetadata(PluginMetadataAttribute attribute, Assembly assembly)
+        internal PluginMetadata(PluginMetadataAttribute attribute, Assembly assembly) : base(assembly)
         {
             Id = attribute.Id;
             Name = attribute.Name;
             Authors = attribute.Authors;
             Collaborators = attribute.Collaborators;
             Priority = attribute.Priority;
-
-            Version = assembly.GetCustomAttribute<AssemblyVersionAttribute>()?.Version ?? "0.0.0";
         }
     }
 }

@@ -2,7 +2,7 @@ using System;
 
 using SMod3.Core.Logging;
 
-namespace SMod3.Core.Meta
+namespace SMod3.Core.Fundamental
 {
     public abstract class BaseManager : BaseLogger
     {

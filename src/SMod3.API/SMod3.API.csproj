@@ -5,9 +5,10 @@
   <PropertyGroup>
     <AssemblyName>SMod3.API</AssemblyName>
     <RootNamespace>SMod3.API</RootNamespace>
-    <AssemblyTitle>SMod3 API root module</AssemblyTitle>
+    <AssemblyTitle>SMod3 API standalone module</AssemblyTitle>
+    <Version>0.0.1</Version>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\SMod3.API.Subtype\SMod3.API.Subtype.csproj">
       <Private>false</Private>
@@ -19,5 +20,5 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-
+  
 </Project>

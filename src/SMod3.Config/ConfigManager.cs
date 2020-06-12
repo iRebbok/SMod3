@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 
 using SMod3.Core;
+using SMod3.Core.Imbedded.Attribute;
 using SMod3.Core.Misc;
-using SMod3.Imbedded.Attribute;
 using SMod3.Module.Config.Attributes;
 using SMod3.Module.Config.Meta;
 

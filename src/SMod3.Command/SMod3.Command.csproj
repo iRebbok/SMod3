@@ -6,6 +6,7 @@
     <AssemblyName>SMod3.Commmand</AssemblyName>
     <RootNamespace>SMod3.Module.Command</RootNamespace>
     <AssemblyTitle>SMod3 module for command interaction</AssemblyTitle>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
