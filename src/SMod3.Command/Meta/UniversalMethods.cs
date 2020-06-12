@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+using SMod3.API;
 using SMod3.Core;
 
 namespace SMod3.Module.Command.Meta

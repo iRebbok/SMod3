@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 
-using SMod3.Module.Command.Meta;
-
 using UnityEngine;
 
 namespace SMod3.API
@@ -36,7 +34,13 @@ namespace SMod3.API
         public abstract int PlayerId { get; }
         public abstract int Ping { get; }
         public abstract RadioStatus RadioStatus { get; set; }
-        public abstract Vector3 Rotation { get; set; }
+        /// <summary>
+        ///     Player rotation.
+        /// </summary>
+        /// <remarks>
+        ///     The game synchronizes the rotation of the player in only two axes, X and Y.
+        /// </remarks>
+        public abstract Vector2 Rotation { get; set; }
         public abstract Scp079Data Scp079Data { get; }
         public abstract Scp268Data Scp268Data { get; }
         public abstract TeamRole TeamRole { get; }

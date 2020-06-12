@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+using SMod3.API;
 using SMod3.Core;
 using SMod3.Core.Meta;
 

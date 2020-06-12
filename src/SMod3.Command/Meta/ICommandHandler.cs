@@ -1,5 +1,7 @@
 using System;
 
+using SMod3.API;
+
 namespace SMod3.Module.Command.Meta
 {
     /// <summary>
