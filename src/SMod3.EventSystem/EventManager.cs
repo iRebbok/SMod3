@@ -22,7 +22,11 @@ namespace SMod3.Module.EventSystem
 
         public void HandleEvent<T>(Event ev) where T : IEventHandler
         {
-            foreach (T handler in GetEventHandlers<T>())
+            var handlers = GetEventHandlers<T>();
+            if (handlers is null)
+                return;
+
+            foreach (T handler in handlers)
             {
                 try
                 {
@@ -89,12 +93,11 @@ namespace SMod3.Module.EventSystem
             }
         }
 
-        public IEnumerable<T> GetEventHandlers<T>() where T : IEventHandler
+        public IEnumerable<T>? GetEventHandlers<T>() where T : IEventHandler
         {
             if (!eventMeta.TryGetValue(typeof(T), out var wrappers))
-            {
                 return null;
-            }
+
             return wrappers.Select(wrapper => (T)wrapper.Handler);
         }
     }
