@@ -17,7 +17,7 @@ namespace SMod3.Core
 
         #endregion
 
-        private IList<Module> _modules = new List<Module>(10);
+        private IList<Module> _modules = new List<Module>();
 
         /// <remarks>
         ///     Although this method does nothing special,
@@ -44,7 +44,8 @@ namespace SMod3.Core
 
                         if (moduleAttrbite.Entry is null)
                         {
-                            Verbose($"The module doesn't have an entry point, probably it's autonomous");
+                            var metadata = new ModuleMetadata(assembly);
+                            Info($"Standalone module '{metadata.Id}' ({metadata.Version})  successfully recognized");
                             continue;
                         }
 
