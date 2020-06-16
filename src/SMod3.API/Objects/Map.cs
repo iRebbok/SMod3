@@ -44,20 +44,6 @@ namespace SMod3.API
         public abstract bool WarheadKeycardEntered { get; set; }
     }
 
-    public abstract class Door
-    {
-        public abstract bool Open { get; set; }
-        public abstract bool Destroyed { get; set; }
-        public abstract bool DontOpenOnWarhead { get; set; }
-        public abstract bool BlockAfterWarheadDetonation { get; set; }
-        public abstract bool Locked { get; set; }
-        public abstract float LockCooldown { get; set; }
-        public abstract Vector3 Position { get; }
-        public abstract string Name { get; }
-        public abstract string Permission { get; }
-        public abstract object GetComponent();
-    }
-
     public abstract class TeslaGate
     {
         public abstract void Activate(bool instant = false);
