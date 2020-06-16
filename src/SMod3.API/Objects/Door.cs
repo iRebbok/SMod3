@@ -58,7 +58,7 @@ namespace SMod3.API
         public abstract string Name { get; }
         /// <summary><inheritdoc cref="AccessRequirements"/></summary>
         /// <exception cref="InvalidOperationException"><inheritdoc cref="Door"/></exception>
-        public abstract AccessRequirements Access { get; }
+        public abstract AccessRequirements Access { get; set; }
         /// <summary><inheritdoc cref="DoorType"/></summary>
         /// <exception cref="InvalidOperationException"><inheritdoc cref="Door"/></exception>
         public abstract DoorType Type { get; }
@@ -68,5 +68,10 @@ namespace SMod3.API
         /// <summary><inheritdoc cref="DoorStatus"/></summary>
         /// <exception cref="InvalidOperationException"><inheritdoc cref="Door"/></exception>
         public abstract DoorStatus Status { get; }
+        /// <summary>
+        ///     Indicates whether the door requires all permissions.
+        /// </summary>
+        /// <exception cref="InvalidOperationException"><inheritdoc cref="Door"/></exception>
+        public abstract bool RequireAllPermissions { get; set; }
     }
 }
