@@ -1,40 +1,41 @@
-using UnityEngine;
-
 namespace SMod3.API
 {
+    /// <remarks>
+    ///     This item is not that
+    ///     be in the player’s inventory or on the surface,
+    ///     see <see cref="ItemInfo"/>.
+    /// </remarks>
     public abstract class Item
     {
-        public abstract bool InWorld { get; }
-        public abstract ItemType ItemType { get; }
-        public abstract ItemCategory ItemCategory { get; }
-        public abstract void Remove();
-        public abstract void Drop();
-        public abstract bool GetKinematic();
-        public abstract object GetComponent();
+        /// <summary>
+        ///     Default durability on all non-weapon items.
+        /// </summary>
+        public static readonly float DefaultDurability = -4.65664672E+11f;
+
+        /// <inheritdoc cref="ItemType"/>
+        public abstract ItemType Type { get; }
+        /// <inheritdoc cref="ItemCategory"/>
+        public abstract ItemCategory Category { get; }
+        /// <summary>
+        ///     Determines if an item is a weapon and can be converted to <see cref="Weapon"/>.
+        /// </summary>
         public abstract bool IsWeapon { get; }
-        public abstract Weapon ToWeapon();
-        public abstract bool Kinematic { get; set; }
-        public abstract bool Floating { get; set; }
-        public abstract Vector3 Position { get; set; }
-        public abstract bool IsExists { get; }
+        /// <summary>
+        ///     Item permissions.
+        /// </summary>
         public abstract string[] Permissions { get; }
     }
 
-    public abstract class DroppedItem
+    // todo: rethink weapon related shit
+    public abstract class Weapon : Item
     {
-        public abstract ItemType ItemType { get; set; }
-        public abstract float Durability { get; set; }
-        public abstract int Uniq { get; }
-        public abstract Vector3 Position { get; set; }
-        public abstract WeaponSight Sight { get; set; }
-        public abstract WeaponBarrel Barrel { get; set; }
-        public abstract WeaponOther Other { get; set; }
-    }
-
-    public abstract class DroppedAmmo
-    {
-        public abstract AmmoType AmmoType { get; set; }
-        public abstract int Amount { get; set; }
-        public abstract Vector3 Position { get; set; }
+        public abstract WeaponType WeaponType { get; }
+        public abstract WeaponSight Sight { get; }
+        public abstract WeaponBarrel Barrel { get; }
+        public abstract WeaponOther Other { get; }
+        public abstract float AmmoInClip { get; }
+        public abstract int MaxClipSize { get; }
+        public abstract AmmoType AmmoType { get; }
+        public abstract DamageType DamageType { get; }
     }
 }

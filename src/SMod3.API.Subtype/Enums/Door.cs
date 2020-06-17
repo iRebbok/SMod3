@@ -11,6 +11,10 @@ namespace SMod3.API
     [Flags]
     public enum AccessRequirements
     {
+        /// <summary>
+        ///     Means that the door is not accessible for interaction.
+        ///     Don't confuse with locked.
+        /// </summary>
         Unaccessible = 1 << 0,
         Checkpoints = 1 << 1,
         Gates = 1 << 2,

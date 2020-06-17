@@ -1,11 +1,17 @@
 namespace SMod3.API
 {
+    /// <summary>
+    ///     Grenade type.
+    /// </summary>
     public enum GrenadeType
     {
         FRAG_GRENADE = 0,
         FLASHBANG = 1
     }
 
+    /// <summary>
+    ///     Item category type.
+    /// </summary>
     public enum ItemCategory
     {
         NOCATEGORY = 0,
@@ -14,10 +20,16 @@ namespace SMod3.API
         RADIO = 3,
         WEAPON = 4,
         GRENADE = 5,
-        SCPITEM = 6, // SCP-018, SCP-500, SCP-207, SCP-268
+        /// <summary>
+        ///     Is a representative of such items as SCP-018, SCP-500, SCP-207, SCP-268.
+        /// </summary>
+        SCPITEM = 6,
         MICROHID = 7
     }
 
+    /// <summary>
+    ///     Item type.
+    /// </summary>
     public enum ItemType
     {
         NONE = -1,
