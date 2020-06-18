@@ -35,7 +35,7 @@ namespace SMod3.API
 
         /// <summary>
         ///     Indicates when the item is on a surface
-        ///     and can be converted to <see cref="SurfaceItemInfo"/>,
+        ///     and can be converted to <see cref="ISurfaceItemInfo"/>,
         ///     otherwise to <see cref="InventoryItemInfo"/>.
         /// </summary>
         bool InWorld { get; }
@@ -69,7 +69,7 @@ namespace SMod3.API
     /// <summary>
     ///     Information about the item that is on the surface.
     /// </summary>
-    public interface SurfaceItemInfo : ItemInfo
+    public interface ISurfaceItemInfo : ItemInfo
     {
         /// <summary>
         ///     Gets or sets an item’s position.
