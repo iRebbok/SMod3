@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace SMod3.API
 {
     /// <remarks>
@@ -23,7 +25,7 @@ namespace SMod3.API
         /// <summary>
         ///     Item permissions.
         /// </summary>
-        public abstract string[] Permissions { get; }
+        public abstract IReadOnlyCollection<string> Permissions { get; }
     }
 
     // todo: rethink weapon related shit
