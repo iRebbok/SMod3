@@ -52,7 +52,7 @@ namespace SMod3.Core.Misc
             Buffer.Enqueue(item);
         }
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             if (Subscribers is null || Subscribers.Count < RequiredSubscribers)
                 return;
