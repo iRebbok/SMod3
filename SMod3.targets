@@ -3,8 +3,7 @@
 
   <PropertyGroup>
     <Copyright>Copyright 2020 - $([System.DateTime]::Now.ToString("yyyy"))</Copyright>
-    <RepositoryType>Git</RepositoryType>
-    <RepositoryUrl>git://github.com/iRebbok/SMod3</RepositoryUrl>
+    <RepositoryUrl>git@github.com:iRebbok/SMod3.git</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -21,19 +20,27 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  
+
   <!-- Disable dependency file generation -->
   <PropertyGroup>
     <GenerateDependencyFile>false</GenerateDependencyFile>
   </PropertyGroup>
 
-  <!-- Include cultural attribute -->
   <Target Name="IncludeCultureAttribute"
           AfterTargets="GetAssemblyAttributes">
     <ItemGroup>
+
+      <!-- Include cultural attribute -->
       <AssemblyAttribute Include="System.Reflection.AssemblyCultureAttribute">
         <_Parameter1>en-US</_Parameter1>
       </AssemblyAttribute>
+
+      <!-- Somehow I don't have the `AssemblyMetadata` attribute -->
+      <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+        <_Parameter1>RepositoryUrl</_Parameter1>
+        <_Parameter2>$(RepositoryUrl)</_Parameter2>
+      </AssemblyAttribute>
+      
     </ItemGroup>
   </Target>
 

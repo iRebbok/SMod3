@@ -4,14 +4,18 @@
 
   <PropertyGroup>
     <AssemblyName>SMod3.Core</AssemblyName>
-    <RootNamespace>SMod3.Core</RootNamespace>
+    <RootNamespace>SMod3</RootNamespace>
     <AssemblyTitle>SMod3 kernel containing basic functionality</AssemblyTitle>
+    <Version>1.0.0-beta.1</Version>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-  </PropertyGroup>
+  <ItemGroup>
+    <!-- As long as the game provides Mono.Cecil 0.11.0, we don't need to provide it manually -->
+    <PackageReference Include="Mono.Cecil" Version="0.11.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="..\..\libs\UnityEngine.CoreModule.dll" Private="false" />
+  </ItemGroup>
 
 </Project>

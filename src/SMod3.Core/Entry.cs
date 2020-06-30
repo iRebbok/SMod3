@@ -1,25 +1,44 @@
+using System;
+using System.Reflection;
+
+using SMod3.API;
+using SMod3.Core.Imbedded.Version;
+
 namespace SMod3.Core
 {
     public static class Entry
     {
-        /// <summary>
-        ///     Versioning constant for SMod3.Core.
-        /// </summary>
-        public const string VERSION = "1.0.0";
-
-        public static readonly int SMOD_VERSION_MAJOR = int.Parse(VERSION.Split('.')[0]);
-        public static readonly int SMOD_VERSION_MINOR = int.Parse(VERSION.Split('.')[1]);
-        public static readonly int SMOD_VERSION_REVISION = int.Parse(VERSION.Split('.')[2]);
-        public static readonly int SMOD_VERSION_BUILD = int.Parse(VERSION.Split('.')[3]);
-        public static readonly string SMOD_VERSION = $"{SMOD_VERSION_MAJOR}.{SMOD_VERSION_MINOR}.{SMOD_VERSION_REVISION}";
+        public static readonly SemanticVersion VERSION = SemanticMatcher.Default.Parse(typeof(Entry).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion);
 
         /// <summary>
         ///     Entry point for all SMod3.
         /// </summary>
-        public static void Call()
+        /// <param name="binPath">
+        ///     The path to the bin folder where all the main libraries are located.
+        /// </param>
+        /// <param name="gamePath">
+        ///     The path to the game folder.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        ///     One of the paths is null or empty.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Server is null.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        ///     Repeated call.
+        /// </exception>
+        public static void Call(string binPath, string gamePath, Server server)
         {
+            if (string.IsNullOrEmpty(binPath) || string.IsNullOrEmpty(gamePath))
+                throw new ArgumentException("Paths cannot be empty or null");
+            else if (server is null)
+                throw new ArgumentNullException("Server cannot be null", nameof(server));
+            else if (!(PluginManager.Manager is null))
+                throw new InvalidOperationException("Attempt to call again");
+
             ModuleManager.Manager.LoadModules();
-            PluginManager.Manager.Load();
+            new PluginManager(binPath, gamePath, server).Load();
         }
     }
 }
