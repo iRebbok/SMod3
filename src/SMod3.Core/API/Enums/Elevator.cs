@@ -1,6 +1,6 @@
 namespace SMod3.API
 {
-    public enum ElevatorType
+    public enum ElevatorType : byte
     {
         LiftA = 0,
         LiftB = 1,
@@ -10,7 +10,7 @@ namespace SMod3.API
         SCP049Chamber = 5
     }
 
-    public enum ElevatorStatus
+    public enum ElevatorStatus : byte
     {
         Up,
         Down,

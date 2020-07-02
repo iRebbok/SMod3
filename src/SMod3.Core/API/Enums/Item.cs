@@ -3,7 +3,7 @@ namespace SMod3.API
     /// <summary>
     ///     Grenade type.
     /// </summary>
-    public enum GrenadeType
+    public enum GrenadeType : byte
     {
         FRAG_GRENADE = 0,
         FLASHBANG = 1,
@@ -13,7 +13,7 @@ namespace SMod3.API
     /// <summary>
     ///     Item category type.
     /// </summary>
-    public enum ItemCategory
+    public enum ItemCategory : byte
     {
         NOCATEGORY = 0,
         KEYCARD = 1,
@@ -31,7 +31,7 @@ namespace SMod3.API
     /// <summary>
     ///     Item type.
     /// </summary>
-    public enum ItemType
+    public enum ItemType : sbyte
     {
         NONE = -1,
         KEYCARD_JANITOR = 0,

@@ -212,6 +212,24 @@ namespace SMod3.API
         /// </exception>
         public abstract void AnnounceCustomMessage(string message);
 
+        /// <summary>
+        ///     Custom throws a grenade.
+        /// </summary>
+        /// <param name="position">
+        ///     Grenade starting position.
+        /// </param>
+        /// <param name="direction">
+        ///     Grenade direction, calculated by forward from the player.
+        /// </param>
+        /// <param name="throwForce">
+        ///     Grenade throw force,
+        ///     is 0.5f for slow feed and 1f for normal feed.
+        /// </param>
+        /// <param name="delay">
+        ///     Grenade throw delay.
+        /// </param>
+        public abstract void ThrowGrenade(GrenadeType grenadeType, Vector3 position, Vector3 direction, float throwForce, float delay);
+
         #endregion
     }
 

@@ -1,12 +1,6 @@
 namespace SMod3.API
 {
-    public enum AuthType
-    {
-        SERVER,
-        GAMESTAFF
-    }
-
-    public enum DamageType
+    public enum DamageType : byte
     {
         NONE = 0,
         LURE = 1,
@@ -37,14 +31,17 @@ namespace SMod3.API
         RECONTAIMENT = 26
     }
 
-    public enum UserRank
+    public enum UserRank : sbyte
     {
-        ADMIN = 5,
-        PROJECT_MANAGER = 4,
-        GAME_STAFF = 3,
-        BETATESTER = 2,
-        PATREON_SUPPORTED = 1,
-        NONE = 0
+        NONE = -1,
+        PATREON_SUPPORTED = 0,
+        GAME_STAFF = 1,
+        PROJECT_MANAGER = 2,
+        /// <summary>
+        ///     Since this is the same <see cref="BAN_TEAM"/>, just invisible.
+        /// </summary>
+        NINJA_BAN_TEAM = 3,
+        BAN_TEAM = 4,
     }
 
     public enum RoleType : sbyte
@@ -62,7 +59,7 @@ namespace SMod3.API
         CHAOS_INSURGENCY = 8,
         SCP_096 = 9,
         SCP_049_2 = 10,
-        ZOMBIE = 10,
+        ZOMBIE = SCP_049_2,
         NTF_LIEUTENANT = 11,
         NTF_COMMANDER = 12,
         NTF_CADET = 13,
@@ -86,5 +83,41 @@ namespace SMod3.API
         CLASSD = 4,
         SPECTATOR = 5,
         TUTORIAL = 6
+    }
+
+    /// <summary>
+    ///     Player permissions at remote admin.
+    /// </summary>
+    public enum RemoteAdminPermissions : ulong
+    {
+        KickingAndShortTermBanning = 1uL,
+        BanningUpToDay = 2uL,
+        LongTermBanning = 4uL,
+        ForceclassSelf = 8uL,
+        ForceclassToSpectator = 0x10,
+        ForceclassWithoutRestrictions = 0x20,
+        GivingItems = 0x40,
+        WarheadEvents = 0x80,
+        RespawnEvents = 0x100,
+        RoundEvents = 0x200,
+        SetGroup = 0x400,
+        GameplayData = 0x800,
+        Overwatch = 0x1000,
+        FacilityManagement = 0x2000,
+        PlayersManagement = 0x4000,
+        PermissionsManagement = 0x8000,
+        ServerConsoleCommands = 0x10000,
+        ViewHiddenBadges = 0x20000,
+        ServerConfigs = 0x40000,
+        Broadcasting = 0x80000,
+        PlayerSensitiveDataAccess = 0x100000,
+        Noclip = 0x200000,
+        AFKImmunity = 0x400000,
+        AdminChat = 0x800000,
+        ViewHiddenGlobalBadges = 0x1000000,
+        Announcer = 0x2000000,
+        Effects = 0x4000000,
+        FriendlyFireDetectorImmunity = 0x8000000,
+        FriendlyFireDetectorTempDisable = 0x10000000
     }
 }

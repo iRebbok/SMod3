@@ -1,6 +1,6 @@
 namespace SMod3.API
 {
-    public enum LeadingTeam
+    public enum LeadingTeam : byte
     {
         FacilityForces = 0,
         ChaosInsurgency = 1,
@@ -8,7 +8,7 @@ namespace SMod3.API
         Draw = 3
     }
 
-    public enum ROUND_END_STATUS
+    public enum ROUND_END_STATUS : byte
     {
         ON_GOING,
         MTF_VICTORY,
