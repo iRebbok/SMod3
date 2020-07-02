@@ -34,11 +34,12 @@ namespace SMod3.API
         float Durability { get; set; }
 
         /// <summary>
-        ///     Indicates when the item is on a surface
-        ///     and can be converted to <see cref="ISurfaceItemInfo"/>,
-        ///     otherwise to <see cref="InventoryItemInfo"/>.
+        ///     Item location.
         /// </summary>
-        bool InWorld { get; }
+        /// <exception cref="InvalidOperationException">
+        ///     Item has been destroyed.
+        /// </exception>
+        ItemLocation Location { get; }
 
         /// <summary>
         ///     Indicates that the item still exists and can be interacted with.
@@ -49,8 +50,7 @@ namespace SMod3.API
         ///     Deletes an item.
         /// </summary>
         /// <exception cref="InvalidOperationException">
-        ///     Item destroyed.
-        ///     
+        ///     Item has been destroyed.
         ///     When an item has been picked up by a player
         ///     or has been dropped by a player,
         ///     this way you can no longer interact with it.
@@ -60,16 +60,13 @@ namespace SMod3.API
         /// <summary>
         ///     Gets an item of this type.
         /// </summary>
-        /// <exception cref="InvalidOperationException">
-        ///     
-        /// </exception>
         Item GetItem();
     }
 
     /// <summary>
     ///     Information about the item that is on the surface.
     /// </summary>
-    public interface ISurfaceItemInfo : ItemInfo
+    public interface ISurfaceItemInfo : ItemInfo, IGenericApiObject
     {
         /// <summary>
         ///     Gets or sets an item’s position.
@@ -83,6 +80,19 @@ namespace SMod3.API
         /// </summary>
         /// <exception cref="InvalidOperationException"><inheritdoc cref="ItemInfo.Type"/></exception>
         bool IsKinematic { get; set; }
+
+        /// <summary>
+        ///     Controls whether gravity affects this rigidbody.
+        ///     See also <a href="https://docs.unity3d.com/2019.3/Documentation/ScriptReference/Rigidbody-useGravity.html">Unity Docs</a>.
+        /// </summary>
+        /// <exception cref="InvalidOperationException"><inheritdoc cref="ItemInfo.Type"/></exception>
+        bool UseGravity { get; set; }
+
+        /// <summary>
+        ///     Gets the item's rigidbody.
+        /// </summary>
+        /// <exception cref="InvalidOperationException"><inheritdoc cref="ItemInfo.Type"/></exception>
+        Rigidbody GetRigidbody();
     }
 
     /// <summary>
@@ -98,5 +108,5 @@ namespace SMod3.API
         int Uniq { get; }
     }
 
-    // todo: implement weapon info
+    // todo: implement weapon info & locker API with the locker item info
 }

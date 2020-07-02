@@ -14,8 +14,13 @@
     <PackageReference Include="Mono.Cecil" Version="0.11.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <!--
+    UNITY_REFERENCES - is an environment variable with path to unity assemblies,
+      assemblies are provided with SCP: SL Dedicated Server.
+  -->
   <ItemGroup>
-    <Reference Include="..\..\libs\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="$(UNITY_REFERENCES)\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="$(UNITY_REFERENCES)\UnityEngine.PhysicsModule.dll" Private="false" />
   </ItemGroup>
 
 </Project>

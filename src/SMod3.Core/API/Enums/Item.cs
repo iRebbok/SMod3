@@ -71,4 +71,23 @@ namespace SMod3.API
         PAINKILLERS = 34,
         COIN = 35
     }
+
+    /// <summary>
+    ///     Item location.
+    /// </summary>
+    public enum ItemLocation : byte
+    {
+        /// <summary>
+        ///     Item is on the surface.
+        /// </summary>
+        SURFACE,
+        /// <summary>
+        ///     Item is in the inventory.
+        /// </summary>
+        INVENTORY,
+        /// <summary>
+        ///     Item in the locker.
+        /// </summary>
+        LOCKER
+    }
 }
