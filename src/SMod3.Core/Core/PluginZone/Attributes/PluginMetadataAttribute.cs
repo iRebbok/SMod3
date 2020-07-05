@@ -12,7 +12,7 @@ namespace SMod3.Core
         ///		The main identifier of the plugin.
         ///		The plugin will not be initialized without it.
         /// </summary>
-        public string Id { get; }
+        public string Id { get; set; }
         /// <summary>
         ///		Name of the plugin.
         /// </summary>
@@ -30,16 +30,12 @@ namespace SMod3.Core
         /// </summary>
         public byte Priority { get; set; } = 0;
 
-        /// <param name="id">
-        ///		The main identifier of the plugin.
-        ///		It is converted to lower case and is unique.
-        /// </param>
-        public PluginMetadataAttribute(string id)
+        public PluginMetadataAttribute()
         {
-            if (string.IsNullOrWhiteSpace(id))
-                throw new ArgumentException("Id cannot be null, empty or whitespace", nameof(id));
+            if (string.IsNullOrWhiteSpace(Id))
+                throw new ArgumentException("Id cannot be null, empty or whitespace", nameof(Id));
 
-            Id = id.ToLowerInvariant();
+            Id = Id.ToLowerInvariant();
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reflection;
 
 using SMod3.Core.Fundamental;
@@ -29,14 +31,19 @@ namespace SMod3.Core
         ///     Priority for the plugin.
         /// </summary>
         public byte Priority { get; }
+        /// <summary>
+        ///     Extra data provided by plugins for modules.
+        /// </summary>
+        public IReadOnlyCollection<IExtraData> ExtraDatas { get; }
 
-        internal PluginMetadata(PluginMetadataAttribute attribute, Assembly assembly) : base(assembly)
+        internal PluginMetadata(PluginMetadataAttribute attribute, Assembly assembly, IList<IExtraData> extraDatas) : base(assembly)
         {
             Id = attribute.Id;
             Name = attribute.Name;
             Authors = attribute.Authors;
             Collaborators = attribute.Collaborators;
             Priority = attribute.Priority;
+            ExtraDatas = new ReadOnlyCollection<IExtraData>(extraDatas);
         }
     }
 }

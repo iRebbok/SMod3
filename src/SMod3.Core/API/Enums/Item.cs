@@ -78,11 +78,11 @@ namespace SMod3.API
     public enum ItemLocation : byte
     {
         /// <summary>
-        ///     Item is on the surface.
+        ///     Item on the surface.
         /// </summary>
         SURFACE,
         /// <summary>
-        ///     Item is in the inventory.
+        ///     Item in the inventory.
         /// </summary>
         INVENTORY,
         /// <summary>
