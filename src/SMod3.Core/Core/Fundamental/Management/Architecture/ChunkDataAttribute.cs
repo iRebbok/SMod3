@@ -15,9 +15,9 @@ namespace SMod3.Core.Fundamental
 
         public object? Value { get; }
 
-        public ChunkDataAttribute(string key, object? value)
+        public ChunkDataAttribute(string key, object? value = null)
         {
-            Key = !string.IsNullOrEmpty(key) ? key : throw new ArgumentException("The key cannot be empty or null");
+            Key = !string.IsNullOrEmpty(key) ? key : throw new ArgumentException("The key cannot be empty or null", nameof(key));
             Value = value;
         }
     }
