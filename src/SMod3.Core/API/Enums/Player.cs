@@ -34,7 +34,7 @@ namespace SMod3.API
     public enum UserRank : sbyte
     {
         NONE = -1,
-        PATREON_SUPPORTED = 0,
+        PATREON_SUPPORTER = 0,
         GAME_STAFF = 1,
         PROJECT_MANAGER = 2,
         /// <summary>
