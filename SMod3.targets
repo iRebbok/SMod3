@@ -15,16 +15,21 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <!-- Custom output path for projects -->
   <PropertyGroup>
+    <!-- Custom output path for projects -->
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>..\..\bin\$(Configuration)\$(AssemblyName)\</OutputPath>
+
+    <!-- Disable dependency file generation -->
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+
+    <!--
+      Assign value if not assigned,
+      so we assign a default value that points to the submodule.
+      -->
+    <SMOD_REFS Condition="$(SMOD_REFS) == ''">..\..\smodrefs</SMOD_REFS>
   </PropertyGroup>
 
-  <!-- Disable dependency file generation -->
-  <PropertyGroup>
-    <GenerateDependencyFile>false</GenerateDependencyFile>
-  </PropertyGroup>
 
   <Target Name="IncludeCultureAttribute"
           AfterTargets="GetAssemblyAttributes">

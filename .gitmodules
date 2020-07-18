@@ -1,0 +1,3 @@
+[submodule "smodrefs"]
+	path = smodrefs
+	url = git@gitlab.com:iRebbok/smodrefs.git
