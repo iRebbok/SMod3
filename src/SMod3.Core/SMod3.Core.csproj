@@ -15,12 +15,12 @@
   </ItemGroup>
 
   <!--
-    UNITY_REFERENCES - is an environment variable with path to unity assemblies,
+    SMOD_REFS - is an environment variable with path to assemblies,
       assemblies are provided with SCP: SL Dedicated Server.
   -->
   <ItemGroup>
-    <Reference Include="$(UNITY_REFERENCES)\UnityEngine.CoreModule.dll" Private="false" />
-    <Reference Include="$(UNITY_REFERENCES)\UnityEngine.PhysicsModule.dll" Private="false" />
+    <Reference Include="$(SMOD_REFS)\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="$(SMOD_REFS)\UnityEngine.PhysicsModule.dll" Private="false" />
   </ItemGroup>
 
 </Project>
