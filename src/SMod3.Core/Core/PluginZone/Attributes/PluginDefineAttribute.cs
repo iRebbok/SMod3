@@ -16,7 +16,7 @@ namespace SMod3.Core
         /// <param name="types">
         ///     Types of plugin classes that are desirable for initialization.
         /// </param>
-        public PluginDefineAttribute(Type[] types)
+        public PluginDefineAttribute(params Type[] types)
         {
             Types = types;
         }

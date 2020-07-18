@@ -114,6 +114,18 @@ namespace SMod3.Core
             }
         }
 
+        /// <summary>
+        ///     Finds and returns a specific module type.
+        /// </summary>
+        public T? FindModule<T>() where T : Module
+        {
+            foreach (var pair in _modules)
+                if (pair.Value is T mod)
+                    return mod;
+
+            return null;
+        }
+
         /// <inheritdoc />
         public override void Dispose(Plugin owner)
         {

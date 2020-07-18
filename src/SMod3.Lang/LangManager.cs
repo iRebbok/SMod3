@@ -11,7 +11,7 @@ using SMod3.Module.Lang.Meta;
 
 namespace SMod3.Module.Lang
 {
-    public sealed class LangManager : BaseAttributeManager
+    public sealed class LangManager : IAttributeManager
     {
         public static LangManager Manager { get; } = new LangManager();
 

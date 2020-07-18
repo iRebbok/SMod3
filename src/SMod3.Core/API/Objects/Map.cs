@@ -372,24 +372,14 @@ namespace SMod3.API
         /// <summary>
         ///     Room zone type.
         /// </summary>
-        public abstract ZoneType ZoneType { get; }
-
-        /// <summary>
-        ///     Room type.
-        /// </summary>
-        public abstract RoomType RoomType { get; }
-
-        /// <summary>
-        ///     Generic room id.
-        /// </summary>
-        public abstract int GenericId { get; }
+        public abstract ZoneType Zone { get; }
 
         public abstract Transform Transform { get; }
 
         /// <summary>
         ///     Speaker position if exists.
         /// </summary>
-        public abstract Vector3? SpeakerPosition { get; }
+        //public abstract Vector3? SpeakerPosition { get; } //todo: 079 Camera API
 
         /// <summary>
         ///     Turns off the light for duration.

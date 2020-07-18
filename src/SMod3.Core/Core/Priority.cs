@@ -1,6 +1,6 @@
-namespace SMod3.Module.EventSystem
+namespace SMod3.Core
 {
-    public enum Priority
+    public enum Priority : byte
     {
         FIRST = 0,
         EARLIER = 20,

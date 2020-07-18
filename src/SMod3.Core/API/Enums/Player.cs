@@ -6,8 +6,11 @@ namespace SMod3.API
         LURE = 1,
         NUKE = 2,
         WALL = 3,
-        DECONT = 4, // Decontamination
-        TESLA = 5, // Tesla
+        /// <summary>
+        ///     Decontamination.
+        /// </summary>
+        DECONT = 4,
+        TESLA = 5,
         FALLDOWN = 6,
         FLYING = 7,
         CONTAIN = 8,
@@ -17,10 +20,16 @@ namespace SMod3.API
         P90 = 12,
         E11_STANDARD_RIFLE = 13,
         MP7 = 14,
-        LOGICER = 15, // Chaos Gun
+        /// <summary>
+        ///     Chaos Gun.
+        /// </summary>
+        LOGICER = 15,
         USP = 16,
         MICROHID = 17,
-        FRAG = 18, // Frag grenade
+        /// <summary>
+        ///     Frag grenade.
+        /// </summary>
+        FRAG = 18,
         SCP_049 = 19,
         SCP_049_2 = 20,
         SCP_096 = 21,
@@ -119,5 +128,12 @@ namespace SMod3.API
         Effects = 0x4000000,
         FriendlyFireDetectorImmunity = 0x8000000,
         FriendlyFireDetectorTempDisable = 0x10000000
+    }
+
+    public enum SpawnableTeamType : byte
+    {
+        None,
+        ChaosInsurgency,
+        NineTailedFox
     }
 }

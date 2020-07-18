@@ -30,7 +30,7 @@ namespace SMod3.Core
         /// <summary>
         ///     Priority for the plugin.
         /// </summary>
-        public byte Priority { get; }
+        public Priority Priority { get; }
         /// <summary>
         ///     Extra data provided by plugins for modules.
         /// </summary>

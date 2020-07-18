@@ -28,7 +28,7 @@ namespace SMod3.Core
         /// <summary>
         ///     Priority on plugin initialization.
         /// </summary>
-        public byte Priority { get; set; } = 0;
+        public Priority Priority { get; set; }
 
         public PluginMetadataAttribute()
         {

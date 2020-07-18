@@ -1,3 +1,4 @@
+using System;
 
 using SMod3.API;
 using SMod3.Core.Logging;
@@ -17,7 +18,7 @@ namespace SMod3.Core
     /// <summary>
     ///     An abstract class for inheritance for the implementation of plugins.
     /// </summary>
-    public abstract class Plugin : BaseLogger
+    public abstract class Plugin : BaseLogger, IComparable<Plugin>
     {
         #region Properties
 
@@ -101,6 +102,11 @@ namespace SMod3.Core
         public override string ToString()
         {
             return $"{(!string.IsNullOrEmpty(Metadata.Name) ? Metadata.Name : "Anonymous")} ({Metadata.Id}) [{Metadata.Version}]";
+        }
+
+        public int CompareTo(Plugin other)
+        {
+            return Metadata.Priority.CompareTo(other.Metadata.Priority);
         }
 
         #endregion

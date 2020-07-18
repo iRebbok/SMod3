@@ -83,19 +83,25 @@ namespace SMod3.API
         /// <exception cref="ArgumentException">
         ///     None of the arguments are specified.
         /// </exception>
-        /// <remarks>
-        ///     This method returns a new <see cref="List{T}"/> of type <see cref="Player"/>,
-        ///     you don't need to use <see cref="Enumerable.ToList{TSource}(IEnumerable{TSource})"/> or anything else,
-        ///     you can just use <code>var result = (GetPlayers(RoleType.ClassD) as List&#60;Player&#62;)</code> instead.
-        /// </remarks>
-        public abstract IList<Player> GetPlayers(params RoleType[] role);
+        public IEnumerable<Player> GetPlayers(params RoleType[] role)
+        {
+            if (role is null || role.Length == 0)
+                throw new ArgumentException(nameof(role));
+
+            return Players.Where(p => Array.Exists(role, r => r == p.TeamRole.Role));
+        }
 
         /// <summary>
         ///     Gets players with specific team/s.
         /// </summary>
         /// <exception cref="ArgumentException"><inheritdoc cref="GetPlayers(RoleType[])"/></exception>
-        /// <remarks><inheritdoc cref="GetPlayers(RoleType[])"/></remarks>
-        public abstract IList<Player> GetPlayers(params TeamType[] team);
+        public IEnumerable<Player> GetPlayers(params TeamType[] team)
+        {
+            if (team is null || team.Length == 0)
+                throw new ArgumentException(nameof(team));
+
+            return Players.Where(p => Array.Exists(team, t => t == p.TeamRole.Team));
+        }
 
         /// <summary>
         ///     Gets players that match the condition.
@@ -103,18 +109,34 @@ namespace SMod3.API
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="predicate"/> is null.
         /// </exception>
-        /// <remarks><inheritdoc cref="GetPlayers(RoleType[])"/></remarks>
-        public abstract IList<Player> GetPlayers(Predicate<Player> predicate);
+        public IEnumerable<Player> GetPlayers(Predicate<Player> predicate)
+        {
+            if (predicate is null)
+                throw new ArgumentNullException(nameof(predicate));
+
+            return Players.Where(p => predicate(p));
+        }
 
         /// <summary>
         ///     Gets the player by condition.
         /// </summary>
-        public abstract Player? GetPlayer(Predicate<Player> predicate);
+        /// <exception cref="ArgumentNullException"><inheritdoc cref="GetPlayers(Predicate{Player})"/></exception>
+        public Player? GetPlayer(Predicate<Player> predicate)
+        {
+            if (predicate is null)
+                throw new ArgumentNullException(nameof(predicate));
+
+            return Players.FirstOrDefault(p => predicate(p));
+        }
 
         /// <summary>
         ///     Gets the player by id.
         /// </summary>
-        public abstract Player? GetPlayer(int playerId);
+        public Player? GetPlayer(int playerId)
+        {
+            PlayerIdsAndPlayers.TryGetValue(playerId, out var result);
+            return result;
+        }
 
         // If you are wondering where is 'GetAppFolder' here,
         // then I decided that this is unnecessary because

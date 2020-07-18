@@ -9,7 +9,7 @@ using SMod3.Module.Config.Meta;
 
 namespace SMod3.Module.Config
 {
-    public sealed class ConfigManager : BaseAttributeManager
+    public sealed class ConfigManager : IAttributeManager
     {
         /// <summary>
         ///		Contains all the attributes <see cref="ConfigOptionAttribute"/> registered by the plugin.
