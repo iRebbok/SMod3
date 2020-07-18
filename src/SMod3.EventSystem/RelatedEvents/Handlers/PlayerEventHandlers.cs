@@ -3,6 +3,40 @@ using SMod3.Module.EventSystem.Events;
 
 namespace SMod3.Module.EventHandlers
 {
+    #region Player behavior
+
+    /// <summary>
+    ///     Called when the player's components are ready
+    ///     (the player has connected to the server,
+    ///     but hasn't yet sent his nickname and authentication token).
+    /// </summary>
+    public interface IEventHandlerPlayerJoin : IEventHandler
+    {
+        void OnPlayerJoin(PlayerJoinEvent ev);
+    }
+
+    public interface IEventHandlerPlayerLeave : IEventHandler
+    {
+        void OnPlayerLeave(PlayerLeaveEvent ev);
+    }
+
+    /// <summary>
+    ///     Called when the player is ready (authenticated).
+    /// </summary>
+    public interface IEventHandlerPlayerReady : IEventHandler
+    {
+        void OnPlayerReady(PlayerReadyEvent ev);
+    }
+
+    public interface IEventHandlerPlayerNicknameSet : IEventHandler
+    {
+        void OnPlayerNicknameSet(PlayerNicknameSetEvent ev);
+    }
+
+    #endregion
+
+    #region Health damage events
+
     /// <summary>
     ///     Called before the player is going to take damage.
     /// </summary>
@@ -15,6 +49,26 @@ namespace SMod3.Module.EventHandlers
     {
         void OnPlayerDie(PlayerDeathEvent ev);
     }
+
+    /// <summary>
+    ///     Called when SCP-049 infects a player.
+    /// </summary>
+    public interface IEventHandlerPlayerInfected : IEventHandler
+    {
+        void OnPlayerInfected(PlayerInfectedEvent ev);
+    }
+
+    /// <summary>
+    ///     Called when a player enters FemurBreaker.
+    /// <summary>
+    public interface IEventHandlerPlayerLure : IEventHandler
+    {
+        void OnPlayerLure(PlayerLureEvent ev);
+    }
+
+    #endregion
+
+    #region Item events
 
     public interface IEventHandlerPlayerPickupItem : IEventHandler
     {
@@ -49,20 +103,9 @@ namespace SMod3.Module.EventHandlers
         void OnPlayerCurrentItem(PlayerCurrentItemUpdateEvent ev);
     }
 
-    public interface IEventHandlerPlayerJoin : IEventHandler
-    {
-        void OnPlayerJoin(PlayerJoinEvent ev);
-    }
+    #endregion
 
-    public interface IEventHandlerPlayerLeave : IEventHandler
-    {
-        void OnPlayerLeave(PlayerLeaveEvent ev);
-    }
-
-    public interface IEventHandlerPlayerNicknameSet : IEventHandler
-    {
-        void OnNicknameSet(PlayerNicknameSetEvent ev);
-    }
+    #region Roles events
 
     /// <summary>
     ///     Called at the start of a round when assigning roles.
@@ -74,33 +117,97 @@ namespace SMod3.Module.EventHandlers
 
     public interface IEventHandlerPlayerSetRole : IEventHandler
     {
-        void OnSetRole(PlayerSetRoleEvent ev);
+        void OnPlayerSetRole(PlayerSetRoleEvent ev);
     }
 
     public interface IEventHandlerPlayerCheckEscape : IEventHandler
     {
-        void OnCheckEscape(PlayerCheckEscapeEvent ev);
+        void OnPlayerCheckEscape(PlayerCheckEscapeEvent ev);
     }
 
     public interface IEventHandlerPlayerSpawn : IEventHandler
     {
-        void OnSpawn(PlayerSpawnEvent ev);
+        void OnPlayerSpawn(PlayerSpawnEvent ev);
     }
+
+    #endregion
+
+    #region Interaction events
 
     public interface IEventHandlerPlayerDoorAccess : IEventHandler
     {
-        void OnDoorAccess(PlayerDoorAccessEvent ev);
+        void OnPlayerDoorAccess(PlayerDoorAccessEvent ev);
     }
 
     public interface IEventHandlerPlayerIntercomInteract : IEventHandler
     {
-        void OnIntercomInteract(PlayerIntercomInteractEvent ev);
+        void OnPlayerIntercomInteract(PlayerIntercomInteractEvent ev);
     }
 
     public interface IEventHandlerPlayerIntercomCooldownCheck : IEventHandler
     {
-        void OnIntercomCooldownCheck(PlayerIntercomCooldownCheckEvent ev);
+        void OnPlayerIntercomCooldownCheck(PlayerIntercomCooldownCheckEvent ev);
     }
+
+    public interface IEventHandlerPlayerThrowGrenade : IEventHandler
+    {
+        void OnPlayerThrowGrenade(PlayerThrowGrenadeEvent ev);
+    }
+
+    public interface IEventHandlerPlayerMedicalUse : IEventHandler
+    {
+        void OnPlayerMedkitUse(PlayerMedicalUseEvent ev);
+    }
+
+    public interface IEventHandlerPlayerShoot : IEventHandler
+    {
+        void OnPlayerShoot(PlayerShootEvent ev);
+    }
+
+    public interface IEventHandlerPlayerElevatorUse : IEventHandler
+    {
+        void OnPlayerElevatorUse(PlayerElevatorUseEvent ev);
+    }
+
+    public interface IEventHandlerPlayerHandcuffed : IEventHandler
+    {
+        void OnPlayerHandcuffed(PlayerHandcuffedEvent ev);
+    }
+
+    public interface IEventHandlerPlayerTriggerTesla : IEventHandler
+    {
+        void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev);
+    }
+
+    public interface IEventHandlerPlayerScp914ChangeKnob : IEventHandler
+    {
+        void OnPlayerScp914ChangeKnob(PlayerSCP914ChangeKnobEvent ev);
+    }
+
+    public interface IEventHandlerPlayerRadioSwitch : IEventHandler
+    {
+        void OnPlayerRadioSwitch(PlayerRadioSwitchEvent ev);
+    }
+
+    public interface IEventHandlerPlayerCallConsoleCommand : IEventHandler
+    {
+        void OnCallCommand(PlayerCallConsoleCommandEvent ev);
+    }
+
+    public interface IEventHandlerPlayerWeaponReload : IEventHandler
+    {
+        void OnWeaponReload(PlayerWeaponReloadEvent ev);
+    }
+
+    /// <summary>
+    ///     Called when a player presses the button to contain SCP-106
+    /// </summary>
+    public interface IEventHandlerPlayerContain106 : IEventHandler
+    {
+        void OnContain106(PlayerContain106Event ev);
+    }
+
+    #endregion
 
     #region Pocket dimension
 
@@ -121,49 +228,29 @@ namespace SMod3.Module.EventHandlers
 
     #endregion
 
-    public interface IEventHandlerPlayerThrowGrenade : IEventHandler
-    {
-        void OnThrowGrenade(PlayerThrowGrenadeEvent ev);
-    }
-
-    /// <summary>
-    ///     Called when SCP-049 infects a player.
-    /// <summary>
-    public interface IEventHandlerPlayerInfected : IEventHandler
-    {
-        void OnPlayerInfected(PlayerInfectedEvent ev);
-    }
+    #region Environment
 
     public interface IEventHandlerPlayerSpawnRagdoll : IEventHandler
     {
         void OnSpawnRagdoll(PlayerSpawnRagdollEvent ev);
     }
 
-    /// <summary>
-    ///     Called when a player enters FemurBreaker.
-    /// <summary>
-    public interface IEventHandlerPlayerLure : IEventHandler
+    public interface IEventHandlerGrenadeExplosion : IEventHandler
     {
-        void OnLure(PlayerLureEvent ev);
+        void OnGrenadeExplosion(PlayerGrenadeExplosion ev);
     }
 
-    /// <summary>
-    ///     Called when a player presses the button to contain SCP-106
-    /// <summary>
-    public interface IEventHandlerPlayerContain106 : IEventHandler
+    public interface IEventHandlerGrenadeHitPlayer : IEventHandler
     {
-        void OnContain106(PlayerContain106Event ev);
+        void OnGrenadeHitPlayer(PlayerGrenadeHitPlayer ev);
     }
 
-    public interface IEventHandlerPlayerMedicalUse : IEventHandler
+    public interface IEventHandlerPlayerMakeNoise : IEventHandler
     {
-        void OnMedkitUse(PlayerMedicalUseEvent ev);
+        void OnMakeNoise(PlayerMakeNoiseEvent ev);
     }
 
-    public interface IEventHandlerPlayerShoot : IEventHandler
-    {
-        void OnShoot(PlayerShootEvent ev);
-    }
+    #endregion
 
     #region Scp 106
 
@@ -179,63 +266,14 @@ namespace SMod3.Module.EventHandlers
 
     #endregion
 
-    public interface IEventHandlerPlayerElevatorUse : IEventHandler
-    {
-        void OnElevatorUse(PlayerElevatorUseEvent ev);
-    }
-
-    public interface IEventHandlerPlayerHandcuffed : IEventHandler
-    {
-        void OnHandcuffed(PlayerHandcuffedEvent ev);
-    }
-
-    public interface IEventHandlerPlayerTriggerTesla : IEventHandler
-    {
-        void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev);
-    }
-
-    public interface IEventHandlerPlayerScp914ChangeKnob : IEventHandler
-    {
-        void OnSCP914ChangeKnob(PlayerSCP914ChangeKnobEvent ev);
-    }
-
-    public interface IEventHandlerPlayerRadioSwitch : IEventHandler
-    {
-        /// <summary>  
-        /// Called when a player changes the status of their radio
-        /// <summary>
-        void OnPlayerRadioSwitch(PlayerRadioSwitchEvent ev);
-    }
-
-    public interface IEventHandlerPlayerMakeNoise : IEventHandler
-    {
-        void OnMakeNoise(PlayerMakeNoiseEvent ev);
-    }
+    #region Scp 049
 
     public interface IEventHandlerScp049RecallZombie : IEventHandler
     {
         void OnRecallZombie(Scp049RecallZombieEvent ev);
     }
 
-    public interface IEventHandlerPlayerCallConsoleCommand : IEventHandler
-    {
-        void OnCallCommand(PlayerCallConsoleCommandEvent ev);
-    }
-
-    public interface IEventHandlerPlayerWeaponReload : IEventHandler
-    {
-        void OnWeaponReload(PlayerWeaponReloadEvent ev);
-    }
-
-    public interface IEventHandlerGrenadeExplosion : IEventHandler
-    {
-        void OnGrenadeExplosion(PlayerGrenadeExplosion ev);
-    }
-
-    public interface IEventHandlerGrenadeHitPlayer : IEventHandler
-    {
-        void OnGrenadeHitPlayer(PlayerGrenadeHitPlayer ev);
-    }
+    #endregion
 
     #region Generator
 

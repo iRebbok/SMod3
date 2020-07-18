@@ -493,7 +493,7 @@ namespace SMod3.Module.EventSystem.Events
         public int AmountHealth { get; set; }
         public int AmountArtificial { get; set; }
         public int AmountRegen { get; internal set; }
-        public ItemType MedicalItem { get; internal set; }
+        public ItemType MedicalItem { get; internal set; } //todo: change to MedicalType
 
         internal override void Reset()
         {
@@ -709,6 +709,24 @@ namespace SMod3.Module.EventSystem.Events
         }
     }
 
+    public sealed class PlayerContain106Event : PlayerEvent, IAllowable
+    {
+        public bool Allow { get; set; }
+
+        internal override void Reset()
+        {
+            Player = null;
+            Allow = true;
+        }
+
+        internal override void CopyTo(EventArg other)
+        {
+            var target = EventHelper.ConvertTo<PlayerContain106Event>(other);
+            target.Player = Player;
+            target.Allow = Allow;
+        }
+    }
+
     #endregion
 
     #region Pocket events
@@ -820,24 +838,6 @@ namespace SMod3.Module.EventSystem.Events
             target.Attacker = Attacker;
             target.DamageType = DamageType;
             target.AllowRecall = AllowRecall;
-            target.Allow = Allow;
-        }
-    }
-
-    public sealed class PlayerContain106Event : PlayerEvent, IAllowable
-    {
-        public bool Allow { get; set; }
-
-        internal override void Reset()
-        {
-            Player = null;
-            Allow = true;
-        }
-
-        internal override void CopyTo(EventArg other)
-        {
-            var target = EventHelper.ConvertTo<PlayerContain106Event>(other);
-            target.Player = Player;
             target.Allow = Allow;
         }
     }
