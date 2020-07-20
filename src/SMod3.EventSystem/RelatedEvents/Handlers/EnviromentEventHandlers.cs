@@ -11,18 +11,19 @@ namespace SMod3.Module.EventSystem.Handlers
         void OnSCP914Activate(SCP914ActivateEvent ev);
     }
 
-    public interface IEventHandlerWarheadStartCountdown : IEventHandler //Before the countdown is started
+    public interface IEventHandlerWarheadStartCountdown : IEventHandler
     {
-        void OnStartCountdown(WarheadStartEvent ev);
+        void OnWarheadStartCountdown(WarheadStartCountdownEvent ev);
     }
-    public interface IEventHandlerWarheadStopCountdown : IEventHandler //Before the countdown is stopped
+
+    public interface IEventHandlerWarheadStopCountdown : IEventHandler
     {
-        void OnStopCountdown(WarheadStopEvent ev);
+        void OnWarheadStopCountdown(WarheadStopCountdownEvent ev);
     }
 
     public interface IEventHandlerWarheadChangeLever : IEventHandler
     {
-        void OnChangeLever(WarheadChangeLeverEvent ev);
+        void OnWarheadChangeLever(WarheadChangeLeverEvent ev);
     }
 
     public interface IEventHandlerWarheadKeycardAccess : IEventHandler
@@ -32,12 +33,12 @@ namespace SMod3.Module.EventSystem.Handlers
 
     public interface IEventHandlerWarheadDetonate : IEventHandler
     {
-        void OnDetonate();
+        void OnWarheadDetonate();
     }
 
     public interface IEventHandlerLCZDecontaminate : IEventHandler
     {
-        void OnDecontaminate();
+        void OnLCZDecontaminate();
     }
 
     public interface IEventHandlerGeneratorFinish : IEventHandler

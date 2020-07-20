@@ -308,7 +308,7 @@ namespace SMod3.Module.EventSystem.Events
 
     #region Roles events
 
-    public sealed class PlayerInitialAssignTeamEvent : PlayerEvent
+    public sealed class PlayerAssignTeamEvent : PlayerEvent
     {
         public TeamType Team { get; set; }
 
@@ -320,7 +320,7 @@ namespace SMod3.Module.EventSystem.Events
 
         internal override void CopyTo(EventArg other)
         {
-            var target = EventHelper.ConvertTo<PlayerInitialAssignTeamEvent>(other);
+            var target = EventHelper.ConvertTo<PlayerAssignTeamEvent>(other);
             target.Player = Player;
             target.Team = Team;
         }
@@ -598,7 +598,7 @@ namespace SMod3.Module.EventSystem.Events
         }
     }
 
-    public sealed class PlayerTriggerTeslaEvent : PlayerEvent, IAllowable
+    public sealed class PlayerTriggerTeslaGateEvent : PlayerEvent, IAllowable
     {
         public TeslaGate TeslaGate { get; internal set; }
         public bool Allow { get; set; }
@@ -612,7 +612,7 @@ namespace SMod3.Module.EventSystem.Events
 
         internal override void CopyTo(EventArg other)
         {
-            var target = EventHelper.ConvertTo<PlayerTriggerTeslaEvent>(other);
+            var target = EventHelper.ConvertTo<PlayerTriggerTeslaGateEvent>(other);
             target.Player = Player;
             target.TeslaGate = TeslaGate;
             target.Allow = Allow;
@@ -1086,7 +1086,7 @@ namespace SMod3.Module.EventSystem.Events
 
     #region Scp 079 events
 
-    public sealed class Scp079DoorInteractEvent : PlayerEvent, IAllowable
+    public sealed class Scp079DoorAccessEvent : PlayerEvent, IAllowable
     {
         public Door Door { get; internal set; }
         public bool Allow { get; set; }
@@ -1102,7 +1102,7 @@ namespace SMod3.Module.EventSystem.Events
 
         internal override void CopyTo(EventArg other)
         {
-            var target = EventHelper.ConvertTo<Scp079DoorInteractEvent>(other);
+            var target = EventHelper.ConvertTo<Scp079DoorAccessEvent>(other);
             target.Player = Player;
             target.Door = Door;
             target.Allow = Allow;
@@ -1134,7 +1134,7 @@ namespace SMod3.Module.EventSystem.Events
         }
     }
 
-    public sealed class Scp079ElevatorInteractEvent : PlayerEvent, IAllowable
+    public sealed class Scp079ElevatorUseEvent : PlayerEvent, IAllowable
     {
         public Elevator Elevator { get; internal set; }
         public bool Allow { get; set; }
@@ -1150,7 +1150,7 @@ namespace SMod3.Module.EventSystem.Events
 
         internal override void CopyTo(EventArg other)
         {
-            var target = EventHelper.ConvertTo<Scp079ElevatorInteractEvent>(other);
+            var target = EventHelper.ConvertTo<Scp079ElevatorUseEvent>(other);
             target.Player = Player;
             target.Elevator = Elevator;
             target.Allow = Allow;
@@ -1158,7 +1158,7 @@ namespace SMod3.Module.EventSystem.Events
         }
     }
 
-    public sealed class Scp079TeslaGateInteractEvent : PlayerEvent, IAllowable
+    public sealed class Scp079TriggerTeslaGateEvent : PlayerEvent, IAllowable
     {
         public TeslaGate TeslaGate { get; internal set; }
         public bool Allow { get; set; }
@@ -1174,7 +1174,7 @@ namespace SMod3.Module.EventSystem.Events
 
         internal override void CopyTo(EventArg other)
         {
-            var target = EventHelper.ConvertTo<Scp079TeslaGateInteractEvent>(other);
+            var target = EventHelper.ConvertTo<Scp079TriggerTeslaGateEvent>(other);
             target.Player = Player;
             target.TeslaGate = TeslaGate;
             target.Allow = Allow;

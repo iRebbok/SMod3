@@ -100,7 +100,7 @@ namespace SMod3.Module.EventSystem.Handlers
 
     public interface IEventHandlerPlayerCurrentItemUpdate : IEventHandler
     {
-        void OnPlayerCurrentItem(PlayerCurrentItemUpdateEvent ev);
+        void OnPlayerCurrentItemUdpate(PlayerCurrentItemUpdateEvent ev);
     }
 
     #endregion
@@ -110,9 +110,9 @@ namespace SMod3.Module.EventSystem.Handlers
     /// <summary>
     ///     Called at the start of a round when assigning roles.
     /// </summary>
-    public interface IEventHandlerInitialAssignTeam : IEventHandler
+    public interface IEventHandlerPlayerAssignTeam : IEventHandler
     {
-        void OnAssignTeam(PlayerInitialAssignTeamEvent ev);
+        void OnPlayerAssignTeam(PlayerAssignTeamEvent ev);
     }
 
     public interface IEventHandlerPlayerSetRole : IEventHandler
@@ -174,9 +174,9 @@ namespace SMod3.Module.EventSystem.Handlers
         void OnPlayerHandcuffed(PlayerHandcuffedEvent ev);
     }
 
-    public interface IEventHandlerPlayerTriggerTesla : IEventHandler
+    public interface IEventHandlerPlayerTriggerTeslaGate : IEventHandler
     {
-        void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev);
+        void OnPlayerTriggerTeslaGate(PlayerTriggerTeslaGateEvent ev);
     }
 
     public interface IEventHandlerPlayerScp914ChangeKnob : IEventHandler
@@ -191,12 +191,12 @@ namespace SMod3.Module.EventSystem.Handlers
 
     public interface IEventHandlerPlayerCallConsoleCommand : IEventHandler
     {
-        void OnCallCommand(PlayerCallConsoleCommandEvent ev);
+        void OnPlayerCallCommand(PlayerCallConsoleCommandEvent ev);
     }
 
     public interface IEventHandlerPlayerWeaponReload : IEventHandler
     {
-        void OnWeaponReload(PlayerWeaponReloadEvent ev);
+        void OnPlayerWeaponReload(PlayerWeaponReloadEvent ev);
     }
 
     /// <summary>
@@ -213,17 +213,17 @@ namespace SMod3.Module.EventSystem.Handlers
 
     public interface IEventHandlerPlayerPocketDimensionEnter : IEventHandler
     {
-        void OnPocketDimensionEnter(PlayerPocketDimensionEnterEvent ev);
+        void OnPlayerPocketDimensionEnter(PlayerPocketDimensionEnterEvent ev);
     }
 
     public interface IEventHandlerPlayerPocketDimensionExit : IEventHandler
     {
-        void OnPocketDimensionExit(PlayerPocketDimensionExitEvent ev);
+        void OnPlayerPocketDimensionExit(PlayerPocketDimensionExitEvent ev);
     }
 
     public interface IEventHandlerPlayerPocketDimensionDie : IEventHandler
     {
-        void OnPocketDimensionDie(PlayerPocketDimensionDieEvent ev);
+        void OnPlayerPocketDimensionDie(PlayerPocketDimensionDieEvent ev);
     }
 
     #endregion
@@ -247,7 +247,7 @@ namespace SMod3.Module.EventSystem.Handlers
 
     public interface IEventHandlerPlayerMakeNoise : IEventHandler
     {
-        void OnMakeNoise(PlayerMakeNoiseEvent ev);
+        void OnPlayerMakeNoise(PlayerMakeNoiseEvent ev);
     }
 
     #endregion
@@ -270,7 +270,7 @@ namespace SMod3.Module.EventSystem.Handlers
 
     public interface IEventHandlerScp049RecallZombie : IEventHandler
     {
-        void OnRecallZombie(Scp049RecallZombieEvent ev);
+        void OnScp049RecallZombie(Scp049RecallZombieEvent ev);
     }
 
     #endregion
@@ -279,46 +279,46 @@ namespace SMod3.Module.EventSystem.Handlers
 
     public interface IEventHandlerGeneratorUnlock : IEventHandler
     {
-        void OnGeneratorUnlock(PlayerGeneratorUnlockEvent ev);
+        void OnPlayerGeneratorUnlock(PlayerGeneratorUnlockEvent ev);
     }
 
     public interface IEventHandlerGeneratorAccess : IEventHandler
     {
-        void OnGeneratorAccess(PlayerGeneratorAccessEvent ev);
+        void OnPlayerGeneratorAccess(PlayerGeneratorAccessEvent ev);
     }
 
     public interface IEventHandlerGeneratorInsertTablet : IEventHandler
     {
-        void OnGeneratorInsertTablet(PlayerGeneratorInsertTabletEvent ev);
+        void OnPlayerGeneratorInsertTablet(PlayerGeneratorInsertTabletEvent ev);
     }
 
     public interface IEventHandlerGeneratorEjectTablet : IEventHandler
     {
-        void OnGeneratorEjectTablet(PlayerGeneratorEjectTabletEvent ev);
+        void OnPlayerGeneratorEjectTablet(PlayerGeneratorEjectTabletEvent ev);
     }
 
     #endregion
 
     #region Scp 079
 
-    public interface IEventHandlerScp079Door : IEventHandler
+    public interface IEventHandlerScp079DoorAccess : IEventHandler
     {
-        void OnScp079Door(Scp079DoorInteractEvent ev);
+        void OnScp079DoorAccess(Scp079DoorAccessEvent ev);
     }
 
-    public interface IEventHandlerScp079Lock : IEventHandler
+    public interface IEventHandlerScp079DoorLock : IEventHandler
     {
-        void OnScp079Lock(Scp079DoorLockEvent ev);
+        void OnScp079DoorLock(Scp079DoorLockEvent ev);
     }
 
-    public interface IEventHandlerScp079Elevator : IEventHandler
+    public interface IEventHandlerScp079ElevatorUse : IEventHandler
     {
-        void OnScp079Elevator(Scp079ElevatorInteractEvent ev);
+        void OnScp079ElevatorUse(Scp079ElevatorUseEvent ev);
     }
 
-    public interface IEventHandlerScp079TeslaGate : IEventHandler
+    public interface IEventHandlerScp079TriggerTeslaGate : IEventHandler
     {
-        void OnScp079TeslaGate(Scp079TeslaGateInteractEvent ev);
+        void OnScp079TriggerTeslaGate(Scp079TriggerTeslaGateEvent ev);
     }
 
     public interface IEventHandlerScp079AddExp : IEventHandler

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using SMod3.Core;
 using SMod3.Core.Misc;
-using SMod3.Module.EventHandlers;
+using SMod3.Module.EventSystem.Handlers;
 using SMod3.Module.EventSystem.Meta.Wrappers;
 
 namespace SMod3.Module.EventSystem

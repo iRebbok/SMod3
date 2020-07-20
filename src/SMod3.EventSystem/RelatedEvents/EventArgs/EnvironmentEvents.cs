@@ -52,7 +52,7 @@ namespace SMod3.Module.EventSystem.Events
 
     #region Warhead events
 
-    public sealed class WarheadStartEvent : WarheadEvent
+    public sealed class WarheadStartCountdownEvent : WarheadEvent
     {
         /// <summary>
         ///     false if initial countdown.
@@ -70,7 +70,7 @@ namespace SMod3.Module.EventSystem.Events
 
         internal override void CopyTo(EventArg other)
         {
-            var target = EventHelper.ConvertTo<WarheadStartEvent>(other);
+            var target = EventHelper.ConvertTo<WarheadStartCountdownEvent>(other);
             target.Player = Player;
             target.Allow = Allow;
             target.IsResumed = IsResumed;
@@ -78,7 +78,7 @@ namespace SMod3.Module.EventSystem.Events
         }
     }
 
-    public sealed class WarheadStopEvent : WarheadEvent
+    public sealed class WarheadStopCountdownEvent : WarheadEvent
     {
         internal override void Reset()
         {
@@ -88,7 +88,7 @@ namespace SMod3.Module.EventSystem.Events
 
         internal override void CopyTo(EventArg other)
         {
-            var target = EventHelper.ConvertTo<WarheadStopEvent>(other);
+            var target = EventHelper.ConvertTo<WarheadStopCountdownEvent>(other);
             target.Player = Player;
             target.Allow = Allow;
         }
@@ -104,7 +104,7 @@ namespace SMod3.Module.EventSystem.Events
 
         internal override void CopyTo(EventArg other)
         {
-            var target = EventHelper.ConvertTo<WarheadStopEvent>(other);
+            var target = EventHelper.ConvertTo<WarheadStopCountdownEvent>(other);
             target.Player = Player;
             target.Allow = Allow;
         }
@@ -120,7 +120,7 @@ namespace SMod3.Module.EventSystem.Events
 
         internal override void CopyTo(EventArg other)
         {
-            var target = EventHelper.ConvertTo<WarheadStopEvent>(other);
+            var target = EventHelper.ConvertTo<WarheadStopCountdownEvent>(other);
             target.Player = Player;
             target.Allow = Allow;
         }
