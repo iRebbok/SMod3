@@ -8,6 +8,7 @@ using System.Reflection;
 using SMod3.API;
 using SMod3.Core.Fundamental;
 using SMod3.Core.Misc;
+using SMod3.Core.PluginZone.Meta;
 
 namespace SMod3.Core
 {
@@ -117,7 +118,6 @@ namespace SMod3.Core
 
         #region Plugin related events
 
-        public delegate void OnPluginChangingStatus(Plugin target, PluginStatus nextStatus);
         /// <summary>
         ///     Called when the plugin status changes.
         /// </summary>
@@ -125,44 +125,39 @@ namespace SMod3.Core
         ///     Called before the status is applied,
         ///     therefore, the previous status can be obtained.
         /// </remarks>
-        public event OnPluginChangingStatus? PluginChangingStatus;
+        public event CustomDelegate<PluginChangeStatusEvent>? PluginChangingStatus;
 
-        public delegate void OnPluginEnabling(Plugin target, ref bool allow);
+        /// <summary>
+        ///     Called when loading the plugin, allowing to prevent loading.
+        /// </summary>
+        public event CustomDelegate<PluginLoadingEvent>? PluginLoading;
+
         /// <summary>
         ///     Called when the plugin starts,
         ///     allowing it to be allowed or denied to continue.
         /// </summary>
-        public event OnPluginEnabling? PluginEnabling;
+        public event CustomDelegate<PluginEnablingEvent>? PluginEnabling;
 
-        public delegate void OnPluginEnabled(Plugin target, bool success);
         /// <summary>
         ///     Called when the plugin is enabled.
         /// </summary>
-        public event OnPluginEnabled? PluginEnabled;
+        public event CustomDelegate<PluginEnabledEvent>? PluginEnabled;
 
-        public delegate void OnPluginLoading(Type target, PluginMetadataAttribute defineAttribute, IEnumerable<ChunkDataAttribute> attributes, IList<IExtraData> extraDatas, ref bool allow);
-        /// <summary>
-        ///     Called when loading the plugin, allowing to prevent loading.
-        /// </summary>
-        public event OnPluginLoading? PluginLoading;
-
-        public delegate void OnPluginDisabling(Plugin target, ref bool allow);
         /// <summary>
         ///     Called when the plugin is disabled,
         ///     allowing it to be allowed or denied to continue.
         /// </summary>
-        public event OnPluginDisabling? PluginDisabling;
+        public event CustomDelegate<PluginDisablingEvent>? PluginDisabling;
 
-        public delegate void OnPluginDisabled(Plugin target, bool success);
         /// <summary>
         ///     Called when the plugin is disabled.
         /// </summary>
-        public event OnPluginDisabled? PluginDisabled;
+        public event CustomDelegate<PluginDisabledEvent>? PluginDisabled;
 
         /// <summary>
         ///     Called when the plugin is disposed.
         /// </summary>
-        public event Action<Plugin>? PluginDisposed;
+        public event CustomDelegate<Plugin>? PluginDisposed;
 
         #endregion
 
@@ -290,7 +285,7 @@ namespace SMod3.Core
         {
             CheckPluginDisposed(plugin);
 
-            EventMisc.InvokeSafely(PluginChangingStatus, plugin, status);
+            EventMisc.InvokeSafely(PluginChangingStatus, new PluginChangeStatusEvent(plugin, status));
             PluginStatus oldStatus = GetPluginStatus(plugin);
             plugin.Status = status;
             return oldStatus;
@@ -322,12 +317,9 @@ namespace SMod3.Core
             if (GetPluginStatus(plugin) == PluginStatus.ENABLED)
                 throw new InvalidOperationException("Plugin already enabled");
 
-            // This is the ref variable
-#pragma warning disable RCS1118 // Mark local variable as const.
-            var allow = true;
-#pragma warning restore RCS1118 // Mark local variable as const.
-            EventMisc.InvokeSafely(PluginEnabling, plugin, allow);
-            if (!allow)
+            var ev = new PluginEnablingEvent(plugin);
+            EventMisc.InvokeSafely(PluginEnabling, ev);
+            if (!ev.Allow)
             {
                 Info($"Enabling {plugin} plugin was aborted externally");
                 return false;
@@ -357,7 +349,7 @@ namespace SMod3.Core
                 result = false;
             }
 
-            EventMisc.InvokeSafely(PluginEnabled, plugin, result);
+            EventMisc.InvokeSafely(PluginEnabled, new PluginEnabledEvent(plugin, result));
             return result;
         }
 
@@ -407,12 +399,9 @@ namespace SMod3.Core
             if (GetPluginStatus(plugin) == PluginStatus.DISABLED)
                 throw new InvalidOperationException("Plugin already disabled");
 
-            // This is the ref variable
-#pragma warning disable RCS1118 // Mark local variable as const.
-            var allow = true;
-#pragma warning restore RCS1118 // Mark local variable as const.
-            EventMisc.InvokeSafely(PluginDisabled, plugin, allow);
-            if (!allow)
+            var ev = new PluginDisablingEvent(plugin);
+            EventMisc.InvokeSafely(PluginDisabling, ev);
+            if (!ev.Allow)
             {
                 Info($"Disabling {plugin} plugin was aborted externally");
                 return false;
@@ -442,7 +431,7 @@ namespace SMod3.Core
                 result = false;
             }
 
-            EventMisc.InvokeSafely(PluginDisabled, plugin, result);
+            EventMisc.InvokeSafely(PluginDisabled, new PluginDisabledEvent(plugin, result));
             return result;
         }
 

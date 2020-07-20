@@ -11,6 +11,11 @@ namespace SMod3.Core
     /// </summary>
     public sealed class PluginMetadata : BaseMetadata
     {
+        /// <remarks>
+        ///     Allows dynamic loading of data during configuration during awakening.
+        /// </remarks>
+        internal readonly IList<IExtraData> _extraDatas;
+
         /// <summary>
         ///     The main identifier of the plugin.
         /// </summary>
@@ -38,6 +43,7 @@ namespace SMod3.Core
 
         internal PluginMetadata(PluginMetadataAttribute attribute, Assembly assembly, IList<IExtraData> extraDatas) : base(assembly)
         {
+            _extraDatas = extraDatas;
             Id = attribute.Id;
             Name = attribute.Name;
             Authors = attribute.Authors;

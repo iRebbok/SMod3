@@ -51,9 +51,7 @@ namespace SMod3.Module.EventSystem.Background
             _pool[_next] = null;
             _next--;
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-            pooledEventArg.Arg.Reset();
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            pooledEventArg.Arg!.Reset();
 
             return pooledEventArg;
         }

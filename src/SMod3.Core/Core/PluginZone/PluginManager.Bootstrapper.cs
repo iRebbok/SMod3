@@ -6,6 +6,7 @@ using System.Reflection;
 
 using SMod3.Core.Fundamental;
 using SMod3.Core.Misc;
+using SMod3.Core.PluginZone.Meta;
 
 namespace SMod3.Core
 {
@@ -249,15 +250,11 @@ namespace SMod3.Core
                         continue;
                     }
 
-                    var chuckedDatas = type.GetCustomAttributes<ChunkDataAttribute>();
-                    var extraDatas = new List<IExtraData>();
-#pragma warning disable RCS1118 // Mark local variable as const.
-                    var allow = true;
-#pragma warning restore RCS1118 // Mark local variable as const.
-                    EventMisc.InvokeSafely(PluginLoading, type, metadataAttribute, chuckedDatas, extraDatas, allow);
-                    if (!allow)
+                    var ev = new PluginLoadingEvent(type, metadataAttribute);
+                    EventMisc.InvokeSafely(PluginLoading, ev);
+                    if (!ev.Allow)
                     {
-                        Info("Plugin initialization was interrupted from the outside.");
+                        Info("Plugin loading was aborted externally");
                         continue;
                     }
 
@@ -280,7 +277,7 @@ namespace SMod3.Core
                         continue;
                     }
 
-                    plugin.Metadata = new PluginMetadata(metadataAttribute, assembly, extraDatas);
+                    plugin.Metadata = new PluginMetadata(metadataAttribute, assembly, ev.ExtraDatas);
                     Verbose($"The plugin is remembered as: {plugin}");
 
                     Verbose("Calling Awake");
