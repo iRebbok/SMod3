@@ -1,7 +1,7 @@
 using SMod3.Module.EventSystem.Background;
 using SMod3.Module.EventSystem.Events;
 
-namespace SMod3.Module.EventHandlers
+namespace SMod3.Module.EventSystem.Handlers
 {
     #region Player behavior
 
@@ -60,7 +60,7 @@ namespace SMod3.Module.EventHandlers
 
     /// <summary>
     ///     Called when a player enters FemurBreaker.
-    /// <summary>
+    /// </summary>
     public interface IEventHandlerPlayerLure : IEventHandler
     {
         void OnPlayerLure(PlayerLureEvent ev);

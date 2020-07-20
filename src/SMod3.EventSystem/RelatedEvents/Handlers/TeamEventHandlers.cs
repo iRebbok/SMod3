@@ -1,7 +1,7 @@
 using SMod3.Module.EventSystem.Background;
 using SMod3.Module.EventSystem.Events;
 
-namespace SMod3.Module.EventHandlers
+namespace SMod3.Module.EventSystem.Handlers
 {
     public interface IEventHandlerDecideTeamRespawnQueue : IEventHandler
     {

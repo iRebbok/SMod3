@@ -1,7 +1,7 @@
 using SMod3.Module.EventSystem.Background;
 using SMod3.Module.EventSystem.Events;
 
-namespace SMod3.Module.EventSystem.EventHandlers
+namespace SMod3.Module.EventSystem.Handlers
 {
     /// <summary>
     ///     Called when handling Remote Admin commands.
