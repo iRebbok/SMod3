@@ -243,7 +243,7 @@ namespace SMod3.Core
                         continue;
                     }
 
-                    var pluginCCtor = type.GetConstructor(Type.EmptyTypes);
+                    var pluginCCtor = type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Public, null, Type.EmptyTypes, null);
                     if (pluginCCtor is null)
                     {
                         Verbose("Constructor with empty arguments was not found, skipping...");
