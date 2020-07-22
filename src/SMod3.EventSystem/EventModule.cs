@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using SMod3.Core;
 using SMod3.Core.Misc;
+using SMod3.Module.EventSystem.Background;
 using SMod3.Module.EventSystem.Handlers;
 using SMod3.Module.EventSystem.Meta.Wrappers;
 
@@ -45,6 +46,13 @@ namespace SMod3.Module.EventSystem
         /// </summary>
         public Type? HandlingHandler { get; private set; }
 
+        /// <summary>
+        ///     Handling event args.
+        ///     Can be null if the event being handled doesn't need any arguments.
+        ///     Available only with <see cref="HandlingStatus.Handling"/> status.
+        /// </summary>
+        public EventArg? HandlingArg { get; private set; }
+
         private static readonly DuplicateKeyOrderByDescendingComparator<BaseEventWrapper<Delegate>> _priorityComparator = new DuplicateKeyOrderByDescendingComparator<BaseEventWrapper<Delegate>>();
         // Key means event handler type, don't confuse with event args 
         private readonly Dictionary<Type, SortedSet<BaseEventWrapper<Delegate>>> _eventMeta = new Dictionary<Type, SortedSet<BaseEventWrapper<Delegate>>>();
@@ -82,7 +90,7 @@ namespace SMod3.Module.EventSystem
         // Such a solution is justified by creating a new Predicate every method call,
         // with Update/FixedUpdate/LateUpdate it'll create a lot of extra garbage,
         // so we just cache it
-        readonly Predicate<Type> _blockedForGenericPredicate;
+        private readonly Predicate<Type> _blockedForGenericPredicate;
         /// <summary>
         ///     Indicates whether a type is forbidden for a generic type.
         /// </summary>

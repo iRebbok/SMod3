@@ -43,6 +43,17 @@ namespace SMod3.Module.EventSystem.Handlers
         void OnSetServerName(SetServerNameEvent ev);
     }
 
+    /// <summary>
+    ///     Called on any game event except
+    ///     <see cref="IEventHandlerUpdate"/>,
+    ///     <see cref="IEventHandlerFixedUpdate"/>
+    ///     and <see cref="IEventHandlerLateUpdate"/>.
+    /// </summary>
+    public interface IEventHandlerGenericEvent : IEventHandler
+    {
+        void OnGenericEvent(EventArg? ev);
+    }
+
     public interface IEventHandlerUpdate : IEventHandler
     {
         void OnUpdate();
