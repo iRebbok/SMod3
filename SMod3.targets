@@ -30,6 +30,11 @@
     <SMOD_REFS Condition="$(SMOD_REFS) == ''">..\..\smodrefs</SMOD_REFS>
   </PropertyGroup>
 
+  <ItemGroup>
+    <InternalTo Include="SMBootstrapper.Core" />
+    <InternalTo Include="SMBootstrapper.Harmony" />
+  </ItemGroup>
+  
   <Target Name="IncludeCultureAttribute"
           AfterTargets="GetAssemblyAttributes">
     <ItemGroup>
@@ -45,7 +50,11 @@
         <_Parameter2>$(RepositoryUrl)</_Parameter2>
       </AssemblyAttribute>
 
+      <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+        <_Parameter1>%(InternalTo.Identity)</_Parameter1>
+      </AssemblyAttribute>
+      
     </ItemGroup>
   </Target>
-
+  
 </Project>
