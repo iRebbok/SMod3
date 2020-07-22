@@ -12,6 +12,22 @@ using Random = UnityEngine.Random;
 
 namespace SMod3.Core.Misc
 {
+    public sealed class BypassData
+    {
+        public string? Path { get; internal set; }
+
+        public string SourceName { get; }
+
+        public string Name { get; }
+
+        public BypassData(string? path, string sourceName, string name)
+        {
+            Path = path;
+            SourceName = sourceName;
+            Name = name;
+        }
+    }
+
     /// <summary>
     ///     Bypasses the limitations of Global Assembly Cache when reloading libraries.
     /// </summary>
@@ -34,20 +50,26 @@ namespace SMod3.Core.Misc
         /// <summary>
         ///     Dictionary of assemblies with their location.
         /// </summary>
-        public IReadOnlyDictionary<Assembly, string> Assemblies { get; }
+        public IReadOnlyDictionary<Assembly, BypassData> Assemblies { get; }
 
         #endregion
 
-        private readonly IDictionary<Assembly, string> _assemblies;
+        private readonly IDictionary<Assembly, BypassData> _assemblies;
         private readonly StringCollection _pathes;
 
         public GacBypass()
         {
-            Prefix = $"---{GeneratePrefix()}";
+            Prefix = GeneratePrefix();
 
-            _assemblies = new Dictionary<Assembly, string>();
-            Assemblies = new ReadOnlyDictionary<Assembly, string>(_assemblies);
+            _assemblies = new Dictionary<Assembly, BypassData>();
+            Assemblies = new ReadOnlyDictionary<Assembly, BypassData>(_assemblies);
             _pathes = new StringCollection();
+            AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
+        }
+
+        ~GacBypass()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve -= OnResolveAssembly;
         }
 
         /// <summary>
@@ -94,7 +116,7 @@ namespace SMod3.Core.Misc
             using var fileStream = fileInfo.OpenRead();
             var assembly = Load(fileStream, forceBypass || _pathes.Contains(fileInfo.FullName));
             _pathes.Add(fileInfo.FullName);
-            _assemblies[assembly] = fileInfo.FullName;
+            _assemblies[assembly].Path = fileInfo.FullName;
             return assembly;
         }
 
@@ -118,10 +140,14 @@ namespace SMod3.Core.Misc
                 throw new IOException("Stream impossible to read");
 
             using var memoryStream = new MemoryStream();
+            string sourceName = string.Empty;
+            string name = string.Empty;
             if (bypass)
             {
                 using var module = ModuleDefinition.ReadModule(stream);
+                sourceName = module.Name;
                 module.Name += $"{Prefix}{Counter++}";
+                name = module.Name;
                 module.Write(memoryStream);
             }
             else
@@ -130,7 +156,13 @@ namespace SMod3.Core.Misc
             }
 
             var assembly = Assembly.Load(memoryStream.ToArray());
-            _assemblies.Add(assembly, string.Empty);
+            if (!bypass)
+            {
+                sourceName = assembly.GetName().Name;
+                name = sourceName;
+            }
+
+            _assemblies.Add(assembly, new BypassData(null, sourceName, name));
             return assembly;
         }
 
@@ -147,6 +179,20 @@ namespace SMod3.Core.Misc
                 throw new ArgumentNullException(nameof(assembly));
 
             return _assemblies.Remove(assembly);
+        }
+
+        public Assembly? OnResolveAssembly(object s, ResolveEventArgs args)
+        {
+            foreach (var pair in _assemblies)
+            {
+                if (string.Equals(args.Name, pair.Value.Name, StringComparison.Ordinal) ||
+                    string.Equals(args.Name, pair.Value.SourceName, StringComparison.Ordinal))
+                {
+                    return pair.Key;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -166,7 +212,7 @@ namespace SMod3.Core.Misc
                     stringBuilder.Append(symbol);
             }
 
-            return stringBuilder.ToString();
+            return $"---{stringBuilder}";
         }
     }
 }
