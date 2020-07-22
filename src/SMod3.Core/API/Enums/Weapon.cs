@@ -2,10 +2,22 @@ namespace SMod3.API
 {
     public enum AmmoType : sbyte
     {
-        NONE = -1,     // Has no base in-game.
-        DROPPED_5 = 0, // Epsilon-11 Standard Rifle (Type 0)
-        DROPPED_7 = 1, // MP7, Logicer (Type 1)
-        DROPPED_9 = 2  // COM15, P90 (Type 2)
+        /// <summary>
+        ///     Has no base in-game.
+        /// </summary>
+        NONE = -1,
+        /// <summary>
+        ///     Epsilon-11 Standard Rifle (Type 0).
+        /// </summary>
+        AMMO556 = 0,
+        /// <summary>
+        ///     MP7, Logicer (Type 1).
+        /// </summary>
+        AMMO762 = 1,
+        /// <summary>
+        ///     COM15, P90 (Type 2).
+        /// </summary>
+        AMMO9MM = 2
     }
 
     public enum AttachmentType : sbyte
