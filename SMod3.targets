@@ -18,7 +18,7 @@
   <PropertyGroup>
     <!-- Custom output path for projects -->
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <OutputPath>..\..\bin\$(Configuration)\$(AssemblyName)\</OutputPath>
+    <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
 
     <!-- Disable dependency file generation -->
     <GenerateDependencyFile>false</GenerateDependencyFile>
@@ -29,7 +29,6 @@
       -->
     <SMOD_REFS Condition="$(SMOD_REFS) == ''">..\..\smodrefs</SMOD_REFS>
   </PropertyGroup>
-
 
   <Target Name="IncludeCultureAttribute"
           AfterTargets="GetAssemblyAttributes">
