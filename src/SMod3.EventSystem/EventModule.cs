@@ -24,7 +24,7 @@ namespace SMod3.Module.EventSystem
         Handling
     }
 
-    public sealed class EventModule : Core.Module
+    public sealed partial class EventModule : Core.Module
     {
         #region Fields & Properties
 
@@ -53,9 +53,9 @@ namespace SMod3.Module.EventSystem
         /// </summary>
         public EventArg? HandlingArg { get; private set; }
 
-        private static readonly DuplicateKeyOrderByDescendingComparator<BaseEventWrapper<Delegate>> _priorityComparator = new DuplicateKeyOrderByDescendingComparator<BaseEventWrapper<Delegate>>();
+        private static readonly DuplicateKeyOrderByDescendingComparator<BaseEventWrapper> _priorityComparator = new DuplicateKeyOrderByDescendingComparator<BaseEventWrapper>();
         // Key means event handler type, don't confuse with event args 
-        private readonly Dictionary<Type, SortedSet<BaseEventWrapper<Delegate>>> _eventMeta = new Dictionary<Type, SortedSet<BaseEventWrapper<Delegate>>>();
+        private readonly Dictionary<Type, SortedSet<BaseEventWrapper>> _eventMeta = new Dictionary<Type, SortedSet<BaseEventWrapper>>();
 
         // Blocked events for a generic event
         private readonly Type[] _blockedEventsForGenericEvent;

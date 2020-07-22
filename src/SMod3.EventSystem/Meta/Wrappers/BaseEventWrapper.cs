@@ -6,32 +6,41 @@ using SMod3.Core.Fundamental;
 
 namespace SMod3.Module.EventSystem.Meta.Wrappers
 {
+    public abstract class BaseEventWrapper : BaseWrapper, IComparable<BaseEventWrapper>
+    {
+        public Priority Priority { get; set; }
+
+        protected BaseEventWrapper(Priority priority, Plugin partOwner) : base(partOwner)
+        {
+            Priority = priority;
+        }
+
+        protected BaseEventWrapper(Priority priority, Assembly owner) : base(owner)
+        {
+            Priority = priority;
+        }
+
+        public int CompareTo(BaseEventWrapper other)
+        {
+            return Priority.CompareTo(other.Priority);
+        }
+    }
+
     /// <summary>
     ///     Wrapping abstraction for types of subscribers.
     /// </summary>
-    public abstract class BaseEventWrapper<T> : BaseWrapper, IComparable<BaseEventWrapper<T>> where T : Delegate
+    public abstract class BaseEventWrapper<T> : BaseEventWrapper where T : Delegate
     {
-        public Priority Priority { get; set; }
         public T Delegate { get; }
-        public Type HandlerType { get; }
 
-        protected BaseEventWrapper(Plugin partOwner, Priority priority, T @delegate, Type handlerType) : base(partOwner)
+        protected BaseEventWrapper(Plugin partOwner, Priority priority, T @delegate) : base(priority, partOwner)
         {
-            Priority = priority;
-            HandlerType = handlerType ?? throw new ArgumentNullException(nameof(handlerType));
             Delegate = @delegate ?? throw new ArgumentNullException(nameof(@delegate));
         }
 
-        protected BaseEventWrapper(Assembly owner, Priority priority, T @delegate, Type handlerType) : base(owner)
+        protected BaseEventWrapper(Assembly owner, Priority priority, T @delegate) : base(priority, owner)
         {
-            Priority = priority;
-            HandlerType = handlerType ?? throw new ArgumentNullException(nameof(handlerType));
             Delegate = @delegate ?? throw new ArgumentNullException(nameof(@delegate));
-        }
-
-        public int CompareTo(BaseEventWrapper<T> other)
-        {
-            return Priority.CompareTo(other.Priority);
         }
     }
 }
