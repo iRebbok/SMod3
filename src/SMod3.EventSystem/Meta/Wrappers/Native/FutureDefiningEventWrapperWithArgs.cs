@@ -1,4 +1,3 @@
-using System;
 using System.Reflection;
 
 using SMod3.Core;
@@ -16,11 +15,11 @@ namespace SMod3.Module.EventSystem.Meta.Wrappers.Native
     /// </typeparam>
     public sealed class FutureDefiningEventWrapperWithArgs<T> : BaseEventWrapper<FutureDefiningDelegateWithArgs<T>> where T : EventArg
     {
-        public FutureDefiningEventWrapperWithArgs(Plugin partOwner, Priority priority, FutureDefiningDelegateWithArgs<T> @delegate, Type handlerType)
-            : base(partOwner, priority, @delegate, handlerType)
+        public FutureDefiningEventWrapperWithArgs(Plugin partOwner, Priority priority, FutureDefiningDelegateWithArgs<T> @delegate)
+            : base(partOwner, priority, @delegate)
         { }
-        public FutureDefiningEventWrapperWithArgs(Assembly owner, Priority priority, FutureDefiningDelegateWithArgs<T> @delegate, Type handlerType)
-            : base(owner, priority, @delegate, handlerType)
+        public FutureDefiningEventWrapperWithArgs(Assembly owner, Priority priority, FutureDefiningDelegateWithArgs<T> @delegate)
+            : base(owner, priority, @delegate)
         { }
     }
 }

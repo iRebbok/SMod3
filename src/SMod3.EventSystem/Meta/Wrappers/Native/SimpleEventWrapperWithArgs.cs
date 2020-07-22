@@ -1,4 +1,3 @@
-using System;
 using System.Reflection;
 
 using SMod3.Core;
@@ -16,11 +15,11 @@ namespace SMod3.Module.EventSystem.Meta.Wrappers.Native
     /// </typeparam>
     public sealed class SimpleEventWrapperWithArgs<T> : BaseEventWrapper<SimpleDelegateWithArgs<T>> where T : EventArg
     {
-        public SimpleEventWrapperWithArgs(Plugin partOwner, Priority priority, SimpleDelegateWithArgs<T> @delegate, Type handlerType)
-: base(partOwner, priority, @delegate, handlerType)
+        public SimpleEventWrapperWithArgs(Plugin partOwner, Priority priority, SimpleDelegateWithArgs<T> @delegate)
+: base(partOwner, priority, @delegate)
         { }
-        public SimpleEventWrapperWithArgs(Assembly owner, Priority priority, SimpleDelegateWithArgs<T> @delegate, Type handlerType)
-            : base(owner, priority, @delegate, handlerType)
+        public SimpleEventWrapperWithArgs(Assembly owner, Priority priority, SimpleDelegateWithArgs<T> @delegate)
+            : base(owner, priority, @delegate)
         { }
     }
 }

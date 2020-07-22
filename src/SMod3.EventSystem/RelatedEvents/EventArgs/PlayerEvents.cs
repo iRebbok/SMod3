@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 
 using SMod3.API;
-using SMod3.Module.EventHandlers;
 using SMod3.Module.EventSystem.Background;
 
 using UnityEngine;
@@ -861,7 +860,10 @@ namespace SMod3.Module.EventSystem.Events
 
         internal override void CopyTo(EventArg other)
         {
-            throw new System.NotImplementedException();
+            var target = EventHelper.ConvertTo<PlayerMakeNoiseEvent>(other);
+            target.Player = Player;
+            target.Allow = Allow;
+            target.NoiseRadius = NoiseRadius;
         }
     }
 

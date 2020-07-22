@@ -1,4 +1,3 @@
-using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -13,11 +12,11 @@ namespace SMod3.Module.EventSystem.Meta.Wrappers.Native
     /// </summary>
     public sealed class AsyncEventWrapper : BaseEventWrapper<AsyncDelegate>
     {
-        public AsyncEventWrapper(Plugin partOwner, Priority priority, AsyncDelegate @delegate, Type handlerType)
-: base(partOwner, priority, @delegate, handlerType)
+        public AsyncEventWrapper(Plugin partOwner, Priority priority, AsyncDelegate @delegate)
+: base(partOwner, priority, @delegate)
         { }
-        public AsyncEventWrapper(Assembly owner, Priority priority, AsyncDelegate @delegate, Type handlerType)
-            : base(owner, priority, @delegate, handlerType)
+        public AsyncEventWrapper(Assembly owner, Priority priority, AsyncDelegate @delegate)
+            : base(owner, priority, @delegate)
         { }
     }
 }
