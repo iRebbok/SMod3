@@ -103,7 +103,7 @@ namespace SMod3.Core.Logging
         /// </summary>
         public static void SendLog(LogMessage logMessage)
         {
-            _eventBuffer!.Enqueue(logMessage);
+            _eventBuffer.Enqueue(logMessage);
         }
     }
 }

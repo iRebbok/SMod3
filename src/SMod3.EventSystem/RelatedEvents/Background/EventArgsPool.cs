@@ -51,7 +51,7 @@ namespace SMod3.Module.EventSystem.Background
             _pool[_next] = null;
             _next--;
 
-            pooledEventArg.Arg!.Reset();
+            pooledEventArg!.Arg.Reset();
 
             return pooledEventArg;
         }

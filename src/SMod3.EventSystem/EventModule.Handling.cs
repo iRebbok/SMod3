@@ -13,7 +13,9 @@ namespace SMod3.Module.EventSystem
     ///     Wrappers to handle the event.
     /// </summary>
     [Flags]
+#pragma warning disable RCS1135 // Declare enum member with zero value (when enum has FlagsAttribute).
     internal enum HandleWrappersFilter
+#pragma warning restore RCS1135 // Declare enum member with zero value (when enum has FlagsAttribute).
     {
         #region Wrappers
 
@@ -117,7 +119,12 @@ namespace SMod3.Module.EventSystem
                 return;
 
             foreach (var eventWrapper in eventList)
-                InternalHandleWrapperSafe<TEvent, TArg>(eventWrapper, arg, filter);
+            {
+                if (!InternalHandleWrapperSafe<TEvent, TArg>(eventWrapper, arg, filter))
+                {
+                    break;
+                }
+            }
         }
 
         private void InternalHandleEvent<TEvent>(HandleWrappersFilter filter = HandleWrappersFilter.ALL_INCLUDE_ASYNC)
@@ -133,9 +140,18 @@ namespace SMod3.Module.EventSystem
                 return;
 
             foreach (var eventWrapper in eventList)
-                InternalHandleWrapperSafe<TEvent>(eventWrapper, filter);
+            {
+                if (!InternalHandleWrapperSafe<TEvent>(eventWrapper, filter))
+                {
+                    break;
+                }
+            }
         }
 
+        /// <returns>
+        ///     true if handling is allowed to continue, otherwise false.
+        ///     (<see cref="FutureDefiningDelegate"/> and <see cref="FutureDefiningDelegateWithArgs{T}"/>).
+        /// </returns>
         private bool InternalHandleWrapperSafe<TEvent, TArg>(BaseEventWrapper wrapper, TArg arg, HandleWrappersFilter filter)
             where TEvent : IEventHandler where TArg : EventArg, new()
         {
@@ -147,6 +163,7 @@ namespace SMod3.Module.EventSystem
             return true;
         }
 
+        /// <returns><inheritdoc cref="InternalHandleEvent{TEvent, TArg}(TArg, HandleWrappersFilter)" /></returns>
         private bool InternalHandleWrapperSafe<TEvent>(BaseEventWrapper wrapper, HandleWrappersFilter filter)
             where TEvent : IEventHandler
         {
@@ -175,11 +192,17 @@ namespace SMod3.Module.EventSystem
                 }).ConfigureAwait(false);
             }
             else if ((HandleWrappersFilter.FUTUREDEFINING_WITH_ARGS & filter) != 0 && wrapper is FutureDefiningEventWrapperWithArgs<TArg> futureDefiningWrapper)
+            {
                 return futureDefiningWrapper.Delegate(arg);
+            }
             else if ((HandleWrappersFilter.SIMPLE_WITH_ARGS & filter) != 0 && wrapper is SimpleEventWrapperWithArgs<TArg> simpleWrapper)
+            {
                 simpleWrapper.Delegate(arg);
+            }
             else
+            {
                 return InternalHandleWrapperUnsafe<TEvent>(wrapper, filter);
+            }
 
             return true;
         }
