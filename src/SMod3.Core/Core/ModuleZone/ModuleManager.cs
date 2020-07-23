@@ -61,7 +61,7 @@ namespace SMod3.Core
                         if (moduleAttrbite.Entry is null)
                         {
                             var metadata = new ModuleMetadata(assembly);
-                            Info($"Standalone module '{metadata.Id}' ({metadata.Version})  successfully recognized");
+                            Info($"Standalone module '{metadata.Id}' ({metadata.Version}) successfully recognized");
                             continue;
                         }
 
@@ -73,7 +73,7 @@ namespace SMod3.Core
                             continue;
                         }
 
-                        var cctor = type.GetConstructor(Type.EmptyTypes);
+                        var cctor = type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.CreateInstance, null, Type.EmptyTypes, null);
                         if (cctor is null)
                         {
                             Warn("The module doesn't have the proper constructor at its entry point");
