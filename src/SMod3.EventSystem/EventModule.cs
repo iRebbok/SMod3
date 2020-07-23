@@ -172,7 +172,7 @@ namespace SMod3.Module.EventSystem
 
         #region Registration management
 
-        private void RegisterHandler(Type handlerType, MethodInfo method, object? instane, Plugin? partOwner, Assembly? owner, RegistrationPreferences preferences, Priority priority = Priority.NORMAL)
+        private void RegisterHandler(Type handlerType, MethodInfo method, object? instance, Plugin? partOwner, Assembly? owner, RegistrationPreferences preferences, Priority priority = Priority.NORMAL)
         {
             if (!TypeExtension.IsMethodCompatibleWithEventHandler(handlerType, method))
                 throw new InvalidOperationException("Method isn't compatible with handler");
@@ -200,15 +200,15 @@ namespace SMod3.Module.EventSystem
             {
                 throw new InvalidOperationException("Registration of static methods isn't allowed by preferences");
             }
-            else if (!method.IsStatic && instane is null)
+            else if (!method.IsStatic && instance is null)
             {
                 if (!preferences.AllowCreateInstance)
                     throw new InvalidOperationException("Instantiation isn't allowed by preferences");
                 else
-                    instane = FindInstanceOrCreate(method.ReflectedType, partOwner, owner);
+                    instance = FindInstanceOrCreate(method.ReflectedType, partOwner, owner);
             }
 
-            var @delegate = Delegate.CreateDelegate(target.Key, instane, method, true);
+            var @delegate = Delegate.CreateDelegate(target.Key, instance, method, true);
             var wrapper = (BaseEventWrapper)Activator.CreateInstance(target.Value, partOwner is null ? (owner!) : (object)partOwner, priority, @delegate);
             if (!_eventMeta.TryGetValue(handlerType, out var set))
             {
