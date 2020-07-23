@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using SMod3.Core;
 using SMod3.Module.EventSystem.Background;
 using SMod3.Module.EventSystem.Handlers;
 using SMod3.Module.EventSystem.Meta.Wrappers;
@@ -178,6 +179,8 @@ namespace SMod3.Module.EventSystem
         private bool InternalHandleWrapperUnsafe<TEvent, TArg>(BaseEventWrapper wrapper, TArg arg, HandleWrappersFilter filter)
             where TEvent : IEventHandler where TArg : EventArg, new()
         {
+            CheckPlugin(wrapper.PartOwner);
+
             if ((HandleWrappersFilter.ASYNC_WITH_ARGS & filter) != 0 && wrapper is AsyncEventWrapperWithArgs<TArg> asyncWrapper)
             {
                 var argsCopy = EventArgsPool<TArg>.Get();
@@ -210,14 +213,38 @@ namespace SMod3.Module.EventSystem
         private bool InternalHandleWrapperUnsafe<TEvent>(BaseEventWrapper wrapper, HandleWrappersFilter filter)
             where TEvent : IEventHandler
         {
+            CheckPlugin(wrapper.PartOwner);
+
             if ((HandleWrappersFilter.ASYNC & filter) != 0 && wrapper is AsyncEventWrapper asyncWrapper)
-                Task.Run(async () => { try { await asyncWrapper.Delegate().ConfigureAwait(false); } catch (Exception ex) { HandleException(wrapper, ex); } }).ConfigureAwait(false);
+            {
+                Task.Run(async () =>
+                {
+                    try
+                    { await asyncWrapper.Delegate().ConfigureAwait(false); }
+                    catch (Exception ex)
+                    { HandleException(wrapper, ex); }
+                }).ConfigureAwait(false);
+            }
             else if ((HandleWrappersFilter.FUTUREDEFINING & filter) != 0 && wrapper is FutureDefiningEventWrapper futureDefiningWrapper)
+            {
                 return futureDefiningWrapper.Delegate();
+            }
             else if ((HandleWrappersFilter.SIMPLE & filter) != 0 && wrapper is SimpleEventWrapper simpleWrapper)
+            {
                 simpleWrapper.Delegate();
+            }
 
             return true;
+        }
+
+        /// <summary>
+        ///     Checks the plugin for event handling,
+        ///     otherwise throws an exception.
+        /// </summary>
+        private void CheckPlugin(Plugin? plugin)
+        {
+            if (!(plugin is null) && plugin.Status != PluginStatus.ENABLED)
+                throw new InvalidOperationException("Plugin isn't enabled");
         }
 
         #endregion
