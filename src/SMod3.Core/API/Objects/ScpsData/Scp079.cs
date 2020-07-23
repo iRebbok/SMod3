@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace SMod3.API
@@ -15,10 +17,12 @@ namespace SMod3.API
         public abstract float LockedDoorAPPerSecond { get; set; }
         public abstract float Yaw { get; }
         public abstract float Pitch { get; }
-        public abstract Room Speaker { get; set; }
-        public abstract Vector3 Camera { get; } //todo: implement api object
+        /// <summary>
+        ///     The current camera the player is on.
+        /// </summary>
+        public abstract Scp079Camera Camera { get; }
 
-        public abstract Door[] GetLockedDoors();
+        public abstract IEnumerable<Door> GetLockedDoors();
         public abstract void Lock(Door door);
         public abstract void Unlock(Door door);
         public abstract void TriggerTesla(TeslaGate tesla);
@@ -26,5 +30,18 @@ namespace SMod3.API
         public abstract void SetCamera(Vector3 position, bool lookAt = false);
         public abstract void ShowGainExp(ExperienceType expType);
         public abstract void ShowLevelUp(int level);
+    }
+
+    public abstract class Scp079Camera : IGenericApiObject
+    {
+        public abstract string Name { get; }
+        public abstract ushort Id { get; }
+        public abstract bool IsMain { get; }
+        /// <summary>
+        ///     The room where the camera is.
+        /// </summary>
+        public abstract Room Room { get; }
+
+        public abstract GameObject GetGameObject();
     }
 }

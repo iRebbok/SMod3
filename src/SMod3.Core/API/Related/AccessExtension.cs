@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SMod3.API
 {
-    public static partial class Extension
+    public static class AccessExtension
     {
         /// <summary>
         ///     Backward compatible string permissions for the item.
@@ -32,13 +32,15 @@ namespace SMod3.API
         public static IEnumerable<string> AccessRequirementsToString(AccessRequirements access)
         {
             foreach (AccessRequirements value in Enum.GetValues(typeof(AccessRequirements)))
-                if (access.HasFlag(value))
+            {
+                if ((access & value) != 0)
                 {
                     // There is no such permission as Unaccessible, so we filter it
                     var stringPerm = BackwardsCompatibleItemPermissions.FirstOrDefault(a => a.Value == value).Key;
                     if (!string.IsNullOrEmpty(stringPerm))
                         yield return stringPerm;
                 }
+            }
         }
 
         /// <summary>

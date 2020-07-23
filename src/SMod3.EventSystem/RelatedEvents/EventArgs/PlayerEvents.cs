@@ -492,7 +492,7 @@ namespace SMod3.Module.EventSystem.Events
         public int AmountHealth { get; set; }
         public int AmountArtificial { get; set; }
         public int AmountRegen { get; internal set; }
-        public ItemType MedicalItem { get; internal set; } //todo: change to MedicalType
+        public MedicalItemType MedicalItem { get; internal set; }
 
         internal override void Reset()
         {
@@ -500,7 +500,7 @@ namespace SMod3.Module.EventSystem.Events
             AmountHealth = default;
             AmountArtificial = default;
             AmountRegen = default;
-            MedicalItem = ItemType.NONE;
+            MedicalItem = default;
         }
 
         internal override void CopyTo(EventArg other)

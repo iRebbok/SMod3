@@ -377,9 +377,9 @@ namespace SMod3.API
         public abstract Transform Transform { get; }
 
         // <summary>
-        //     Speaker position if exists.
+        //     Scp079 camera if exists.
         // </summary>
-        //public abstract Vector3? SpeakerPosition { get; } //todo: 079 Camera API
+        public abstract Scp079Camera? Camera { get; }
 
         /// <summary>
         ///     Turns off the light for duration.

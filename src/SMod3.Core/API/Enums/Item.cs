@@ -72,6 +72,16 @@ namespace SMod3.API
         COIN = 35
     }
 
+    public enum MedicalItemType
+    {
+        MEDKIT = 0,
+        SCP500 = 1,
+        SCP207 = 2,
+        SCP268 = 3,
+        PAINKILLERS = 4,
+        ADRENALINE = 5
+    }
+
     /// <summary>
     ///     Item location.
     /// </summary>

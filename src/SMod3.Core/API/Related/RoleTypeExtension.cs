@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace SMod3.API
 {
-    public static partial class Extension
+    public static class RoleTypeExcention
     {
         /// <summary>
         ///     Playable role types.
         /// </summary>
-        public static IReadOnlyList<RoleType> RolePlayables { get; } = Array.AsReadOnly<RoleType>(new RoleType[17]
+        public static IReadOnlyList<RoleType> RolePlayables { get; } = Array.AsReadOnly(new RoleType[17]
         {
             RoleType.SCP_049,
             RoleType.SCP_049_2,
@@ -32,7 +32,7 @@ namespace SMod3.API
         /// <summary>
         ///     SCP roles.
         /// </summary>
-        public static IReadOnlyList<RoleType> RoleSCPs { get; } = Array.AsReadOnly<RoleType>(new RoleType[8]
+        public static IReadOnlyList<RoleType> RoleSCPs { get; } = Array.AsReadOnly(new RoleType[8]
         {
             RoleType.SCP_049,
             RoleType.SCP_049_2,
@@ -47,7 +47,7 @@ namespace SMod3.API
         /// <summary>
         ///     SCP roles that are available to block during spawn.
         /// </summary>
-        public static IReadOnlyList<RoleType> RoleBannableSCPs { get; } = Array.AsReadOnly<RoleType>(new RoleType[7]
+        public static IReadOnlyList<RoleType> RoleBannableSCPs { get; } = Array.AsReadOnly(new RoleType[7]
         {
             RoleType.SCP_049,
             RoleType.SCP_079,
@@ -61,7 +61,7 @@ namespace SMod3.API
         /// <summary>
         ///     SCP roles that are available to pickup.
         /// </summary>
-        public static IReadOnlyList<RoleType> RolePickableSCPs { get; } = Array.AsReadOnly<RoleType>(new RoleType[7]
+        public static IReadOnlyList<RoleType> RolePickableSCPs { get; } = Array.AsReadOnly(new RoleType[7]
         {
             RoleType.SCP_049,
             RoleType.SCP_079,

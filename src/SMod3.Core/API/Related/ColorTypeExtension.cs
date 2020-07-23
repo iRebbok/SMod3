@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SMod3.API
 {
-    public static partial class Extension
+    public static class ColorTypeExtension
     {
         /// <summary>
         ///     Available colors in console.

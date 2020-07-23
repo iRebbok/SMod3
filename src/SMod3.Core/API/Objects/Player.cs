@@ -19,7 +19,7 @@ namespace SMod3.API
         /// </summary>
         public abstract bool IsConnected { get; }
         /// <summary>
-        ///     Gets the IP address of a player without a port.
+        ///     Gets the IP address of the player without a port.
         /// </summary>
         public abstract string IpAddress { get; }
         /// <summary>
