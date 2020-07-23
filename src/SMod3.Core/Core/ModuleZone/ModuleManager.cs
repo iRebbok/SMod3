@@ -120,8 +120,12 @@ namespace SMod3.Core
         public T? FindModule<T>() where T : Module
         {
             foreach (var pair in _modules)
+            {
                 if (pair.Value is T mod)
+                {
                     return mod;
+                }
+            }
 
             return null;
         }

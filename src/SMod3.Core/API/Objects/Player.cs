@@ -128,7 +128,7 @@ namespace SMod3.API
         ///     Message is null.
         /// </exception>
         /// <remarks>
-        ///     Not all colors support, look at <see cref="Extension.ColorsConsole"/>.
+        ///     Not all colors support, look at <see cref="ColorTypeExtension.ColorsConsole"/>.
         /// </remarks>
         public abstract void SendGameConsoleMessage(string message, ColorType color = ColorType.GREEN);
         /// <summary>

@@ -87,7 +87,7 @@ namespace SMod3.Core.Misc
             if (string.IsNullOrEmpty(source))
                 throw new ArgumentException("String must not be empty or null", nameof(source));
 
-            void ProcessStep(StringBuilder @string, char interval, char source)
+            static void ProcessStep(StringBuilder @string, char interval, char source)
             {
                 @string.Append(interval);
                 @string.Append(source);
@@ -123,17 +123,14 @@ namespace SMod3.Core.Misc
         /// </summary>
         public static char GetInterval(IntervalType intervalType)
         {
-            switch (intervalType)
+            return intervalType switch
             {
-                case IntervalType.SnakeInterval:
-                    return '_';
-                case IntervalType.DotInterval:
-                    return '.';
-            }
-
-            // It will never happen, yes,
-            // therefore don't document the exception
-            throw new InvalidOperationException("This interval was not found");
+                IntervalType.SnakeInterval => '_',
+                IntervalType.DotInterval => '.',
+                // It will never happen, yes,
+                // therefore don't document the exception
+                _ => throw new InvalidOperationException("This interval was not found"),
+            };
         }
 
         /// <summary>
@@ -141,17 +138,13 @@ namespace SMod3.Core.Misc
         /// </summary>
         public static char ProcessCase(char letter, CaseType caseType)
         {
-            switch (caseType)
+            return caseType switch
             {
-                case CaseType.SourceCase:
-                    return letter;
-                case CaseType.LowerCase:
-                    return char.ToLowerInvariant(letter);
-                case CaseType.UpperCase:
-                    return char.ToUpperInvariant(letter);
-            }
-
-            throw new InvalidOperationException("This case type was not found");
+                CaseType.SourceCase => letter,
+                CaseType.LowerCase => char.ToLowerInvariant(letter),
+                CaseType.UpperCase => char.ToUpperInvariant(letter),
+                _ => throw new InvalidOperationException("This case type was not found"),
+            };
         }
 
         #endregion

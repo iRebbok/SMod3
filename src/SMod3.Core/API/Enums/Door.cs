@@ -4,9 +4,6 @@ namespace SMod3.API
 {
     /// <summary>
     ///     Door Access Requirements.
-    ///     <para>
-    ///         Use <see cref="Enum.HasFlag(Enum)"/> to check for permission at the door.
-    ///     </para>
     /// </summary>
     [Flags]
     public enum AccessRequirements

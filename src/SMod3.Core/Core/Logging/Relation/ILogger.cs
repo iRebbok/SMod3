@@ -7,7 +7,6 @@ namespace SMod3.Core.Logging
         /// </summary>
         abstract string? LoggingTag { get; }
 
-
         /// <summary>
         ///     Logging under the <see cref="LogSensitivity.CRITICAL"/> level.
         /// </summary>
