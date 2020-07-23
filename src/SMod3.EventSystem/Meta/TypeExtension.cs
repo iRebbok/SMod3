@@ -68,6 +68,10 @@ namespace SMod3.Module.EventSystem.Meta
         ///     It doesn't compare arguments if <paramref name="method"/> doesn't have them,
         ///     but is sensitive to the presence of arguments if the handler method doesn't have them.
         /// </summary>
+        /// <param name="eventArgType">
+        ///     The argument that the handler supplies,
+        ///     can be null if the handler doesn't provide an argument.
+        /// </param>
         /// <exception cref="ArgumentException">
         ///     Type isn't a handler (inherited from <see cref="IEventHandler"/>)
         ///     or couldn't find methods.
