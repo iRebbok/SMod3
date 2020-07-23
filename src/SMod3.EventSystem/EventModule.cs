@@ -174,7 +174,7 @@ namespace SMod3.Module.EventSystem
 
         private void RegisterHandler(Type handlerType, MethodInfo method, object? instance, Plugin? partOwner, Assembly? owner, RegistrationPreferences preferences, Priority priority = Priority.NORMAL)
         {
-            if (!TypeExtension.IsMethodCompatibleWithEventHandler(handlerType, method))
+            if (!TypeExtension.IsMethodCompatibleWithEventHandler(handlerType, method, out var eventArgType))
                 throw new InvalidOperationException("Method isn't compatible with handler");
 
             KeyValuePair<Type, Type> target = default;
@@ -190,8 +190,10 @@ namespace SMod3.Module.EventSystem
             // Accordingly, if we're dealing with generic parameters,
             // then we set the generic parameters as method arguments,
             // because they were validated
-            if (target.Key.IsGenericType)
-                target = new KeyValuePair<Type, Type>(target.Key.MakeGenericType(method.GetParameters().Select(p => p.ParameterType).ToArray()), target.Value);
+            if (!(eventArgType is null))
+            {
+                target = new KeyValuePair<Type, Type>(target.Key.MakeGenericType(eventArgType), target.Value.MakeGenericType(eventArgType));
+            }
 
             if (target.Key is null || target.Value is null)
                 throw new InvalidOperationException("Method isn't compatible with one delegate");

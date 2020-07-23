@@ -5,6 +5,8 @@ using System.Reflection;
 
 using SMod3.Module.EventSystem.Background;
 
+using UnityEngine;
+
 namespace SMod3.Module.EventSystem.Meta
 {
     public sealed class CustomParameterEqualityComparer : IEqualityComparer<ParameterInfo>
@@ -73,7 +75,7 @@ namespace SMod3.Module.EventSystem.Meta
         /// <exception cref="ArgumentOutOfRangeException">
         ///     Type provides more than one method.
         /// </exception>
-        public static bool IsMethodCompatibleWithEventHandler(Type handler, MethodInfo method)
+        public static bool IsMethodCompatibleWithEventHandler(Type handler, MethodInfo method, out Type? eventArgType)
         {
             if (!typeof(IEventHandler).IsAssignableFrom(handler))
                 throw new ArgumentException($"This type cannot be assigned to the {nameof(IEventHandler)}, is it not a handler?", nameof(handler));
@@ -86,6 +88,19 @@ namespace SMod3.Module.EventSystem.Meta
 
             var handlerMethod = handlerMethods[0];
             var handlerMethodParameters = handlerMethod.GetParameters();
+
+            var hasOneArg = handlerMethodParameters.Length == 1;
+            if (!hasOneArg && handlerMethodParameters.Length != 0)
+            {
+                throw new ArgumentException("Handler method contains more than one arg - doesn't follow the standard");
+            }
+
+            eventArgType = null;
+            if (hasOneArg)
+            {
+                eventArgType = handlerMethodParameters[0].ParameterType;
+            }
+
             var methodPrameters = method.GetParameters();
 
             // 1: Method has no parameters
