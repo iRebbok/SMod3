@@ -14,8 +14,4 @@
     <Reference Include="$(SMOD_REFS)\UnityEngine.CoreModule.dll" Private="false" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Attributes\" />
-  </ItemGroup>
-
 </Project>
