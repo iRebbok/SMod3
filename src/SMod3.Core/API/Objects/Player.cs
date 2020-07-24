@@ -23,6 +23,10 @@ namespace SMod3.API
         /// </summary>
         public abstract string IpAddress { get; }
         /// <summary>
+        ///     Displayed player nickname in player list and remote admin.
+        /// </summary>
+        public abstract string? DisplayNickname { get; set; }
+        /// <summary>
         ///     Gets the player’s nickname.
         /// </summary>
         public abstract string Nickname { get; }
