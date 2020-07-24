@@ -120,7 +120,7 @@ namespace SMod3.API
         /// <summary>
         ///     Gets the player by condition.
         /// </summary>
-        /// <exception cref="ArgumentNullException"><inheritdoc cref="GetPlayers(Predicate{Player})"/></exception>
+        /// <exception cref="ArgumentNullException"><inheritdoc cref="GetPlayers(Predicate{Player})" /></exception>
         public Player? GetPlayer(Predicate<Player> predicate)
         {
             if (predicate is null)
@@ -136,6 +136,43 @@ namespace SMod3.API
         {
             PlayerIdsAndPlayers.TryGetValue(playerId, out var result);
             return result;
+        }
+
+        /// <summary>
+        ///     Gets the player by <see cref="GameObject"/>.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><inheritdoc cref="Dictionary{TKey, TValue}.TryGetValue(TKey, out TValue)" /></exception>
+        public Player? GetPlayer(GameObject playerObject)
+        {
+            GameObjectsAndPlayers.TryGetValue(playerObject, out var result);
+            return result;
+        }
+
+        /// <summary>
+        ///     Tries to get the plyaer by condition.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><inheritdoc cref="GetPlayers(Predicate{Player})" /></exception>
+        public bool TryGetPlayer(Predicate<Player> predicate, out Player? player)
+        {
+            player = GetPlayer(predicate);
+            return player is null;
+        }
+
+        /// <summary>
+        ///     Tries to get the player by id.
+        /// </summary>
+        public bool TryGetPlayer(int playerId, out Player? player)
+        {
+            return PlayerIdsAndPlayers.TryGetValue(playerId, out player);
+        }
+
+        /// <summary>
+        ///     Tries to get the plyaer by <see cref="GameObject"/>.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><inheritdoc cref="Dictionary{TKey, TValue}.TryGetValue(TKey, out TValue)" /></exception>
+        public bool TryGetPlayer(GameObject playerObject, out Player? player)
+        {
+            return GameObjectsAndPlayers.TryGetValue(playerObject, out player);
         }
 
         // If you are wondering where is 'GetAppFolder' here,
