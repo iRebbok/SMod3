@@ -181,9 +181,9 @@ namespace SMod3.Core
 
             _pluginsPath = new DirectoryInfo(Path.Combine(GamePath.FullName, PLUGIN_FOLDER_NAME)).EnsureExists();
             _globalPluginsPath = new DirectoryInfo(Path.Combine(_pluginsPath.FullName, GLOBAL_FOLDER_NAME));
-            _serverPluginsPath = new DirectoryInfo(Path.Combine(_pluginsPath.FullName, server.Port.ToString())).EnsureExists();
+            _serverPluginsPath = GetPluginsPathByPort(server.Port).EnsureExists();
             _globalDependencyPath = new DirectoryInfo(Path.Combine(_globalPluginsPath.FullName, DEPENDENCY_FOLDER_NAME));
-            _serverDependencyPath = new DirectoryInfo(Path.Combine(_serverPluginsPath.FullName, DEPENDENCY_FOLDER_NAME)).EnsureExists();
+            _serverDependencyPath = GetDependencyPathByPort(server.Port).EnsureExists();
         }
 
         internal static void Intialize(string binPath, string gamePath, Server server)
@@ -227,6 +227,46 @@ namespace SMod3.Core
                 throw new ArgumentNullException("Plugin cannot be null", nameof(plugin));
             else if (plugin.Status == PluginStatus.DISPOSED)
                 throw new ObjectDisposedException(nameof(Plugin));
+        }
+
+        /// <summary>
+        ///     Gets the plugins path for the port.
+        /// </summary>
+        public DirectoryInfo GetPluginsPathByPort(ushort port)
+        {
+            return new DirectoryInfo(Path.Combine(_pluginsPath.FullName, port.ToString()));
+        }
+
+        /// <summary>
+        ///     Gets the dependency path for the port.
+        /// </summary>
+        public DirectoryInfo GetDependencyPathByPort(ushort port)
+        {
+            return new DirectoryInfo(Path.Combine(_pluginsPath.FullName, port.ToString(), DEPENDENCY_FOLDER_NAME));
+        }
+
+        /// <summary>
+        ///     Gets all available plugins paths.
+        /// </summary>
+        public IEnumerable<DirectoryInfo> GetAvailablePluginsPaths()
+        {
+            foreach (var subfolder in _pluginsPath.GetDirectories("*", SearchOption.TopDirectoryOnly))
+            {
+                if (ushort.TryParse(subfolder.Name, out _))
+                    yield return subfolder;
+            }
+        }
+
+        /// <summary>
+        ///     Gets all available dependency paths.
+        /// </summary>
+        public IEnumerable<DirectoryInfo> GetAvailableDependencyPathes()
+        {
+            foreach (var subfolder in GetAvailablePluginsPaths().Select(d => new DirectoryInfo(Path.Combine(d.FullName, DEPENDENCY_FOLDER_NAME))))
+            {
+                if (subfolder.Exists)
+                    yield return subfolder;
+            }
         }
 
         #endregion

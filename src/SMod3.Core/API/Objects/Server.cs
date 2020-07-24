@@ -38,7 +38,7 @@ namespace SMod3.API
         /// <summary>
         ///     Server port.
         /// </summary>
-        public abstract int Port { get; }
+        public abstract ushort Port { get; }
 
         /// <summary>
         ///     Server ip address.
