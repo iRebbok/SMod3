@@ -7,8 +7,8 @@ using System.Reflection;
 
 using SMod3.API;
 using SMod3.Core.Fundamental;
+using SMod3.Core.Meta;
 using SMod3.Core.Misc;
-using SMod3.Core.PluginZone.Meta;
 
 namespace SMod3.Core
 {
@@ -161,21 +161,16 @@ namespace SMod3.Core
 
         #endregion
 
+        #region Construstors
+
         /// <exception cref="InvalidOperationException">
         ///     Recall when <see cref="Manager"/> is already assigned.
         /// </exception>
         /// <exception cref="ArgumentException">
         ///     Empty/Null arguments.
         /// </exception>
-        internal PluginManager(string binPath, string gamePath, Server server)
+        private PluginManager(string binPath, string gamePath, Server server)
         {
-            if (Manager is null)
-                throw new InvalidOperationException("Creating a second instance ??!");
-            else if (string.IsNullOrEmpty(binPath) || string.IsNullOrEmpty(gamePath) || server is null)
-                throw new ArgumentException("Wrong arguments");
-
-            Manager = this;
-
             Server = server;
             GACBypasser = new GacBypass();
 
@@ -190,6 +185,18 @@ namespace SMod3.Core
             _globalDependencyPath = new DirectoryInfo(Path.Combine(_globalPluginsPath.FullName, DEPENDENCY_FOLDER_NAME));
             _serverDependencyPath = new DirectoryInfo(Path.Combine(_serverPluginsPath.FullName, DEPENDENCY_FOLDER_NAME)).EnsureExists();
         }
+
+        internal static void Intialize(string binPath, string gamePath, Server server)
+        {
+            if (!(Manager is null))
+                throw new InvalidOperationException("Creating a second instance??!");
+            else if (string.IsNullOrEmpty(binPath) || string.IsNullOrEmpty(gamePath) || server is null)
+                throw new ArgumentException("Wrong arguments");
+
+            Manager = new PluginManager(binPath, gamePath, server);
+        }
+
+        #endregion
 
         #region Methods
 

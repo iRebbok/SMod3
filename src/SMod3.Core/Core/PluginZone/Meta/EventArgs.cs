@@ -4,7 +4,7 @@ using System.Reflection;
 
 using SMod3.Core.Fundamental;
 
-namespace SMod3.Core.PluginZone.Meta
+namespace SMod3.Core.Meta
 {
     public sealed class PluginChangeStatusEvent : EventArgs
     {
@@ -52,7 +52,7 @@ namespace SMod3.Core.PluginZone.Meta
     public sealed class PluginEnabledEvent : EventArgs
     {
         public Plugin Source { get; }
-        public bool Success { get; set; }
+        public bool Success { get; }
 
         internal PluginEnabledEvent(Plugin source, bool success)
         {
@@ -76,7 +76,7 @@ namespace SMod3.Core.PluginZone.Meta
     public sealed class PluginDisabledEvent : EventArgs
     {
         public Plugin Source { get; }
-        public bool Success { get; set; }
+        public bool Success { get; }
 
         internal PluginDisabledEvent(Plugin source, bool success)
         {

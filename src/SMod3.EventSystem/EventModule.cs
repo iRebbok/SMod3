@@ -6,8 +6,10 @@ using System.Reflection;
 
 using SMod3.Core;
 using SMod3.Core.Fundamental;
+using SMod3.Core.Meta;
 using SMod3.Core.Misc;
 using SMod3.Module.EventSystem;
+using SMod3.Module.EventSystem.Attributes;
 using SMod3.Module.EventSystem.Background;
 using SMod3.Module.EventSystem.Handlers;
 using SMod3.Module.EventSystem.Meta;
@@ -134,10 +136,33 @@ namespace SMod3.Module.EventSystem
 
         #region Module events
 
+        protected override void Awake()
+        {
+            PluginManager.Manager.PluginEnabled += OnPluginEnabled;
+            PluginManager.Manager.PluginDisabled += OnPluginDisabled;
+        }
+
+        private void OnPluginEnabled(PluginEnabledEvent ev)
+        {
+            if (CheckPluginAllowAutoRegistration(ev.Source))
+                RegisterPlugin(ev.Source);
+        }
+
+        private void OnPluginDisabled(PluginDisabledEvent ev)
+        {
+            Dispose(ev.Source);
+        }
+
         public override void Dispose(Plugin owner)
         {
-            DisposeInstances(owner, null);
-            DisposeHandlers(owner, null);
+            base.Dispose(owner);
+            InternalDispose(owner, null);
+        }
+
+        private void InternalDispose(Plugin? partOwner, Assembly? owner)
+        {
+            DisposeInstances(partOwner, owner);
+            DisposeHandlers(partOwner, owner);
         }
 
         #endregion
@@ -172,7 +197,72 @@ namespace SMod3.Module.EventSystem
 
         #region Registration management
 
-        private void RegisterHandler(Type handlerType, MethodInfo method, object? instance, Plugin? partOwner, Assembly? owner, RegistrationPreferences preferences, Priority priority = Priority.NORMAL)
+        private bool CheckPluginAllowAutoRegistration(Plugin plugin)
+        {
+            var attrb = plugin.GetType().GetCustomAttribute<EventSystemSettingAttribute>();
+            // allow by default
+            return attrb?.AutoRegistration != false;
+        }
+
+        public void RegisterPlugin(Plugin plugin)
+        {
+            var idWrap = new TempIdWrapper(plugin, null);
+            RegisterTypes(idWrap, idWrap.Owner.GetTypes().Where(t => !t.IsAbstract && t.IsClass));
+        }
+
+        private void RegisterTypes(TempIdWrapper idWrap, IEnumerable<Type> types)
+        {
+            foreach (var type in types)
+                RegisterTypeSafe(idWrap, type);
+        }
+
+        private void RegisterTypeSafe(TempIdWrapper idWrap, Type type)
+        {
+            try
+            { RegisterTypeUnsafe(idWrap, type); }
+            catch (Exception ex)
+            {
+                Error($"An exception occurred while trying to register the type from the plugin: {idWrap.PartOwner?.ToString() ?? "null"} & assembly: {idWrap.Owner.GetName().Name}");
+                Error(ex.ToString());
+            }
+        }
+
+        private void RegisterTypeUnsafe(TempIdWrapper idWrapper, Type type)
+        {
+            var attrb = type.GetCustomAttribute<EventHandlerAttribute>();
+            if (attrb is null)
+                return;
+
+            foreach (var method in type.GetMethods(TypeExtension.METHOD_SEARCH_FLAGS_INCLUDE_STATIC))
+                RegisterMethodSafe(idWrapper, method, attrb.Preferences, attrb.HandlePriority);
+        }
+
+        private void RegisterMethodSafe(TempIdWrapper idWrap, MethodInfo method, RegistrationPreferences? preferences, Priority? priority)
+        {
+            try
+            { RegisterMethodUnsafe(idWrap, method, preferences, priority); }
+            catch (Exception ex)
+            {
+                Error($"An exception occurred while trying to register the method ({method.Name}) from the plugin: {idWrap.PartOwner?.ToString() ?? "null"} & assembly: {idWrap.Owner.GetName().Name}");
+                Error(ex.ToString());
+            }
+        }
+
+        private void RegisterMethodUnsafe(TempIdWrapper idWrapper, MethodInfo method, RegistrationPreferences? preferences, Priority? priority)
+        {
+            var attrb = method.GetCustomAttribute<HandlerMethodAttribute>();
+            if (attrb is null)
+                return;
+
+            var finalPriority = attrb.HandlePriority ?? priority ?? Priority.NORMAL;
+            var finalPreferences = attrb.Preferences ?? preferences ?? DefaultPreferences;
+            RegisterHandler(attrb.Handler, method, null, idWrapper, finalPreferences, finalPriority);
+        }
+
+        /// <summary>
+        ///     Registers a handler at the last stage.
+        /// </summary>
+        private void RegisterHandler(Type handlerType, MethodInfo method, object? instance, TempIdWrapper idWrap, RegistrationPreferences preferences, Priority priority = Priority.NORMAL)
         {
             if (!TypeExtension.IsMethodCompatibleWithEventHandler(handlerType, method, out var eventArgType))
                 throw new InvalidOperationException("Method isn't compatible with handler");
@@ -207,11 +297,11 @@ namespace SMod3.Module.EventSystem
                 if (!preferences.AllowCreateInstance)
                     throw new InvalidOperationException("Instantiation isn't allowed by preferences");
                 else
-                    instance = FindInstanceOrCreate(method.ReflectedType, partOwner, owner);
+                    instance = FindInstanceOrCreate(method.ReflectedType, idWrap.PartOwner, idWrap.Owner);
             }
 
             var @delegate = Delegate.CreateDelegate(target.Key, instance, method, true);
-            var wrapper = (BaseEventWrapper)Activator.CreateInstance(target.Value, partOwner is null ? (owner!) : (object)partOwner, priority, @delegate);
+            var wrapper = (BaseEventWrapper)Activator.CreateInstance(target.Value, idWrap.PartOwner is null ? (idWrap.Owner!) : (object)idWrap.PartOwner, priority, @delegate);
             if (!_eventMeta.TryGetValue(handlerType, out var set))
             {
                 set = new SortedSet<BaseEventWrapper>(_priorityComparator);

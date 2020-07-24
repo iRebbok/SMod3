@@ -41,8 +41,32 @@ namespace SMod3.Module.EventSystem
         ALL_INCLUDE_ASYNC = ALL_EXCEPT_ASYNC | ASYNC | ASYNC_WITH_ARGS,
     }
 
+    /// <summary>
+    ///     Event execution status.
+    /// </summary>
+    internal enum ExecutionStatus
+    {
+        /// <summary>
+        ///     The event is executed and the status is true.
+        /// </summary>
+        EXECUTED_TRUE,
+        /// <summary>
+        ///     The event is executed and the status is false.
+        /// </summary>
+        EXECUTED_FALSE,
+        /// <summary>
+        ///     The event failed and the wrapper should be disposed.
+        /// </summary>
+        DESTROY_HANDLER
+    }
+
     public sealed partial class EventModule
     {
+        /// <summary>
+        ///     The handlers that will be disposed after the event is executed.
+        /// </summary>
+        private readonly List<BaseEventWrapper> _toDisposeWrappers = new List<BaseEventWrapper>(10);
+
         /// <summary>
         ///     Handles the event with args.
         ///     Also calls subscribers with no args.
@@ -121,10 +145,9 @@ namespace SMod3.Module.EventSystem
 
             foreach (var eventWrapper in eventList)
             {
-                if (!InternalHandleWrapperSafe<TEvent, TArg>(eventWrapper, arg, filter))
-                {
+                InternalHandleWrapperSafe<TEvent, TArg>(eventWrapper, arg, filter, out var executionStatus);
+                if (!HandleExecutionStatus(eventWrapper, executionStatus))
                     break;
-                }
             }
         }
 
@@ -142,44 +165,44 @@ namespace SMod3.Module.EventSystem
 
             foreach (var eventWrapper in eventList)
             {
-                if (!InternalHandleWrapperSafe<TEvent>(eventWrapper, filter))
-                {
+                InternalHandleWrapperSafe<TEvent>(eventWrapper, filter, out var executionStatus);
+                if (!HandleExecutionStatus(eventWrapper, executionStatus))
                     break;
-                }
             }
         }
 
-        /// <returns>
-        ///     true if handling is allowed to continue, otherwise false.
-        ///     (<see cref="FutureDefiningDelegate"/> and <see cref="FutureDefiningDelegateWithArgs{T}"/>).
-        /// </returns>
-        private bool InternalHandleWrapperSafe<TEvent, TArg>(BaseEventWrapper wrapper, TArg arg, HandleWrappersFilter filter)
+        private void InternalHandleWrapperSafe<TEvent, TArg>(BaseEventWrapper wrapper, TArg arg, HandleWrappersFilter filter, out ExecutionStatus executionStatus)
             where TEvent : IEventHandler where TArg : EventArg, new()
         {
+            executionStatus = ExecutionStatus.EXECUTED_TRUE;
+
             try
-            { return InternalHandleWrapperUnsafe<TEvent, TArg>(wrapper, arg, filter); }
+            { InternalHandleWrapperUnsafe<TEvent, TArg>(wrapper, arg, filter, out executionStatus); }
             catch (Exception ex)
             { HandleException(wrapper, ex); }
-
-            return true;
         }
 
-        /// <returns><inheritdoc cref="InternalHandleEvent{TEvent, TArg}(TArg, HandleWrappersFilter)" /></returns>
-        private bool InternalHandleWrapperSafe<TEvent>(BaseEventWrapper wrapper, HandleWrappersFilter filter)
+        private void InternalHandleWrapperSafe<TEvent>(BaseEventWrapper wrapper, HandleWrappersFilter filter, out ExecutionStatus executionStatus)
             where TEvent : IEventHandler
         {
+            executionStatus = ExecutionStatus.EXECUTED_TRUE;
+
             try
-            { return InternalHandleWrapperUnsafe<TEvent>(wrapper, filter); }
+            { InternalHandleWrapperUnsafe<TEvent>(wrapper, filter, out executionStatus); }
             catch (Exception ex)
             { HandleException(wrapper, ex); }
-
-            return true;
         }
 
-        private bool InternalHandleWrapperUnsafe<TEvent, TArg>(BaseEventWrapper wrapper, TArg arg, HandleWrappersFilter filter)
+        private void InternalHandleWrapperUnsafe<TEvent, TArg>(BaseEventWrapper wrapper, TArg arg, HandleWrappersFilter filter, out ExecutionStatus executionStatus)
             where TEvent : IEventHandler where TArg : EventArg, new()
         {
-            CheckPlugin(wrapper.PartOwner);
+            executionStatus = ExecutionStatus.EXECUTED_TRUE;
+
+            if (!CheckPlugin(wrapper.PartOwner))
+            {
+                executionStatus = ExecutionStatus.DESTROY_HANDLER;
+                ThrowExceptionPluginIsNotAbleToHandle(executionStatus);
+            }
 
             if ((HandleWrappersFilter.ASYNC_WITH_ARGS & filter) != 0 && wrapper is AsyncEventWrapperWithArgs<TArg> asyncWrapper)
             {
@@ -196,7 +219,7 @@ namespace SMod3.Module.EventSystem
             }
             else if ((HandleWrappersFilter.FUTUREDEFINING_WITH_ARGS & filter) != 0 && wrapper is FutureDefiningEventWrapperWithArgs<TArg> futureDefiningWrapper)
             {
-                return futureDefiningWrapper.Delegate(arg);
+                executionStatus = ExecutionStatusFromBool(futureDefiningWrapper.Delegate(arg));
             }
             else if ((HandleWrappersFilter.SIMPLE_WITH_ARGS & filter) != 0 && wrapper is SimpleEventWrapperWithArgs<TArg> simpleWrapper)
             {
@@ -204,16 +227,20 @@ namespace SMod3.Module.EventSystem
             }
             else
             {
-                return InternalHandleWrapperUnsafe<TEvent>(wrapper, filter);
+                InternalHandleWrapperUnsafe<TEvent>(wrapper, filter, out executionStatus);
             }
-
-            return true;
         }
 
-        private bool InternalHandleWrapperUnsafe<TEvent>(BaseEventWrapper wrapper, HandleWrappersFilter filter)
+        private void InternalHandleWrapperUnsafe<TEvent>(BaseEventWrapper wrapper, HandleWrappersFilter filter, out ExecutionStatus executionStatus)
             where TEvent : IEventHandler
         {
-            CheckPlugin(wrapper.PartOwner);
+            executionStatus = ExecutionStatus.EXECUTED_TRUE;
+
+            if (!CheckPlugin(wrapper.PartOwner))
+            {
+                executionStatus = ExecutionStatus.DESTROY_HANDLER;
+                ThrowExceptionPluginIsNotAbleToHandle(executionStatus);
+            }
 
             if ((HandleWrappersFilter.ASYNC & filter) != 0 && wrapper is AsyncEventWrapper asyncWrapper)
             {
@@ -227,24 +254,72 @@ namespace SMod3.Module.EventSystem
             }
             else if ((HandleWrappersFilter.FUTUREDEFINING & filter) != 0 && wrapper is FutureDefiningEventWrapper futureDefiningWrapper)
             {
-                return futureDefiningWrapper.Delegate();
+                executionStatus = ExecutionStatusFromBool(futureDefiningWrapper.Delegate());
             }
             else if ((HandleWrappersFilter.SIMPLE & filter) != 0 && wrapper is SimpleEventWrapper simpleWrapper)
             {
                 simpleWrapper.Delegate();
             }
-
-            return true;
         }
 
         /// <summary>
-        ///     Checks the plugin for event handling,
-        ///     otherwise throws an exception.
+        ///     Checks the plugin for event handling.
         /// </summary>
-        private void CheckPlugin(Plugin? plugin)
+        private bool CheckPlugin(Plugin? plugin)
         {
-            if (!(plugin is null) && plugin.Status != PluginStatus.ENABLED)
-                throw new InvalidOperationException("Plugin isn't enabled");
+            return plugin is null || plugin.Status == PluginStatus.ENABLED;
+        }
+
+        private void ThrowExceptionPluginIsNotAbleToHandle(ExecutionStatus status)
+        {
+            throw new InvalidOperationException($"Plugin cannot execute event: {status}");
+        }
+
+        /// <summary>
+        ///     Converts the execution status to a boolean.
+        /// </summary>
+        /// <returns>
+        ///     true the event is allowed to execute completely; otherwise, false.
+        /// </returns>
+        private bool ExecutionStatusToBool(ExecutionStatus status)
+        {
+            // If the status isn't false,
+            // then the execution of the following events is allowed.
+            return status != ExecutionStatus.EXECUTED_FALSE;
+        }
+
+        /// <summary>
+        ///     Converts a boolean to an execution status.
+        /// </summary>
+        private ExecutionStatus ExecutionStatusFromBool(bool boolean)
+        {
+            return boolean ? ExecutionStatus.EXECUTED_TRUE : ExecutionStatus.EXECUTED_FALSE;
+        }
+
+        /// <summary>
+        ///     Handles the execution status.
+        /// </summary>
+        /// <returns><inheritdoc cref="ExecutionStatusToBool(ExecutionStatus)" /></returns>
+        private bool HandleExecutionStatus(BaseEventWrapper wrapper, ExecutionStatus status)
+        {
+            if (status == ExecutionStatus.DESTROY_HANDLER)
+                _toDisposeWrappers.Add(wrapper);
+
+            return ExecutionStatusToBool(status);
+        }
+
+        /// <summary>
+        ///     Disposes wrappers that are in <see cref="_toDisposeWrappers"/>.
+        /// </summary>
+        private void DisposeWrappers()
+        {
+            for (var z = 0; z < _toDisposeWrappers.Count; z++)
+            {
+                var wrapper = _toDisposeWrappers[z];
+                InternalDispose(wrapper.PartOwner, wrapper.Owner);
+            }
+
+            _toDisposeWrappers.Clear();
         }
 
         #endregion
@@ -272,6 +347,8 @@ namespace SMod3.Module.EventSystem
             UpdateStatus(HandlingStatus.Free);
             HandlingHandler = null;
             HandlingArg = null;
+
+            DisposeWrappers();
         }
     }
 }

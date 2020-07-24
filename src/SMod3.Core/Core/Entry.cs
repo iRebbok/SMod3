@@ -37,8 +37,9 @@ namespace SMod3.Core
             else if (!(PluginManager.Manager is null))
                 throw new InvalidOperationException("Attempt to call again");
 
+            PluginManager.Intialize(binPath, gamePath, server);
             ModuleManager.Manager.LoadModules();
-            new PluginManager(binPath, gamePath, server).Load();
+            PluginManager.Manager!.Load();
         }
     }
 }

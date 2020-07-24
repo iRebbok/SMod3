@@ -5,8 +5,6 @@ using System.Reflection;
 
 using SMod3.Module.EventSystem.Background;
 
-using UnityEngine;
-
 namespace SMod3.Module.EventSystem.Meta
 {
     public sealed class CustomParameterEqualityComparer : IEqualityComparer<ParameterInfo>
@@ -33,14 +31,19 @@ namespace SMod3.Module.EventSystem.Meta
     public static class TypeExtension
     {
         /// <summary>
-        ///     Flags by which methods are searched. Doesn't include private search.
+        ///     Flags by which methods are searched. Doesn't include private and static search.
         /// </summary>
         public const BindingFlags METHOD_SEARCH_FLAGS = BindingFlags.Public | BindingFlags.Instance | BindingFlags.InvokeMethod;
 
         /// <summary>
         ///     Same as <see cref="METHOD_SEARCH_FLAGS"/>, but include private search.
         /// </summary>
-        public const BindingFlags METHOD_SEARCH_FLAGH_INCLUDE_PRIVATE = METHOD_SEARCH_FLAGS | BindingFlags.NonPublic;
+        public const BindingFlags METHOD_SEARCH_FLAGS_INCLUDE_PRIVATE = METHOD_SEARCH_FLAGS | BindingFlags.NonPublic;
+
+        /// <summary>
+        ///     Same as <see cref="METHOD_SEARCH_FLAGS_INCLUDE_PRIVATE"/>, but include static search.
+        /// </summary>
+        public const BindingFlags METHOD_SEARCH_FLAGS_INCLUDE_STATIC = METHOD_SEARCH_FLAGS_INCLUDE_PRIVATE | BindingFlags.Static;
 
         public static readonly CustomParameterEqualityComparer CustomParameterInfoComparer = new CustomParameterEqualityComparer();
 
@@ -81,8 +84,7 @@ namespace SMod3.Module.EventSystem.Meta
         /// </exception>
         public static bool IsMethodCompatibleWithEventHandler(Type handler, MethodInfo method, out Type? eventArgType)
         {
-            if (!typeof(IEventHandler).IsAssignableFrom(handler))
-                throw new ArgumentException($"This type cannot be assigned to the {nameof(IEventHandler)}, is it not a handler?", nameof(handler));
+            CheckTypeIsEventHandler(handler);
 
             var handlerMethods = handler.GetMethods(METHOD_SEARCH_FLAGS);
             if (handlerMethods.Length > 1)
@@ -107,10 +109,43 @@ namespace SMod3.Module.EventSystem.Meta
 
             var methodPrameters = method.GetParameters();
 
+            // Method isn't generic
             // 1: Method has no parameters
             // 2: Both have the same number of params & they are equal
-            return (methodPrameters.Length == 0) ||
-                (handlerMethodParameters.Length == methodPrameters.Length && handlerMethodParameters.SequenceEqual(methodPrameters, CustomParameterInfoComparer));
+            return !method.IsGenericMethod && ((methodPrameters.Length == 0) ||
+                (handlerMethodParameters.Length == methodPrameters.Length && handlerMethodParameters.SequenceEqual(methodPrameters, CustomParameterInfoComparer)));
+        }
+
+        /// <summary>
+        ///     Checks if the type is one of the event handlers.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">
+        ///     Type is null.
+        /// </exception>
+        /// <returns>
+        ///     true if the type is an event handler,
+        ///     an interface, and not the <see cref="IEventHandler"/> itself;
+        ///     otherwise, false.
+        /// </returns>
+        public static bool TypeIsEventHandler(Type type)
+        {
+            if (type is null)
+                throw new ArgumentNullException(nameof(type));
+
+            return type.IsInterface && type != typeof(IEventHandler) && typeof(IEventHandler).IsAssignableFrom(type);
+        }
+
+        /// <summary>
+        ///     Checks and throws an exception if the type isn't one of the event handlers.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><inheritdoc cref="TypeIsEventHandler(Type)" /></exception>
+        /// <exception cref="ArgumentException">
+        ///     The type isn't one of the event handlers.
+        /// </exception>
+        public static void CheckTypeIsEventHandler(Type type)
+        {
+            if (!TypeIsEventHandler(type))
+                throw new ArgumentException("Type isn't an event handler");
         }
     }
 }
