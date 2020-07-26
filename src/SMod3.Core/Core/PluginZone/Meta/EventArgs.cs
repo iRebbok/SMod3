@@ -6,20 +6,29 @@ using SMod3.Core.Fundamental;
 
 namespace SMod3.Core.Meta
 {
-    public sealed class PluginChangeStatusEvent : EventArgs
+    public abstract class CustomEventArgs : EventArgs, IDisposable
     {
-        public Plugin Source { get; }
-
-        public PluginStatus Status { get; }
-
-        internal PluginChangeStatusEvent(Plugin source, PluginStatus status)
+        public void Dispose()
         {
-            Source = source;
-            Status = status;
+            GC.SuppressFinalize(this);
         }
     }
 
-    public sealed class PluginLoadingEvent : EventArgs
+    public sealed class PluginChangedStatusEvent : CustomEventArgs
+    {
+        public Plugin Source { get; }
+        public PluginStatus Status { get; }
+        public PluginStatus PrevStatus { get; }
+
+        internal PluginChangedStatusEvent(Plugin source, PluginStatus status, PluginStatus prevStatus)
+        {
+            Source = source;
+            Status = status;
+            PrevStatus = prevStatus;
+        }
+    }
+
+    public sealed class PluginLoadingEvent : CustomEventArgs
     {
         public Type Source { get; }
         public PluginMetadataAttribute DefineAttribute { get; }
@@ -37,7 +46,7 @@ namespace SMod3.Core.Meta
         }
     }
 
-    public sealed class PluginEnablingEvent : EventArgs
+    public sealed class PluginEnablingEvent : CustomEventArgs
     {
         public Plugin Source { get; }
         public bool Allow { get; set; }
@@ -49,7 +58,7 @@ namespace SMod3.Core.Meta
         }
     }
 
-    public sealed class PluginEnabledEvent : EventArgs
+    public sealed class PluginEnabledEvent : CustomEventArgs
     {
         public Plugin Source { get; }
         public bool Success { get; }
@@ -61,7 +70,7 @@ namespace SMod3.Core.Meta
         }
     }
 
-    public sealed class PluginDisablingEvent : EventArgs
+    public sealed class PluginDisablingEvent : CustomEventArgs
     {
         public Plugin Source { get; }
         public bool Allow { get; set; }
@@ -73,7 +82,7 @@ namespace SMod3.Core.Meta
         }
     }
 
-    public sealed class PluginDisabledEvent : EventArgs
+    public sealed class PluginDisabledEvent : CustomEventArgs
     {
         public Plugin Source { get; }
         public bool Success { get; }

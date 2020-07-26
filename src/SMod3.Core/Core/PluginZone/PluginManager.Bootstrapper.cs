@@ -4,9 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using SMod3.Core.Fundamental;
+using SMod3.Core.Meta;
 using SMod3.Core.Misc;
-using SMod3.Core.PluginZone.Meta;
 
 namespace SMod3.Core
 {
@@ -250,7 +249,7 @@ namespace SMod3.Core
                         continue;
                     }
 
-                    var ev = new PluginLoadingEvent(type, metadataAttribute);
+                    using var ev = new PluginLoadingEvent(type, metadataAttribute);
                     EventMisc.InvokeSafely(PluginLoading, ev);
                     if (!ev.Allow)
                     {

@@ -125,7 +125,7 @@ namespace SMod3.Core
         ///     Called before the status is applied,
         ///     therefore, the previous status can be obtained.
         /// </remarks>
-        public event CustomDelegate<PluginChangeStatusEvent>? PluginChangingStatus;
+        public event CustomDelegate<PluginChangedStatusEvent>? PluginChangedStatus;
 
         /// <summary>
         ///     Called when loading the plugin, allowing to prevent loading.
@@ -332,9 +332,10 @@ namespace SMod3.Core
         {
             CheckPluginDisposed(plugin);
 
-            EventMisc.InvokeSafely(PluginChangingStatus, new PluginChangeStatusEvent(plugin, status));
             PluginStatus oldStatus = GetPluginStatus(plugin);
             plugin.Status = status;
+            using var ev = new PluginChangedStatusEvent(plugin, status, oldStatus);
+            EventMisc.InvokeSafely(PluginChangedStatus, ev);
             return oldStatus;
         }
 
@@ -364,9 +365,9 @@ namespace SMod3.Core
             if (GetPluginStatus(plugin) == PluginStatus.ENABLED)
                 throw new InvalidOperationException("Plugin already enabled");
 
-            var ev = new PluginEnablingEvent(plugin);
-            EventMisc.InvokeSafely(PluginEnabling, ev);
-            if (!ev.Allow)
+            using var ev1 = new PluginEnablingEvent(plugin);
+            EventMisc.InvokeSafely(PluginEnabling, ev1);
+            if (!ev1.Allow)
             {
                 Info($"Enabling {plugin} plugin was aborted externally");
                 return false;
@@ -396,7 +397,8 @@ namespace SMod3.Core
                 result = false;
             }
 
-            EventMisc.InvokeSafely(PluginEnabled, new PluginEnabledEvent(plugin, result));
+            using var ev2 = new PluginEnabledEvent(plugin, result);
+            EventMisc.InvokeSafely(PluginEnabled, ev2);
             return result;
         }
 
@@ -446,9 +448,9 @@ namespace SMod3.Core
             if (GetPluginStatus(plugin) == PluginStatus.DISABLED)
                 throw new InvalidOperationException("Plugin already disabled");
 
-            var ev = new PluginDisablingEvent(plugin);
-            EventMisc.InvokeSafely(PluginDisabling, ev);
-            if (!ev.Allow)
+            using var ev1 = new PluginDisablingEvent(plugin);
+            EventMisc.InvokeSafely(PluginDisabling, ev1);
+            if (!ev1.Allow)
             {
                 Info($"Disabling {plugin} plugin was aborted externally");
                 return false;
@@ -478,7 +480,8 @@ namespace SMod3.Core
                 result = false;
             }
 
-            EventMisc.InvokeSafely(PluginDisabled, new PluginDisabledEvent(plugin, result));
+            using var ev2 = new PluginDisabledEvent(plugin, result);
+            EventMisc.InvokeSafely(PluginDisabled, ev2);
             return result;
         }
 

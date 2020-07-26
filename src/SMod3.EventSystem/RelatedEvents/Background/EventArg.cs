@@ -5,7 +5,7 @@ namespace SMod3.Module.EventSystem.Background
     /// <summary>
     ///     Abstraction for event arguments.
     /// </summary>
-    public abstract class EventArg
+    public abstract class EventArg : EventArgs
     {
         /// <summary>
         ///     Resets for later use.
