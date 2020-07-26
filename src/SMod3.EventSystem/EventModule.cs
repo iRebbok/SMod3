@@ -114,7 +114,6 @@ namespace SMod3.Module.EventSystem
                 typeof(IEventHandlerFixedUpdate),
                 typeof(IEventHandlerLateUpdate),
             };
-            _blockedForGenericPredicate = (e) => e == HandlingHandler;
         }
 
         static EventModule()
@@ -183,15 +182,21 @@ namespace SMod3.Module.EventSystem
             Status = status;
         }
 
-        // Such a solution is justified by creating a new Predicate every method call,
-        // with Update/FixedUpdate/LateUpdate it'll create a lot of extra garbage,
-        // so we just cache it
-        private readonly Predicate<Type> _blockedForGenericPredicate;
         /// <summary>
         ///     Indicates whether a type is forbidden for a generic type.
         /// </summary>
-        private bool IsBlockedForGenericEvent()
-            => Array.Exists(_blockedEventsForGenericEvent, _blockedForGenericPredicate);
+        public bool IsBlockedForGenericEvent(Type type)
+        {
+            for (byte z = 0; z < _blockedEventsForGenericEvent.Length; z++)
+            {
+                if (_blockedEventsForGenericEvent[z] == type)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         #endregion
 

@@ -76,10 +76,11 @@ namespace SMod3.Module.EventSystem
         {
             try
             {
-                GetBusy(typeof(TEvent), arg);
+                var handlerType = typeof(TEvent);
+                GetBusy(handlerType, arg);
 
                 // Commented because there are no events with arguments that shouldn't fire a generic event
-                //var allowGenericCall = IsBlockedForGenericEvent();
+                //var allowGenericCall = IsBlockedForGenericEvent(handlerType);
 
                 // Preventing async calls for events that shouldn't be triggered by calling this event
                 InternalHandleEvent<TEvent, TArg>(arg /* , allowGenericCall ? HandleWrappersFilter.ALL_INCLUDE_ASYNC : HandleWrappersFilter.ALL_EXCEPT_ASYNC */);
@@ -107,9 +108,10 @@ namespace SMod3.Module.EventSystem
         {
             try
             {
-                GetBusy(typeof(TEvent), null);
+                var handlerType = typeof(TEvent);
+                GetBusy(handlerType, null);
 
-                var allowGenericCall = IsBlockedForGenericEvent();
+                var allowGenericCall = IsBlockedForGenericEvent(handlerType);
 
                 // Preventing async calls for events that shouldn't be triggered by calling this event
                 InternalHandleEvent<TEvent>(allowGenericCall ? HandleWrappersFilter.ALL_INCLUDE_ASYNC : HandleWrappersFilter.ALL_EXCEPT_ASYNC);
