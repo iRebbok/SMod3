@@ -538,6 +538,7 @@ namespace SMod3.Core
 
             ModuleManager.Manager.Dispose(owner);
             EventMisc.InvokeSafely(PluginDisposed, owner);
+            GC.SuppressFinalize(owner);
         }
 
         /// <summary>
