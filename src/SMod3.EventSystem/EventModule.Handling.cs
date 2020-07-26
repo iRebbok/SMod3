@@ -71,7 +71,7 @@ namespace SMod3.Module.EventSystem
         ///     Handles the event with args.
         ///     Also calls subscribers with no args.
         /// </summary>
-        internal void HandleEvent<TEvent, TArg>(TArg arg)
+        public void HandleEvent<TEvent, TArg>(TArg arg)
             where TEvent : IEventHandler where TArg : EventArg, new()
         {
             try
@@ -102,7 +102,7 @@ namespace SMod3.Module.EventSystem
         /// <summary>
         ///     Handles the event without any args.
         /// </summary>
-        internal void HandleEvent<TEvent>()
+        public void HandleEvent<TEvent>()
             where TEvent : IEventHandler
         {
             try
