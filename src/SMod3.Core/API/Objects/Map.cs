@@ -14,32 +14,32 @@ namespace SMod3.API
         /// <summary>
         ///     Gets all existing items in the game.
         /// </summary>
-        public abstract IReadOnlyList<Item> Items { get; }
+        public abstract ReadOnlyCollection<Item> Items { get; }
 
         /// <summary>
         ///   Gets all the doors on the map.
         /// </summary>
-        public abstract IReadOnlyList<Door> Doors { get; }
+        public abstract ReadOnlyCollection<Door> Doors { get; }
 
         /// <summary>
         ///     Gets all existing roles.
         /// </summary>
-        public abstract IReadOnlyList<TeamRole> Roles { get; }
+        public abstract ReadOnlyCollection<TeamRole> Roles { get; }
 
         /// <summary>
         ///     Gets all the generators.
         /// </summary>
-        public abstract IReadOnlyList<Generator> Generators { get; }
+        public abstract ReadOnlyCollection<Generator> Generators { get; }
 
         /// <summary>
         ///     Gets all tesla gates.
         /// </summary>
-        public abstract IReadOnlyList<TeslaGate> TeslaGates { get; }
+        public abstract ReadOnlyCollection<TeslaGate> TeslaGates { get; }
 
         /// <summary>
         ///     Gets all the rooms.
         /// </summary>
-        public abstract IReadOnlyList<Room> Rooms { get; }
+        public abstract ReadOnlyCollection<Room> Rooms { get; }
 
         /// <summary>
         ///     Gets a warhead manager.
@@ -121,12 +121,12 @@ namespace SMod3.API
         /// <summary>
         ///     Gets all exits from the pocket dimension.
         /// </summary>
-        public abstract IReadOnlyCollection<PocketDimensionExit> GetPocketDimensionExits();
+        public abstract ReadOnlyCollection<PocketDimensionExit> GetPocketDimensionExits();
 
         /// <summary>
         ///     Gets all the elevators.
         /// </summary>
-        public abstract IReadOnlyCollection<Elevator> GetElevators();
+        public abstract ReadOnlyCollection<Elevator> GetElevators();
 
         /// <summary>
         ///     Broadcasts to all players a message.

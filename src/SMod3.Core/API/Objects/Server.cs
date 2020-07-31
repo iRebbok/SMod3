@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using UnityEngine;
@@ -63,19 +64,19 @@ namespace SMod3.API
         ///     it returns all players who have a ReferenceHub (excluding a dedicated server player),
         ///     this list also contains an authorized player after calling PlayerJoinEvent.
         /// </remarks>
-        public abstract IReadOnlyList<Player> Players { get; }
+        public abstract ReadOnlyCollection<Player> Players { get; }
 
         /// <summary>
         ///     Gets readonly dictionary of players and their objects.
         /// </summary>
         /// <remarks><inheritdoc cref="Players"/></remarks>
-        public abstract IReadOnlyDictionary<GameObject, Player> GameObjectsAndPlayers { get; }
+        public abstract ReadOnlyDictionary<GameObject, Player> GameObjectsAndPlayers { get; }
 
         /// <summary>
         ///     Gets readonly dictionary of players and their ids.
         /// </summary>
         /// <remarks><inheritdoc cref="Players"/></remarks>
-        public abstract IReadOnlyDictionary<int, Player> PlayerIdsAndPlayers { get; }
+        public abstract ReadOnlyDictionary<int, Player> PlayerIdsAndPlayers { get; }
 
         /// <summary>
         ///     Gets players with specific role/s.
