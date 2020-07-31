@@ -14,6 +14,10 @@
     <PackageReference Include="Mono.Cecil" Version="0.11.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\NorthwoodLib\NorthwoodLib\NorthwoodLib.csproj" PrivateAssets="All" Private="false" />
+  </ItemGroup>
+
   <!--
     SMOD_REFS - is an environment variable with path to assemblies,
       assemblies are provided with SCP: SL Dedicated Server.

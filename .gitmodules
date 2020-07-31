@@ -1,3 +1,6 @@
 [submodule "smodrefs"]
 	path = smodrefs
 	url = git@gitlab.com:iRebbok/smodrefs.git
+[submodule "NorthwoodLib"]
+	path = NorthwoodLib
+	url = git@github.com:northwood-studios/NorthwoodLib.git
