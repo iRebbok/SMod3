@@ -65,7 +65,7 @@ namespace SMod3.Module.EventSystem
         /// <summary>
         ///     The handlers that will be disposed after the event is executed.
         /// </summary>
-        private readonly List<BaseEventWrapper> _toDisposeWrappers = new List<BaseEventWrapper>(10);
+        private readonly List<BaseEventWrapper> _toDisposeWrappers = new List<BaseEventWrapper>(35);
 
         /// <summary>
         ///     Handles the event with args.

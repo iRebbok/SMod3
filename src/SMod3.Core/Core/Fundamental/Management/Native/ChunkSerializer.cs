@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+using NorthwoodLib.Pools;
+
 using SMod3.Core.Misc;
 
 namespace SMod3.Core.Fundamental.Native
@@ -88,7 +90,7 @@ namespace SMod3.Core.Fundamental.Native
 
             var fields = target.GetFields();
             var properties = target.GetProperties();
-            var fieldsAndProperies = new List<MemberInfo>(fields.Length + properties.Length);
+            var fieldsAndProperies = ListPool<MemberInfo>.Shared.Rent(fields.Length + properties.Length);
             fieldsAndProperies.AddRange(fields);
             fieldsAndProperies.AddRange(properties);
 
@@ -131,6 +133,7 @@ namespace SMod3.Core.Fundamental.Native
                 }
             }
 
+            ListPool<MemberInfo>.Shared.Return(fieldsAndProperies);
             return instance;
         }
     }

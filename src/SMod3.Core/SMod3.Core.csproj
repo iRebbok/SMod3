@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\SMod3.targets" />
 
@@ -15,7 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\NorthwoodLib\NorthwoodLib\NorthwoodLib.csproj" PrivateAssets="All" Private="false" />
+    <ProjectReference Include="..\..\NorthwoodLib\NorthwoodLib\NorthwoodLib.csproj"
+                      Private="false"
+                      PrivateAssets="All"
+                      SetTargetFramework="TargetFramework=net472" />
   </ItemGroup>
 
   <!--

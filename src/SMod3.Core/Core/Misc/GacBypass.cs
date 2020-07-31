@@ -4,9 +4,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
 using Mono.Cecil;
+
+using NorthwoodLib.Pools;
 
 using Random = UnityEngine.Random;
 
@@ -203,7 +204,7 @@ namespace SMod3.Core.Misc
             minLength = minLength < 3 ? 3 : minLength;
             var maxLength = minLength * 3;
 
-            var stringBuilder = new StringBuilder((int)minLength, (int)maxLength);
+            var stringBuilder = StringBuilderPool.Shared.Rent((int)maxLength);
             // remember, `UnityEngine.Random(int, int)` is exclusive
             while ((stringBuilder.Length < maxLength && Random.Range(0, 1001) <= 500) || stringBuilder.Length < minLength)
             {
@@ -212,7 +213,9 @@ namespace SMod3.Core.Misc
                     stringBuilder.Append(symbol);
             }
 
-            return $"---{stringBuilder}";
+            var result = string.Concat("---", stringBuilder.ToString());
+            StringBuilderPool.Shared.Return(stringBuilder);
+            return result;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace SMod3.Core.Logging
         /// <remarks>
         ///     The difference from <see cref="DEBUG"/> is that there is less detailed information about what is happening,
         ///     only an exception message.
-        ///     
+        ///
         ///     <para>
         ///         ProTip: use this type of log only for exceptions and errors that will NOT affect the main workflow that might be hidden.
         ///     </para>
@@ -36,7 +36,7 @@ namespace SMod3.Core.Logging
         /// <remarks>
         ///     The difference from <see cref="VERBOSE"/> is that has more detailed information about what is happening,
         ///     for example, a full StackTrace of exception.
-        ///     
+        ///
         ///     <para>
         ///         ProTip: use this type of log only for exceptions and errors that will NOT affect the main workflow that might be hidden.
         ///     </para>

@@ -6,7 +6,7 @@ namespace SMod3.Core.Misc
 {
     public static class EventMisc
     {
-        private static readonly string _loggingTag = StringMisc.ToFullyUpperSnakeCase(nameof(EventMisc));
+        public static readonly string LoggingTag = StringMisc.ToFullyUpperSnakeCase(nameof(EventMisc));
 
         public static void InvokeSafely<T>(CustomDelegate<T>? @delegate, T arg)
         {
@@ -40,8 +40,8 @@ namespace SMod3.Core.Misc
 
         private static void LogException(Exception ex, string eventName)
         {
-            Logger.Error(_loggingTag, $"Exception while handling event '{eventName}'");
-            Logger.Debug(_loggingTag, ex.ToString());
+            Logger.Error(LoggingTag, $"Exception while handling event '{eventName}'");
+            Logger.Debug(LoggingTag, ex.ToString());
         }
     }
 }

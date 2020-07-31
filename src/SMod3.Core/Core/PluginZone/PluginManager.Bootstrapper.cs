@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
+using NorthwoodLib.Pools;
+
 using SMod3.Core.Meta;
 using SMod3.Core.Misc;
 
@@ -97,13 +99,13 @@ namespace SMod3.Core
             if (files is null)
                 throw new ArgumentNullException("Files cannot be null", nameof(files));
 
+            // We load all plugin assemblies before initializing them
+            // This avoids issues such as TypeInitializationException/FileNotFoundException,
+            // when a plugin accesses another plugin, although this is bad practice and there is Piping for this
+            var assemblies = ListPool<Assembly>.Shared.Rent(files.Length);
+
             try
             {
-                // We load all plugin assemblies before initializing them
-                // This avoids issues such as TypeInitializationException/FileNotFoundException,
-                // when a plugin accesses another plugin, although this is bad practice and there is Piping for this
-                var assemblies = new List<Assembly>(files.Length);
-
                 foreach (var file in files)
                 {
                     Info($"Loading plugin assembly: {file.FullName}");
@@ -148,6 +150,10 @@ namespace SMod3.Core
             {
                 Critical($"An exception occurred while loading plugins: {e.Message}");
                 Debug(e.ToString());
+            }
+            finally
+            {
+                ListPool<Assembly>.Shared.Return(assemblies);
             }
         }
 
