@@ -69,7 +69,14 @@ namespace SMod3.API
         public abstract bool Muted { get; set; }
         public abstract bool OverwatchMode { get; set; }
         public abstract RadioStatus RadioStatus { get; set; }
-        public abstract uint RadioBattery { get; set; }
+        /// <summary>
+        ///     If the value is more than 101, then the battery is infinite.
+        /// </summary>
+        /// <remarks>
+        ///     If the player isn't holding the radio,
+        ///     then it applies to all radio items or returs <see cref="int.MinValue"/>.
+        /// </remarks>
+        public abstract int RadioBattery { get; set; }
         /// <summary>
         ///     Gets or sets the player’s position
         ///     - teleports with default values via the <see cref="Teleport(Vector3, float, bool)"/> method.
