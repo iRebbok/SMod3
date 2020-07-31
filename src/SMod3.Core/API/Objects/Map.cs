@@ -35,9 +35,19 @@ namespace SMod3.API
         public abstract ReadOnlyCollection<TeslaGate> TeslaGates { get; }
 
         /// <summary>
+        ///     Gets all the elevators.
+        /// </summary>
+        public abstract ReadOnlyCollection<Elevator> Elevators { get; }
+
+        /// <summary>
         ///     Gets all the rooms.
         /// </summary>
         public abstract ReadOnlyCollection<Room> Rooms { get; }
+
+        /// <summary>
+        ///     Gets all exits from the pocket dimension.
+        /// </summary>
+        public abstract ReadOnlyCollection<PocketDimensionExit> PocketDimensionExits { get; }
 
         /// <summary>
         ///     Gets a warhead manager.
@@ -115,16 +125,6 @@ namespace SMod3.API
         /// </summary>
         /// <exception cref="ArgumentException"><inheritdoc cref="GetRandomSpawnPoint(RoleType)"/></exception>
         public abstract Vector3[] GetSpawnPoints(RoleType role);
-
-        /// <summary>
-        ///     Gets all exits from the pocket dimension.
-        /// </summary>
-        public abstract ReadOnlyCollection<PocketDimensionExit> GetPocketDimensionExits();
-
-        /// <summary>
-        ///     Gets all the elevators.
-        /// </summary>
-        public abstract ReadOnlyCollection<Elevator> GetElevators();
 
         /// <summary>
         ///     Broadcasts to all players a message.
