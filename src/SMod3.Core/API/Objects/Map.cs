@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+using Mono.Collections.Generic;
+
 using UnityEngine;
 
 namespace SMod3.API
@@ -114,17 +116,17 @@ namespace SMod3.API
         ///     Gets random spawn points for a specific role.
         /// </summary>
         /// <exception cref="ArgumentException"><inheritdoc cref="GetRandomSpawnPoint(RoleType)"/></exception>
-        public abstract IEnumerable<Vector3> GetSpawnPoints(RoleType role);
+        public abstract Vector3[] GetSpawnPoints(RoleType role);
 
         /// <summary>
         ///     Gets all exits from the pocket dimension.
         /// </summary>
-        public abstract IEnumerable<PocketDimensionExit> GetPocketDimensionExits();
+        public abstract IReadOnlyCollection<PocketDimensionExit> GetPocketDimensionExits();
 
         /// <summary>
         ///     Gets all the elevators.
         /// </summary>
-        public abstract IEnumerable<Elevator> GetElevators();
+        public abstract IReadOnlyCollection<Elevator> GetElevators();
 
         /// <summary>
         ///     Broadcasts to all players a message.
