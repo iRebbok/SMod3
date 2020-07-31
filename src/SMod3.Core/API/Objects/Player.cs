@@ -18,14 +18,7 @@ namespace SMod3.API
         ///     whether it's on the server or its object is already destroyed.
         /// </summary>
         public abstract bool IsConnected { get; }
-        /// <summary>
-        ///     Gets the IP address of the player without a port.
-        /// </summary>
-        public abstract string IpAddress { get; }
-        /// <summary>
-        ///     Displayed player nickname in player list and remote admin.
-        /// </summary>
-        public abstract string? DisplayNickname { get; set; }
+        public abstract Connection Conn { get; }
         /// <summary>
         ///     Gets the player’s nickname.
         /// </summary>
@@ -34,10 +27,6 @@ namespace SMod3.API
         ///     Gets a unique player id.
         /// </summary>
         public abstract int PlayerId { get; }
-        /// <summary>
-        ///     Gets the player ping.
-        /// </summary>
-        public abstract int Ping { get; }
         /// <summary>
         ///     Gets the player's user id.
         /// </summary>
@@ -60,7 +49,7 @@ namespace SMod3.API
         /// <returns>
         ///		Null If the player doesn't have a rank.
         /// </returns>
-        public abstract IUserGroup? UsereGroup { get; }
+        public abstract IUserGroup? UserGroup { get; }
         public abstract Inventory Inventory { get; }
 
         /// <summary>
@@ -86,6 +75,10 @@ namespace SMod3.API
         ///     - teleports with default values via the <see cref="Teleport(Vector3, float, bool)"/> method.
         /// </summary>
         public abstract Vector3 Position { get; set; }
+        /// <summary>
+        ///     Displayed player nickname in player list and remote admin.
+        /// </summary>
+        public abstract string? DisplayNickname { get; set; }
 
         #endregion
 
