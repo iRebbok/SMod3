@@ -77,8 +77,8 @@ namespace SMod3.API
         /// <summary>
         ///     Gets an item by its type.
         /// </summary>
-        /// <exception cref="ArgumentException">
-        ///     Type is <see cref="ItemType.NONE"/>.
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Type is <see cref="ItemType.NONE"/> or no such type.
         /// </exception>
         public abstract Item GetItem(ItemType type);
 
