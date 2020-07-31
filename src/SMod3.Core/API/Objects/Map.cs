@@ -89,18 +89,18 @@ namespace SMod3.API
         ///     Not to be confused with <see cref="GetItem(ItemType)"/> and <see cref="Items"/>,
         ///     these are static objects that are in the game, not those that the players have.
         /// </remarks>
-        public abstract IReadOnlyCollection<ItemInfo> GetItems();
+        public abstract ItemInfo[] GetItems();
 
         /// <summary>
         ///     Gets surface items.
         /// </summary>
         /// <remarks><inheritdoc cref="GetItems"/></remarks>
-        public abstract IEnumerable<ISurfaceItemInfo> GetSurfaceItems();
+        public abstract ISurfaceItemInfo[] GetSurfaceItems();
 
         /// <summary>
         ///     Gets all items from players inventory.
         /// </summary>
-        public abstract IEnumerable<InventoryItemInfo> GetInventoryItems();
+        public abstract InventoryItemInfo[] GetInventoryItems();
 
         /// <summary>
         ///     Gets a random spawn point for a specific role.
