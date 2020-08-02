@@ -93,7 +93,19 @@ namespace SMod3.API
 
         public abstract void AddHealth(float amount);
         public abstract bool Ban(uint duration, string? message = null, bool isGlobalBan = false);
-        public abstract void ChangeRole(RoleType role, bool full = true, bool spawnTeleport = true, bool spawnProtect = true, bool removeHandcuffs = false);
+        /// <summary>
+        ///     Assigns the class of the player.
+        /// </summary>
+        /// <param name="full">
+        ///     Determines whether this is a full role change.
+        /// </param>
+        /// <param name="lite">
+        ///     Determines whether this is a lite role change.
+        /// </param>
+        /// <param name="escape">
+        ///     Determines if this is a role change for the escaped player.
+        /// </param>
+        public abstract void ChangeRole(RoleType role, bool full = true, bool lite = false, bool escape = false);
         public abstract void Damage(float amount, DamageType type = DamageType.NONE);
         /// <summary>
         ///     Disconnects a player from the server.
