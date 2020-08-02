@@ -243,6 +243,11 @@ namespace SMod3.API
     /// </summary>
     public readonly struct GhostSettings
     {
+        /// <summary>
+        ///     Default settings.
+        /// </summary>
+        public static readonly GhostSettings Default = new GhostSettings(false, false, false);
+
         /// <remarks>
         ///     Without it, nothing will work.
         /// </remarks>
