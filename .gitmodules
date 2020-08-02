@@ -4,3 +4,4 @@
 [submodule "NorthwoodLib"]
 	path = NorthwoodLib
 	url = git@github.com:northwood-studios/NorthwoodLib.git
+	branch = 1.0.0
