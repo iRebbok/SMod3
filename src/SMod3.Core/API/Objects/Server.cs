@@ -89,7 +89,7 @@ namespace SMod3.API
             if (role is null || role.Length == 0)
                 throw new ArgumentException(nameof(role));
 
-            return Players.Where(p => Array.Exists(role, r => r == p.TeamRole.Role));
+            return Players.Where(p => Array.Exists(role, r => r == p.RoleData.Role));
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace SMod3.API
             if (team is null || team.Length == 0)
                 throw new ArgumentException(nameof(team));
 
-            return Players.Where(p => Array.Exists(team, t => t == p.TeamRole.Team));
+            return Players.Where(p => Array.Exists(team, t => t == p.RoleData.Team));
         }
 
         /// <summary>

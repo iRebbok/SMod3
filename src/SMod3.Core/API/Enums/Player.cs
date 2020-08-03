@@ -81,7 +81,7 @@ namespace SMod3.API
     public enum TeamType : sbyte
     {
         /// <summary>
-        ///     Occurs only when <see cref="TeamRole"/> is literally empty.
+        ///     Occurs only when <see cref="RoleData"/> is literally empty.
         /// </summary>
         NONE = -1,
 

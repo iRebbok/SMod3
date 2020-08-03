@@ -22,7 +22,7 @@ namespace SMod3.API
         /// <summary>
         ///     Gets all existing roles.
         /// </summary>
-        public abstract ReadOnlyCollection<TeamRole> Roles { get; }
+        public abstract ReadOnlyCollection<RoleData> Roles { get; }
 
         /// <summary>
         ///     Gets all the generators.

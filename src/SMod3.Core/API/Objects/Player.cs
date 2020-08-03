@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 using UnityEngine;
 
@@ -42,7 +43,7 @@ namespace SMod3.API
         public abstract Vector2 Rotation { get; }
         public abstract Scp079Data Scp079Data { get; }
         public abstract Scp268Data Scp268Data { get; }
-        public abstract TeamRole TeamRole { get; }
+        public abstract RoleData RoleData { get; }
         /// <summary>
         ///		Gets a player's UserGroup from the player's rank.
         /// </summary>
@@ -244,6 +245,23 @@ namespace SMod3.API
         ///     Gets a boolean if the item is in the inventory.
         /// </summary>
         public abstract bool HasItem(ItemType type);
+    }
+
+    public abstract class RoleData
+    {
+        public abstract TeamType Team { get; }
+        public abstract RoleType Role { get; }
+
+        public abstract string Name { get; }
+
+        public abstract float WalkSpeed { get; }
+        public abstract float RunSpeed { get; }
+        public abstract float JumpSpeed { get; }
+
+        public abstract int MaxHP { get; }
+        public abstract ReadOnlyDictionary<AmmoType, uint> DefaultAmmo { get; }
+        public abstract ReadOnlyDictionary<AmmoType, uint> MaxAmmo { get; }
+
     }
 
     /// <summary>
