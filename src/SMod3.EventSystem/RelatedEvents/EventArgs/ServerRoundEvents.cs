@@ -10,7 +10,7 @@ namespace SMod3.Module.EventSystem.Events
     public sealed class RoundEndEvent : EventArg
     {
         public LeadingTeam LeadingTeam { get; set; }
-        public ROUND_END_STATUS Status { get; internal set; }
+        public RoundEndStatus Status { get; internal set; }
 
         internal override void Reset()
         {
@@ -44,7 +44,7 @@ namespace SMod3.Module.EventSystem.Events
 
     public sealed class CheckRoundEndEvent : EventArg
     {
-        public ROUND_END_STATUS Status { get; set; }
+        public RoundEndStatus Status { get; set; }
 
         internal override void Reset()
         {

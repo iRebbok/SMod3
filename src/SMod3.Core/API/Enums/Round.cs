@@ -8,7 +8,7 @@ namespace SMod3.API
         DRAW = 3
     }
 
-    public enum ROUND_END_STATUS : byte
+    public enum RoundEndStatus : byte
     {
         ON_GOING,
         MTF_VICTORY,
