@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace SMod3.API
 {
+    public abstract class BaseScpController { }
+
+    public abstract class BaseCustomEffect { }
+
     /// <exception cref="InvalidOperationException">
     ///     Player object was destroyed.
     /// </exception>
@@ -41,8 +45,6 @@ namespace SMod3.API
         ///     The game doesn't allow us to set the player’s rotation.
         /// </remarks>
         public abstract Vector2 Rotation { get; }
-        public abstract Scp079Data Scp079Data { get; }
-        public abstract Scp268Data Scp268Data { get; }
         public abstract RoleData RoleData { get; }
         /// <summary>
         ///		Gets a player's UserGroup from the player's rank.
@@ -52,6 +54,8 @@ namespace SMod3.API
         /// </returns>
         public abstract IUserGroup? UserGroup { get; }
         public abstract Inventory Inventory { get; }
+        public abstract ReadOnlyCollection<BaseScpController> ScpControllers { get; }
+        public abstract ReadOnlyCollection<BaseCustomEffect> CustomEffects { get; }
 
         /// <summary>
         ///     Gets or sets health.
@@ -194,6 +198,48 @@ namespace SMod3.API
         ///     it'll not always work.
         /// </remarks>
         public abstract void ThrowGrenade(GrenadeType grenadeType, bool isSlowThrow = false);
+
+        public T? GetPlayerEffect<T>() where T : BaseCustomEffect
+        {
+            TryGetPlayerEffect<T>(out var ef);
+            return ef;
+        }
+
+        public bool TryGetPlayerEffect<T>(out T? effect) where T : BaseCustomEffect
+        {
+            for (var z = 0; z < CustomEffects.Count; z++)
+            {
+                if (CustomEffects[z] is T ef)
+                {
+                    effect = ef;
+                    return true;
+                }
+            }
+
+            effect = null;
+            return false;
+        }
+
+        public T? GetPlayerScpController<T>() where T : BaseScpController
+        {
+            TryGetPlayerScpController<T>(out var sc);
+            return sc;
+        }
+
+        public bool TryGetPlayerScpController<T>(out T? controller) where T : BaseScpController
+        {
+            for (var z = 0; z < ScpControllers.Count; z++)
+            {
+                if (ScpControllers[z] is T sc)
+                {
+                    controller = sc;
+                    return true;
+                }
+            }
+
+            controller = null;
+            return false;
+        }
 
         public abstract GameObject GetGameObject();
 
