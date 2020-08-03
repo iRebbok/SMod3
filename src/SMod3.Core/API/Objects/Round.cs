@@ -7,17 +7,24 @@ namespace SMod3.API
         public abstract IRoundStats Stats { get; }
         public abstract TimeSpan Duration { get; }
         public DateTime StartedTime => DateTime.Now - Duration;
+        public abstract bool RoundInProgress { get; }
         public abstract bool LobbyLock { get; set; }
         public abstract bool RoundLock { get; set; }
 
         /// <summary>
         ///     Forcibly starts the round if it has not started yet.
         /// </summary>
-        public abstract void ForceStartRound();
+        /// <returns>
+        ///     true if the round has been started; otherwise, false;
+        /// </returns>
+        public abstract bool ForceStartRound();
         /// <summary>
         ///     Forcibly restarts the round.
         /// </summary>
-        public abstract void ForceRestartRound();
+        /// <returns>
+        ///     true if the round has been restarted; otherwise, false;
+        /// </returns>
+        public abstract bool ForceRestartRound();
         /// <summary>
         ///     Forcibly ends the round.
         /// </summary>
