@@ -1,7 +1,8 @@
 [submodule "smodrefs"]
 	path = smodrefs
 	url = git@gitlab.com:iRebbok/smodrefs.git
+	branch = master
 [submodule "NorthwoodLib"]
 	path = NorthwoodLib
 	url = git@github.com:northwood-studios/NorthwoodLib.git
-	branch = 1.0.0
+    branch = master
