@@ -98,13 +98,21 @@ namespace SMod3.API
         /// </summary>
         /// <param name="full">
         ///     Determines whether this is a full role change.
-        /// </param>
+        ///     Restores stamina.
+        ///     Gives starting class items, requires false on <paramref name="lite"/>.
+        ///     Keeps current items, requires true on <paramref name="escape"/> and on `KeepItemsAfterEscaping`.
+        /// /// </param>
         /// <param name="lite">
         ///     Determines whether this is a lite role change.
+        ///     Affects the player's movement to the role's respawn position.
         /// </param>
         /// <param name="escape">
         ///     Determines if this is a role change for the escaped player.
+        ///     Affects the dropping of ammo when `KeepItemsAfterEscaping` is true, requires false on <paramref name="lite"/>.
         /// </param>
+        /// <remarks>
+        ///     `KeepItemsAfterEscaping` - is the server configuration parameter.
+        /// </remarks>
         public abstract void ChangeRole(RoleType role, bool full = true, bool lite = false, bool escape = false);
         public abstract void Damage(float amount, DamageType type = DamageType.NONE);
         /// <summary>
