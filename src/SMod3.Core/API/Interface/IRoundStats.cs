@@ -3,7 +3,7 @@ namespace SMod3.API
     public interface IRoundStats
     {
         int NTFAlive { get; }
-        int CiAlive { get; }
+        int CIAlive { get; }
 
         int ScientistsAlive { get; }
         int ScientistsEscaped { get; }
