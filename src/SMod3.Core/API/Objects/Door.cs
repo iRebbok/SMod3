@@ -48,12 +48,12 @@ namespace SMod3.API
         ///     Only those doors that appear in the Remote Admin panel have a name.
         /// </remarks>
         public abstract string Name { get; }
-        /// <summary><inheritdoc cref="AccessRequirements"/></summary>
-        public abstract AccessRequirements Access { get; set; }
+        /// <summary><inheritdoc cref="DoorAccessRequirements"/></summary>
+        public abstract DoorAccessRequirements Access { get; set; }
         /// <summary><inheritdoc cref="DoorType"/></summary>
         public abstract DoorType Type { get; }
-        /// <summary><inheritdoc cref="ButtonType"/></summary>
-        public abstract ButtonType Button { get; }
+        /// <summary><inheritdoc cref="DoorButtonType"/></summary>
+        public abstract DoorButtonType Button { get; }
         /// <summary><inheritdoc cref="DoorStatus"/></summary>
         public abstract DoorStatus Status { get; }
         /// <summary>

@@ -2,18 +2,18 @@ namespace SMod3.API
 {
     public enum PocketDimensionExitType : byte
     {
-        Killer = 0,
-        Exit = 1
+        KILLER = 0,
+        EXIT = 1
     }
 
     public enum IntercomStatus : byte
     {
-        Muted,
-        Restarting,
-        Transmitting_Admin,
-        Transmitting_Bypass,
-        Transmitting,
-        Ready
+        MUTED,
+        RESTARING,
+        TRANSMITTING_ADMIN,
+        TRANSMITTING_BYPASS,
+        TRANSMITTING,
+        READY
     }
 
     public enum RadioStatus : byte
@@ -69,7 +69,7 @@ namespace SMod3.API
     public enum BanType : sbyte
     {
         NONE = -1,
-        UserId,
+        USER_ID,
         IP
     }
 }

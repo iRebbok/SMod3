@@ -2,18 +2,18 @@ namespace SMod3.API
 {
     public enum ElevatorType : byte
     {
-        LiftA = 0,
-        LiftB = 1,
-        GateA = 2,
-        GateB = 3,
-        WarheadRoom = 4,
-        SCP049Chamber = 5
+        LIFT_A = 0,
+        LIFT_B = 1,
+        GATE_A = 2,
+        GATE_B = 3,
+        WARHEAD_ROOM = 4,
+        SCP049_CHAMBER = 5
     }
 
     public enum ElevatorStatus : byte
     {
-        Up,
-        Down,
-        Moving
+        UP,
+        DOWN,
+        MOVING
     }
 }

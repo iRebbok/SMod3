@@ -5,8 +5,8 @@ namespace SMod3.API
     [Flags]
     public enum BroadcastFlag : byte
     {
-        Normal = 0,
-        Monospaced = 1,
-        AdminChat = 2
+        NORMAL = 0,
+        MONOSPACED = 1,
+        ADMIN_CHAT = 2
     }
 }

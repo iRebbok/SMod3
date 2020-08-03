@@ -6,23 +6,23 @@ namespace SMod3.API
     ///     Door Access Requirements.
     /// </summary>
     [Flags]
-    public enum AccessRequirements
+    public enum DoorAccessRequirements
     {
         /// <summary>
         ///     Means that the door is not accessible for interaction.
         ///     Don't confuse with locked.
         /// </summary>
-        Unaccessible = 1 << 0,
-        Checkpoints = 1 << 1,
-        Gates = 1 << 2,
-        Intercom = 1 << 3,
-        AlphaWarhead = 1 << 4,
-        ContainmentLevelOne = 1 << 5,
-        ContainmentLevelTwo = 1 << 6,
-        ContainmentLevelThree = 1 << 7,
-        ArmoryLevelOne = 1 << 8,
-        ArmoryLevelTwo = 1 << 9,
-        ArmoryLevelThree = 1 << 10
+        UNACCESSIBLE = 1 << 0,
+        CHECKPOINTS = 1 << 1,
+        GATES = 1 << 2,
+        INTERCOM = 1 << 3,
+        ALPHA_WARHEAD = 1 << 4,
+        CONTAINMENT_LEVEL_ONE = 1 << 5,
+        CONTAINMENT_LEVEL_TWO = 1 << 6,
+        CONTAINMENT_LEVEL_THREE = 1 << 7,
+        ARMY_LEVEL_ONE = 1 << 8,
+        ARMY_LEVEL_TWO = 1 << 9,
+        ARMY_LEVEL_THREE = 1 << 10
     }
 
     /// <summary>
@@ -30,20 +30,20 @@ namespace SMod3.API
     /// </summary>
     public enum DoorType : byte
     {
-        Standard,
-        HeavyGate,
-        Checkpoint
+        STANDARD,
+        HEAVY_GATE,
+        CHECKPOINT
     }
 
     /// <summary>
     ///     Type of button on the door.
     /// </summary>
-    public enum ButtonType : byte
+    public enum DoorButtonType : byte
     {
-        LightContainment,
-        HeavyContainment,
-        AccessRequired,
-        Checkpoint
+        LIGHT_CONTAINMENT,
+        HEAVY_CONTAIMENT,
+        ACCESS_REQUIRED,
+        CHECKPOINT
     }
 
     /// <summary>
@@ -51,11 +51,11 @@ namespace SMod3.API
     /// </summary>
     public enum DoorStatus : byte
     {
-        Closed,
-        Open,
-        Moving,
-        Denied,
-        Locked,
-        Misc
+        CLOSED,
+        OPEN,
+        MOVING,
+        DENIED,
+        LCOKED,
+        MISC
     }
 }

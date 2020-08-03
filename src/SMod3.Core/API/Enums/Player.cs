@@ -1,3 +1,5 @@
+using System;
+
 namespace SMod3.API
 {
     public enum DamageType : byte
@@ -97,43 +99,44 @@ namespace SMod3.API
     /// <summary>
     ///     Player permissions at remote admin.
     /// </summary>
+    [Flags]
     public enum RemoteAdminPermissions : ulong
     {
-        KickingAndShortTermBanning = 1uL,
-        BanningUpToDay = 2uL,
-        LongTermBanning = 4uL,
-        ForceclassSelf = 8uL,
-        ForceclassToSpectator = 0x10,
-        ForceclassWithoutRestrictions = 0x20,
-        GivingItems = 0x40,
-        WarheadEvents = 0x80,
-        RespawnEvents = 0x100,
-        RoundEvents = 0x200,
-        SetGroup = 0x400,
-        GameplayData = 0x800,
-        Overwatch = 0x1000,
-        FacilityManagement = 0x2000,
-        PlayersManagement = 0x4000,
-        PermissionsManagement = 0x8000,
-        ServerConsoleCommands = 0x10000,
-        ViewHiddenBadges = 0x20000,
-        ServerConfigs = 0x40000,
-        Broadcasting = 0x80000,
-        PlayerSensitiveDataAccess = 0x100000,
-        Noclip = 0x200000,
-        AFKImmunity = 0x400000,
-        AdminChat = 0x800000,
-        ViewHiddenGlobalBadges = 0x1000000,
-        Announcer = 0x2000000,
-        Effects = 0x4000000,
-        FriendlyFireDetectorImmunity = 0x8000000,
-        FriendlyFireDetectorTempDisable = 0x10000000
+        KICKING_AND_SHORT_TERM_BANNING = 1 << 0,
+        BANNING_UP_TO_DAY = 1 << 1,
+        LONG_TERM_BANNING = 1 << 2,
+        FORCECLASS_SELF = 1 << 3,
+        FOCRCLASS_TO_SPECTATOR = 1 << 4,
+        FORCECLASS_WITHOUT_RESTRICTIONS = 1 << 5,
+        GIVING_ITEMS = 1 << 6,
+        WARHEAD_EVENTS = 1 << 7,
+        RESPAWN_EVENTS = 1 << 8,
+        ROUND_EVENTS = 1 << 9,
+        SET_GROUP = 1 << 10,
+        GAMEPLAY_DATA = 1 << 11,
+        OVERWARCH = 1 << 12,
+        FACILITY_MANAGEMENT = 1 << 13,
+        PLAYER_MANAGEMENT = 1 << 14,
+        PERMISSION_MANAGEMENT = 1 << 15,
+        SERVER_CONSOLE_COMMANDS = 1 << 16,
+        VIEW_HIDDEN_BADGES = 1 << 17,
+        SERVER_CONFIGS = 1 << 18,
+        BROADCASTING = 1 << 19,
+        PLAYER_SENSITIVE_DATA_ACCESS = 1 << 20,
+        NOCLIP = 1 << 21,
+        AFK_IMMUNITY = 1 << 22,
+        ADMIN_CHAT = 1 << 23,
+        VIEW_HIDDEN_GLOBAL_BADGES = 1 << 24,
+        ANNOUNCER = 1 << 25,
+        EFFECTS = 1 << 26,
+        FRIENDLY_FIRE_DETECTOR_IMMUNITY = 1 << 27,
+        FRIENDLY_FIRE_DETECTOR_TEMP_DISABLE = 1 << 28
     }
 
     public enum SpawnableTeamType : byte
     {
-        None,
-        ChaosInsurgency,
-        NineTailedFox
+        NONE = 0,
+        CHAOS_INSURGENCY = 1,
+        NINE_TAILED_FOX = 2
     }
 }

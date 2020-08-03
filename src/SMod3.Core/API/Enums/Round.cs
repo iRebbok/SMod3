@@ -2,10 +2,10 @@ namespace SMod3.API
 {
     public enum LeadingTeam : byte
     {
-        FacilityForces = 0,
-        ChaosInsurgency = 1,
-        Anomalies = 2,
-        Draw = 3
+        FACILITY_FORCES = 0,
+        CHAOS_INSURGENCY = 1,
+        ANOMALIES = 2,
+        DRAW = 3
     }
 
     public enum ROUND_END_STATUS : byte

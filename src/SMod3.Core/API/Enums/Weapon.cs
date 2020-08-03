@@ -69,12 +69,12 @@ namespace SMod3.API
 
     public enum WeaponType : byte
     {
-        COM15 = (int)ItemType.GUN_COM15,
-        MICROHID = (int)ItemType.MICRO_HID,
-        E11_STANDARD_RIFLE = (int)ItemType.GUN_E11_SR,
-        P90 = (int)ItemType.GUN_PROJECT90,
-        MP7 = (int)ItemType.GUN_MP7,
-        LOGICER = (int)ItemType.GUN_LOGICER,
-        USP = (int)ItemType.GUN_USP
+        COM15 = (byte)ItemType.GUN_COM15,
+        MICROHID = (byte)ItemType.MICRO_HID,
+        E11_STANDARD_RIFLE = (byte)ItemType.GUN_E11_SR,
+        P90 = (byte)ItemType.GUN_PROJECT90,
+        MP7 = (byte)ItemType.GUN_MP7,
+        LOGICER = (byte)ItemType.GUN_LOGICER,
+        USP = (byte)ItemType.GUN_USP
     }
 }
