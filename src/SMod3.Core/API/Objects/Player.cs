@@ -254,12 +254,12 @@ namespace SMod3.API
         /// <summary>
         ///     The number of items in the inventory.
         /// </summary>
-        public uint Count { get; }
+        public abstract uint Count { get; }
 
         /// <summary>
         ///     Gets the current item type in the player’s hand.
         /// </summary>
-        public ItemType CurrentItemType { get; }
+        public abstract ItemType CurrentItemType { get; }
 
         /// <summary>
         ///		Gets the current item in the player's hand.
@@ -267,7 +267,7 @@ namespace SMod3.API
         /// <returns>
         ///		Null if the player's hands are empty.
         /// </returns>
-        public InventoryItemInfo? CurrentItem { get; }
+        public abstract InventoryItemInfo? CurrentItem { get; }
 
         /// <summary>
         ///		Gets the player's inventory.
@@ -307,7 +307,6 @@ namespace SMod3.API
         public abstract int MaxHP { get; }
         public abstract ReadOnlyDictionary<AmmoType, uint> DefaultAmmo { get; }
         public abstract ReadOnlyDictionary<AmmoType, uint> MaxAmmo { get; }
-
     }
 
     /// <summary>
