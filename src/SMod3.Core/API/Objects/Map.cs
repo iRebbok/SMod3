@@ -303,10 +303,10 @@ namespace SMod3.API
         /// <summary>
         ///     Activates tesla sate.
         /// </summary>
-        /// <param name="instant">
-        ///     Activates the gate instantly (SCP-079 effect).
+        /// <param name="activationType">
+        ///     Activation type.
         /// </param>
-        public abstract void Activate(bool instant = false);
+        public abstract void Activate(TeslaActivationType activationType = TeslaActivationType.NORMAL);
 
         public abstract GameObject GetGameObject();
 

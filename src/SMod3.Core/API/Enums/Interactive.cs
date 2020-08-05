@@ -72,4 +72,21 @@ namespace SMod3.API
         USER_ID,
         IP
     }
+
+    public enum TeslaActivationType
+    {
+        /// <summary>
+        ///     Waits 30 frames before activating.
+        /// </summary>
+        NORMAL,
+        /// <summary>
+        ///     Waits 5 frames before activating.
+        ///     Scp079 uses this to activate tesla.
+        /// </summary>
+        INSTANT_BRUSH,
+        /// <summary>
+        ///     No waiting.
+        /// </summary>
+        INSTANT
+    }
 }
