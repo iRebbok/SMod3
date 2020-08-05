@@ -259,7 +259,7 @@ namespace SMod3.API
         /// <summary>
         ///     Gets the current item type in the player’s hand.
         /// </summary>
-        public abstract ItemType CurrentItemType { get; }
+        public abstract ItemType CurrentItemType { get; set; }
 
         /// <summary>
         ///		Gets the current item in the player's hand.
