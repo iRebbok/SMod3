@@ -272,7 +272,7 @@ namespace SMod3.API
         /// <summary>
         ///		Gets the player's inventory.
         /// </summary>
-        public abstract IList<InventoryItemInfo> GetInventory();
+        public abstract ReadOnlyCollection<InventoryItemInfo> GetInventory();
 
         /// <summary>
         ///		Gives the item to the player.
