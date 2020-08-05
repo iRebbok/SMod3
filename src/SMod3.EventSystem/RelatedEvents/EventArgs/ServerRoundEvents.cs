@@ -26,22 +26,6 @@ namespace SMod3.Module.EventSystem.Events
         }
     }
 
-    public sealed class ConnectEvent : EventArg
-    {
-        public Connection Connection { get; internal set; }
-
-        internal override void Reset()
-        {
-            Connection = null;
-        }
-
-        internal override void CopyTo(EventArg other)
-        {
-            var target = EventHelper.ConvertTo<ConnectEvent>(other);
-            target.Connection = Connection;
-        }
-    }
-
     public sealed class CheckRoundEndEvent : EventArg
     {
         public RoundEndStatus Status { get; set; }

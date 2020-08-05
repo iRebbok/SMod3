@@ -13,16 +13,6 @@ namespace SMod3.Module.EventSystem.Handlers
         void OnRoundEnd(RoundEndEvent ev);
     }
 
-    public interface IEventHandlerConnect : IEventHandler
-    {
-        void OnConnect(ConnectEvent ev);
-    }
-
-    public interface IEventHandlerDisconnect : IEventHandler
-    {
-        void OnDisconnect();
-    }
-
     public interface IEventHandlerCheckRoundEnd : IEventHandler
     {
         void OnCheckRoundEnd(CheckRoundEndEvent ev);
