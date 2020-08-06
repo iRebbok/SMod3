@@ -195,22 +195,12 @@ namespace SMod3.API
         public abstract string GetIntercomContent(IntercomStatus intercomStatus);
 
         /// <summary>
-        ///     Announces spawn NTF.
-        /// </summary>>
-        public abstract void AnnounceNtfEntrance(int scpsLeft, int mtfNumber, char mtfLetter);
-
-        /// <summary>
-        ///     Announces the killing of SCP.
-        /// </summary>
-        public abstract void AnnounceScpKill(RoleType scp, Player? killer = null);
-
-        /// <summary>
         ///     Announces custom message.
         /// </summary>
         /// <exception cref="ArgumentException">
         ///     Message is null or empty.
         /// </exception>
-        public abstract void AnnounceCustomMessage(string message);
+        public abstract void AnnounceCustomMessage(string message, bool makeHold = false, bool makeNoise = false);
 
         /// <summary>
         ///     Custom throws a grenade.
