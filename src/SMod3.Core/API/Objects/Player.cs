@@ -13,7 +13,7 @@ namespace SMod3.API
     /// <exception cref="InvalidOperationException">
     ///     Player object was destroyed.
     /// </exception>
-    public abstract class Player : ICommandSender, IGenericApiObject
+    public abstract class Player : ICommandSender, IGenericApiObject, IComparable<Player>, IEquatable<Player>
     {
         #region Properties
 
@@ -241,7 +241,21 @@ namespace SMod3.API
             return false;
         }
 
+        /// <inheritdoc />
         public abstract GameObject GetGameObject();
+
+        /// <inheritdoc />
+        public int CompareTo(Player other) => PlayerId.CompareTo(other.PlayerId);
+
+        /// <inheritdoc />
+        public bool Equals(Player other) => Equals(other, true);
+
+        /// <summary>
+        ///     Soft equals without checking the PlayerId.
+        /// </summary>
+        public bool SoftEquals(Player other) => Equals(other, false);
+
+        private bool Equals(Player other, bool idCheck) => !(other is null) && (PlayerId == other.PlayerId || !idCheck) && UserId == other.UserId && Conn.IpAddress == other.Conn.IpAddress;
 
         #endregion
     }
