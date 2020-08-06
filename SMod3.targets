@@ -3,7 +3,8 @@
 
   <PropertyGroup>
     <Copyright>Copyright 2020 - $([System.DateTime]::Now.ToString("yyyy"))</Copyright>
-    <RepositoryUrl>git@github.com:iRebbok/SMod3.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/iRebbok/SMod3</RepositoryUrl>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -22,12 +23,6 @@
 
     <!-- Disable dependency file generation -->
     <GenerateDependencyFile>false</GenerateDependencyFile>
-
-    <!--
-      Assign value if not assigned,
-      so we assign a default value that points to the submodule.
-      -->
-    <SMOD_REFS Condition="$(SMOD_REFS) == ''">..\..\smodrefs</SMOD_REFS>
   </PropertyGroup>
 
   <ItemGroup>
