@@ -13,17 +13,17 @@ namespace SMod3.API
         /// </summary>
         public static readonly IReadOnlyDictionary<string, DoorAccessRequirements> BackwardsCompatibleItemPermissions = new ReadOnlyDictionary<string, DoorAccessRequirements>(new Dictionary<string, DoorAccessRequirements>
         {
-            ["CONT_LVL_1"] = DoorAccessRequirements.ContainmentLevelOne,
-            ["CONT_LVL_2"] = DoorAccessRequirements.ContainmentLevelTwo,
-            ["CONT_LVL_3"] = DoorAccessRequirements.ContainmentLevelThree,
+            ["CONT_LVL_1"] = DoorAccessRequirements.CONTAINMENT_LEVEL_ONE,
+            ["CONT_LVL_2"] = DoorAccessRequirements.CONTAINMENT_LEVEL_TWO,
+            ["CONT_LVL_3"] = DoorAccessRequirements.CONTAINMENT_LEVEL_THREE,
 
-            ["ARMORY_LVL_1"] = DoorAccessRequirements.ArmoryLevelOne,
-            ["ARMORY_LVL_2"] = DoorAccessRequirements.ArmoryLevelTwo,
-            ["ARMORY_LVL_3"] = DoorAccessRequirements.ArmoryLevelThree,
+            ["ARMORY_LVL_1"] = DoorAccessRequirements.CONTAINMENT_LEVEL_ONE,
+            ["ARMORY_LVL_2"] = DoorAccessRequirements.CONTAINMENT_LEVEL_TWO,
+            ["ARMORY_LVL_3"] = DoorAccessRequirements.CONTAINMENT_LEVEL_THREE,
 
-            ["INCOM_ACC"] = DoorAccessRequirements.Intercom,
-            ["CHCKPOINT_ACC"] = DoorAccessRequirements.Checkpoints,
-            ["EXIT_ACC"] = DoorAccessRequirements.Gates
+            ["INCOM_ACC"] = DoorAccessRequirements.INTERCOM,
+            ["CHCKPOINT_ACC"] = DoorAccessRequirements.CHECKPOINTS,
+            ["EXIT_ACC"] = DoorAccessRequirements.GATES
         });
 
         /// <summary>
