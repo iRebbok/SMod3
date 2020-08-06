@@ -23,7 +23,7 @@ namespace SMod3.API
         ///     whether it's on the server or its object is already destroyed.
         /// </summary>
         public abstract bool IsConnected { get; }
-        public abstract Connection Conn { get; }
+        public abstract Connection Connection { get; }
         /// <summary>
         ///     Gets the player’s nickname.
         /// </summary>
@@ -255,7 +255,7 @@ namespace SMod3.API
         /// </summary>
         public bool SoftEquals(Player other) => Equals(other, false);
 
-        private bool Equals(Player other, bool idCheck) => !(other is null) && (PlayerId == other.PlayerId || !idCheck) && UserId == other.UserId && Conn.IpAddress == other.Conn.IpAddress;
+        private bool Equals(Player other, bool idCheck) => !(other is null) && (PlayerId == other.PlayerId || !idCheck) && UserId == other.UserId && Connection.IpAddress == other.Connection.IpAddress;
 
         #endregion
     }
