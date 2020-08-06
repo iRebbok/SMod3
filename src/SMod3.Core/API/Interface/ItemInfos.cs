@@ -12,9 +12,7 @@ namespace SMod3.API
         /// <summary>
         ///     Item type.
         /// </summary>
-        /// <remarks>
-        ///     When assigning <see cref="ItemType.NONE"/>, the item will be destroyed.
-        /// </remarks>
+        /// <exception cref="ArgumentException"><inheritdoc cref="Inventory.GiveItem(ItemType)" /></exception>
         /// <exception cref="InvalidOperationException">
         ///     Attempted interaction after deletion.
         /// </exception>
@@ -106,6 +104,14 @@ namespace SMod3.API
         /// </summary>
         /// <exception cref="InvalidOperationException"><inheritdoc cref="ItemInfo.Type"/></exception>
         int Uniq { get; }
+
+        /// <summary>
+        ///     Drops an item from inventory.
+        /// </summary>
+        /// <returns>
+        ///     Source of the dropped item.
+        /// </returns>
+        ISurfaceItemInfo Drop();
     }
 
     // todo: implement weapon info & locker API with the locker item info
