@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -20,7 +19,10 @@ namespace SMod3.API
         /// <summary>
         ///     The current camera the player is on.
         /// </summary>
-        public abstract Scp079Camera Camera { get; }
+        /// <remarks>
+        ///     Null if the player isn't Scp079.
+        /// </remarks>
+        public abstract Scp079Camera? Camera { get; }
 
         public abstract IEnumerable<Door> GetLockedDoors();
         public abstract void Lock(Door door);
