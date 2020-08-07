@@ -12,9 +12,9 @@ namespace SMod3.API
         /// <remarks>
         ///     Disabling simply sets the intensity to zero.
         /// </remarks>
-        public bool Enabled { get; set; }
+        public abstract bool Enabled { get; set; }
 
-        public byte Intensity { get; set; }
+        public abstract byte Intensity { get; set; }
     }
 
     /// <exception cref="InvalidOperationException">
