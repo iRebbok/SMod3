@@ -15,7 +15,7 @@ namespace SMod3.API
     /// </exception>
     public abstract class Player : ICommandSender, IGenericApiObject, IComparable<Player>, IEquatable<Player>
     {
-        #region Properties
+        #region Abstract properties
 
         public abstract bool DoNotTrack { get; }
         /// <summary>
@@ -94,7 +94,7 @@ namespace SMod3.API
 
         #endregion
 
-        #region Methods
+        #region Abstract methods
 
         public abstract void AddHealth(float amount);
         public abstract bool Ban(uint duration, string? message = null, bool isGlobalBan = false);
@@ -199,6 +199,13 @@ namespace SMod3.API
         /// </remarks>
         public abstract void ThrowGrenade(GrenadeType grenadeType, bool isSlowThrow = false);
 
+        /// <inheritdoc />
+        public abstract GameObject GetGameObject();
+
+        #endregion
+
+        #region Methods
+
         public T? GetPlayerEffect<T>() where T : BaseCustomEffect
         {
             TryGetPlayerEffect<T>(out var ef);
@@ -242,9 +249,6 @@ namespace SMod3.API
         }
 
         /// <inheritdoc />
-        public abstract GameObject GetGameObject();
-
-        /// <inheritdoc />
         public int CompareTo(Player other) => PlayerId.CompareTo(other.PlayerId);
 
         /// <inheritdoc />
@@ -256,6 +260,44 @@ namespace SMod3.API
         public bool SoftEquals(Player other) => Equals(other, false);
 
         private bool Equals(Player other, bool idCheck) => !(other is null) && (PlayerId == other.PlayerId || !idCheck) && UserId == other.UserId && Connection.IpAddress == other.Connection.IpAddress;
+
+        #endregion
+
+        #region Standard
+
+        public static bool operator ==(Player ply1, Player ply2)
+        {
+            return ply1.Equals(ply2);
+        }
+
+        public static bool operator !=(Player ply1, Player ply2)
+        {
+            return !(ply1 == ply2);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Player ply && this == ply;
+        }
+
+        public override int GetHashCode()
+        {
+            const int PRIME_OF_SUFFICIENT_SIZE = 397;
+
+            unchecked {
+                var hash = PlayerId.GetHashCode();
+                hash = (hash * PRIME_OF_SUFFICIENT_SIZE) ^ UserId.GetHashCode();
+                hash = (hash * PRIME_OF_SUFFICIENT_SIZE) ^ Connection.IpAddress.GetHashCode();
+                hash = (hash * PRIME_OF_SUFFICIENT_SIZE) ^ Nickname.GetHashCode();
+                return hash;
+            }
+        }
+
+        public override string ToString()
+        {
+            const string SEPARACTOR = "::";
+            return string.Concat(Nickname.Replace(":", string.Empty), SEPARACTOR, Connection.IpAddress, SEPARACTOR, UserId, SEPARACTOR, PlayerId);
+        }
 
         #endregion
     }
