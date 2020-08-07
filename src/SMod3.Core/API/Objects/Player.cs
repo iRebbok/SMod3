@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 using UnityEngine;
@@ -8,7 +7,15 @@ namespace SMod3.API
 {
     public abstract class BaseScpController { }
 
-    public abstract class BaseCustomEffect { }
+    public abstract class BaseCustomEffect
+    {
+        /// <remarks>
+        ///     Disabling simply sets the intensity to zero.
+        /// </remarks>
+        public bool Enabled { get; set; }
+
+        public byte Intensity { get; set; }
+    }
 
     /// <exception cref="InvalidOperationException">
     ///     Player object was destroyed.
@@ -284,7 +291,8 @@ namespace SMod3.API
         {
             const int PRIME_OF_SUFFICIENT_SIZE = 397;
 
-            unchecked {
+            unchecked
+            {
                 var hash = PlayerId.GetHashCode();
                 hash = (hash * PRIME_OF_SUFFICIENT_SIZE) ^ UserId.GetHashCode();
                 hash = (hash * PRIME_OF_SUFFICIENT_SIZE) ^ Connection.IpAddress.GetHashCode();

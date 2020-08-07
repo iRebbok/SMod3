@@ -2,8 +2,6 @@ namespace SMod3.API
 {
     public abstract class Scp268Data : BaseCustomEffect
     {
-        public abstract bool Enabled { get; set; }
-
         /// <summary>
         ///     Current usage time.
         /// </summary>
