@@ -20,7 +20,7 @@ namespace SMod3.API
 
     public abstract class Server : ICommandSender
     {
-        #region Properties
+        #region Abstract properties
 
         public abstract Map Map { get; }
         public abstract Round Round { get; }
@@ -97,7 +97,7 @@ namespace SMod3.API
         /// </summary>
         /// <remarks><inheritdoc cref="AppDataPath" /></remarks>
         /// <exception cref="DirectoryNotFoundException"><inheritdoc cref="AppDataPath" /></exception>
-        public abstract DirectoryInfo ConfigPath { get; set; }
+        public abstract DirectoryInfo? ConfigPath { get; set; }
 
         #endregion
 
