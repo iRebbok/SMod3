@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace SMod3.API
 
     public abstract class Server : ICommandSender
     {
+        #region Properties
+
         public abstract Map Map { get; }
         public abstract Round Round { get; }
 
@@ -77,6 +80,28 @@ namespace SMod3.API
         /// </summary>
         /// <remarks><inheritdoc cref="Players"/></remarks>
         public abstract ReadOnlyDictionary<int, Player> PlayerIdsAndPlayers { get; }
+
+        /// <summary>
+        ///     Path that the game uses as AppData.
+        /// </summary>
+        /// <remarks>
+        ///     Once assigned, the config will not be reloaded so as not to load the config until needed.
+        /// </remarks>
+        /// <exception cref="DirectoryNotFoundException">
+        ///     Directory doesn't exist.
+        /// </exception>
+        public abstract DirectoryInfo AppDataPath { get; set; }
+
+        /// <summary>
+        ///    Path the game uses to access configs.
+        /// </summary>
+        /// <remarks><inheritdoc cref="AppDataPath" /></remarks>
+        /// <exception cref="DirectoryNotFoundException"><inheritdoc cref="AppDataPath" /></exception>
+        public abstract DirectoryInfo ConfigPath { get; set; }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         ///     Gets players with specific role/s.
@@ -176,10 +201,9 @@ namespace SMod3.API
             return GameObjectsAndPlayers.TryGetValue(playerObject, out player);
         }
 
-        // If you are wondering where is 'GetAppFolder' here,
-        // then I decided that this is unnecessary because
-        // we now have 'PluginManager.GamePath' & 'PluginManager.BinPath'
-        // so use that instead
+        #endregion
+
+        #region Abstract methods
 
         /// <summary>
         ///     Sends a query to one of the command entry points.
@@ -192,5 +216,12 @@ namespace SMod3.API
         ///     Query is null or empty.
         /// </exception>
         public abstract void TypeCommand(string query, CommandEntry entry = CommandEntry.SERVER_CONSOLE, ICommandSender? sender = null);
+
+        /// <summary>
+        ///     Reloads all game configs.
+        /// </summary>
+        public abstract void ReloadGameConfigs();
+
+        #endregion
     }
 }
