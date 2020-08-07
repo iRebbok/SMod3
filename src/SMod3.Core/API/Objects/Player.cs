@@ -7,7 +7,7 @@ namespace SMod3.API
 {
     public abstract class BaseScpController { }
 
-    public abstract class BaseCustomEffect
+    public abstract class BasePlayerEffect
     {
         /// <remarks>
         ///     Disabling simply sets the intensity to zero.
@@ -62,7 +62,7 @@ namespace SMod3.API
         public abstract IUserGroup? UserGroup { get; }
         public abstract Inventory Inventory { get; }
         public abstract ReadOnlyCollection<BaseScpController> ScpControllers { get; }
-        public abstract ReadOnlyCollection<BaseCustomEffect> CustomEffects { get; }
+        public abstract ReadOnlyCollection<BasePlayerEffect> PlayerEffects { get; }
 
         /// <summary>
         ///     Gets or sets health.
@@ -213,17 +213,17 @@ namespace SMod3.API
 
         #region Methods
 
-        public T? GetPlayerEffect<T>() where T : BaseCustomEffect
+        public T? GetPlayerEffect<T>() where T : BasePlayerEffect
         {
             TryGetPlayerEffect<T>(out var ef);
             return ef;
         }
 
-        public bool TryGetPlayerEffect<T>(out T? effect) where T : BaseCustomEffect
+        public bool TryGetPlayerEffect<T>(out T? effect) where T : BasePlayerEffect
         {
-            for (var z = 0; z < CustomEffects.Count; z++)
+            for (var z = 0; z < PlayerEffects.Count; z++)
             {
-                if (CustomEffects[z] is T ef)
+                if (PlayerEffects[z] is T ef)
                 {
                     effect = ef;
                     return true;

@@ -1,6 +1,6 @@
 namespace SMod3.API
 {
-    public abstract class Scp268Data : BaseCustomEffect
+    public abstract class Scp268PlayerEffect : BasePlayerEffect
     {
         /// <summary>
         ///     Current usage time.

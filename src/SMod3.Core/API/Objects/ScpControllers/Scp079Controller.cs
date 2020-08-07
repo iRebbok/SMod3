@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SMod3.API
 {
-    public abstract class Scp079Data : BaseScpController
+    public abstract class Scp079Controller : BaseScpController
     {
         public abstract float Exp { get; set; }
         public abstract int ExpToLevelUp { get; set; }
