@@ -99,18 +99,18 @@ namespace SMod3.API
         ///     Not to be confused with <see cref="GetItem(ItemType)"/> and <see cref="Items"/>,
         ///     these are static objects that are in the game, not those that the players have.
         /// </remarks>
-        public abstract ItemInfo[] GetItems();
+        public abstract ReadOnlyCollection<ItemInfo> GetItems();
 
         /// <summary>
         ///     Gets surface items.
         /// </summary>
         /// <remarks><inheritdoc cref="GetItems"/></remarks>
-        public abstract ISurfaceItemInfo[] GetSurfaceItems();
+        public abstract ReadOnlyCollection<ISurfaceItemInfo> GetSurfaceItems();
 
         /// <summary>
         ///     Gets all items from players inventory.
         /// </summary>
-        public abstract InventoryItemInfo[] GetInventoryItems();
+        public abstract ReadOnlyCollection<InventoryItemInfo> GetInventoryItems();
 
         /// <summary>
         ///     Gets a random spawn point for a specific role.
@@ -124,7 +124,7 @@ namespace SMod3.API
         ///     Gets random spawn points for a specific role.
         /// </summary>
         /// <exception cref="ArgumentException"><inheritdoc cref="GetRandomSpawnPoint(RoleType)"/></exception>
-        public abstract Vector3[] GetSpawnPoints(RoleType role);
+        public abstract ReadOnlyCollection<Vector3> GetSpawnPoints(RoleType role);
 
         /// <summary>
         ///     Broadcasts to all players a message.
