@@ -11,5 +11,8 @@ namespace SMod3.API
         public abstract RemoteAdminPermissions Permissions { get; }
         public abstract bool Cover { get; }
         public abstract bool HiddenByDefault { get; }
+        public abstract byte KickPower { get; }
+        public abstract byte RequiredKickPower { get; }
+        public abstract bool Shared { get; }
     }
 }
