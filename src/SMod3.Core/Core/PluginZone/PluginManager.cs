@@ -9,6 +9,7 @@ using SMod3.API;
 using SMod3.Core.Fundamental;
 using SMod3.Core.Meta;
 using SMod3.Core.Misc;
+using SMod3.Core.RuntimeSettings.Native;
 
 namespace SMod3.Core
 {
@@ -365,6 +366,13 @@ namespace SMod3.Core
         {
             if (GetPluginStatus(plugin) == PluginStatus.ENABLED)
                 throw new InvalidOperationException("Plugin already enabled");
+
+            if (plugin.Metadata.RuntimeSettings.HasSetting<DisabledRuntimeSetting>())
+            {
+                Info($"Enabling {plugin} plugin was aborted by the runtime setting");
+                ChangePluginStatus(plugin, PluginStatus.DISABLED);
+                return true;
+            }
 
             using var ev1 = new PluginEnablingEvent(plugin);
             EventMisc.InvokeSafely(PluginEnabling, ev1);

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 
 using SMod3.Core.Fundamental;
+using SMod3.Core.RuntimeSettings;
 
 namespace SMod3.Core
 {
@@ -40,6 +41,10 @@ namespace SMod3.Core
         ///     Extra data provided by plugins for modules.
         /// </summary>
         public ReadOnlyCollection<IExtraData> ExtraDatas { get; }
+        /// <summary>
+        ///     Runtime settings collection.
+        /// </summary>
+        public RuntimeSettingCollection RuntimeSettings { get; }
 
         internal PluginMetadata(PluginMetadataAttribute attribute, Assembly assembly, IList<IExtraData> extraDatas) : base(assembly)
         {
@@ -50,6 +55,7 @@ namespace SMod3.Core
             Collaborators = attribute.Collaborators;
             Priority = attribute.Priority;
             ExtraDatas = new ReadOnlyCollection<IExtraData>(extraDatas);
+            RuntimeSettings = new RuntimeSettingCollection();
         }
     }
 }
