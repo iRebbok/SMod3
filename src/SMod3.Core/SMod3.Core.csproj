@@ -1,17 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\SMod3.targets" />
 
   <PropertyGroup>
     <AssemblyName>SMod3.Core</AssemblyName>
     <RootNamespace>SMod3</RootNamespace>
-    <AssemblyTitle>SMod3 kernel containing basic functionality</AssemblyTitle>
+    <AssemblyTitle>SMod3 kernel</AssemblyTitle>
     <Version>1.0.0-beta.1</Version>
+
+    <FodyGenerateXsd>False</FodyGenerateXsd>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- As long as the game provides Mono.Cecil 0.11.0, we don't need to provide it manually -->
-    <PackageReference Include="Mono.Cecil" Version="0.11.0" PrivateAssets="All" />
+    <PackageReference Include="Mono.Cecil" Version="0.11.2" />
+
+    <!-- Packing Mono.Cecil into SMod3.Core.dll -->
+    <PackageReference Include="Fody" Version="6.2.4" PrivateAssets="All" />
+    <PackageReference Include="Costura.Fody" Version="4.1.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

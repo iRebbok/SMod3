@@ -2,27 +2,30 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <Copyright>Copyright 2020 - $([System.DateTime]::Now.ToString("yyyy"))</Copyright>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <NoWarn>$(NoWarn);CS1573;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Copyright>Copyright © iRebbok 2020 - $([System.DateTime]::Now.ToString("yyyy"))</Copyright>
     <RepositoryUrl>https://github.com/iRebbok/SMod3</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>8.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <NoWarn>$(NoWarn);CS1573;CS1591</NoWarn>
-    <WarningsAsErrors>true</WarningsAsErrors>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <!-- Custom output path for projects -->
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)\bin\$(Configuration)\</OutputPath>
 
     <!-- Disable dependency file generation -->
-    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <GenerateDependencyFile>False</GenerateDependencyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration) == 'Release'">
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,7 +33,7 @@
     <InternalTo Include="SMBootstrapper.Harmony" />
   </ItemGroup>
 
-  <Target Name="IncludeCultureAttribute"
+  <Target Name="IncludeSModAttributes"
           AfterTargets="GetAssemblyAttributes">
     <ItemGroup>
 
