@@ -5,7 +5,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
-    <NoWarn>$(NoWarn);CS1573;CS1591</NoWarn>
+    <NoWarn>$(NoWarn);CS1573;CS1591;CS8002</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -21,6 +21,11 @@
 
     <!-- Disable dependency file generation -->
     <GenerateDependencyFile>False</GenerateDependencyFile>
+
+    <!-- Assembly singing -->
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\SMod3.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration) == 'Release'">
@@ -28,9 +33,19 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <SMBootStrapperPublicKey>
+      002400000480000094000000060200000024000052534131000400000100010031f818a4bfb73d
+      010ef018f5603ebbc1b3cf3b47e4fecbf60bcdb5c8368b0578a4a2cbc3630bd6561929fc289e3f
+      18e9d831a4ce1809f01eff0bdd8e2597dd8f277281d1163ab639b9fc53953ac9ef0813ba47181c
+      657003364afc4ce2c690eecb8468d92b00dda651d97eb11ed9f473f6858dcb88eae5719e32e03a
+      8527fac0
+    </SMBootStrapperPublicKey>
+  </PropertyGroup>
+
   <ItemGroup>
-    <InternalTo Include="SMBootstrapper.Core" />
-    <InternalTo Include="SMBootstrapper.Harmony" />
+    <InternalTo Include="SMBootstrapper.Core, PublicKeyToken=$(SMBootStrapperPublicKey)" />
+    <InternalTo Include="SMBootstrapper.Harmony, PublicKeyToken=$(SMBootStrapperPublicKey)" />
   </ItemGroup>
 
   <Target Name="IncludeSModAttributes"
