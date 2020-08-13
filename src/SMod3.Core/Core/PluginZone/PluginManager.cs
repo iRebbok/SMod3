@@ -16,6 +16,7 @@ namespace SMod3.Core
     {
         #region Static zone
 
+        public const int PRIME_OF_SUFFICIENT_SIZE = 397;
         public const string DLL_SEARCH_PATTERN = "*" + GacBypass.ASSEMBLY_FILE_EXTENSION;
 
         public static readonly string DEPENDENCY_FOLDER_NAME = "dependencies";

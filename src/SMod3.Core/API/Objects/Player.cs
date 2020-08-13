@@ -1,6 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
 
+using SMod3.Core;
+
 using UnityEngine;
 
 namespace SMod3.API
@@ -289,14 +291,12 @@ namespace SMod3.API
 
         public override int GetHashCode()
         {
-            const int PRIME_OF_SUFFICIENT_SIZE = 397;
-
             unchecked
             {
                 var hash = PlayerId.GetHashCode();
-                hash = (hash * PRIME_OF_SUFFICIENT_SIZE) ^ UserId.GetHashCode();
-                hash = (hash * PRIME_OF_SUFFICIENT_SIZE) ^ Connection.IpAddress.GetHashCode();
-                hash = (hash * PRIME_OF_SUFFICIENT_SIZE) ^ Nickname.GetHashCode();
+                hash = (hash * PluginManager.PRIME_OF_SUFFICIENT_SIZE) ^ UserId.GetHashCode();
+                hash = (hash * PluginManager.PRIME_OF_SUFFICIENT_SIZE) ^ Connection.IpAddress.GetHashCode();
+                hash = (hash * PluginManager.PRIME_OF_SUFFICIENT_SIZE) ^ Nickname.GetHashCode();
                 return hash;
             }
         }

@@ -18,7 +18,7 @@ namespace SMod3.Core
     /// <summary>
     ///     An abstract class for inheritance for the implementation of plugins.
     /// </summary>
-    public abstract class Plugin : BaseLogger, IComparable<Plugin>
+    public abstract class Plugin : BaseLogger, IComparable<Plugin>, IEquatable<Plugin>
     {
         #region Properties
 
@@ -39,50 +39,36 @@ namespace SMod3.Core
         /// </summary>
         public PluginStatus Status { get; internal set; }
 
-        public Server Server { get => PluginManager.Manager.Server; }
-        public Map Map { get => Server.Map; }
-        public Round Round { get => Server.Round; }
+        public Server Server => PluginManager.Manager.Server;
+        public Map Map => Server.Map;
+        public Round Round => Server.Round;
 
         #endregion
 
         #region Plugin Events
 
         /// <summary>
-        ///		Called first when loading the plugin.
-        ///		Called once for the entire existence of the plugin object.
-        ///		<para>
-        ///         Here, create the objects that you will need throughout the entire life cycle.
-        ///     </para>
+        ///     Fires only once on creation.
         /// </summary>
         protected virtual void Awake() { }
 
         /// <summary>
-        ///		Called when starting the plugin.
-        ///		<para>
-        ///         Here you have to register all your teams, events, etc.
-        ///     </para>
+        ///		Fires while enabling.
         /// </summary>
         protected virtual void OnEnable() { }
 
         /// <summary>
-        ///		Called when disabling the plugin.
-        ///		<para>
-        ///			Here you must cancel all registrations in other libraries
-        ///			that have a callback to yours,
-        ///			everything else is automatically untied.
-        ///		</para>
+        ///		Fires while disabling.
         /// </summary>
         protected virtual void OnDisable() { }
 
         /// <summary>
-        ///		Called when destroying the plugin.
-        ///		But before that, the plugin is disabled.
-        ///		<para>
-        ///			Here you must complete the plugin life cycle,
-        ///			you must remove all callbacks from other libraries.
-        ///		</para>
+        ///     Fires while disposing.
+        ///     <para>
+        ///         The plugin should dispose all managed and unmanaged resources here.
+        ///     </para>
         /// </summary>
-        protected virtual void Dispose() { }
+        protected virtual void OnDispose() { }
 
         #endregion
 
@@ -93,7 +79,7 @@ namespace SMod3.Core
         internal void CallAwake() => Awake();
         internal void CallEnable() => OnEnable();
         internal void CallDisable() => OnDisable();
-        internal void CallDispose() => Dispose();
+        internal void CallDispose() => OnDispose();
 
         #endregion
 
@@ -104,10 +90,38 @@ namespace SMod3.Core
             return $"{(!string.IsNullOrEmpty(Metadata.Name) ? Metadata.Name : "Anonymous")} ({Metadata.Id}) [{Metadata.Version}]";
         }
 
-        public int CompareTo(Plugin other)
+        public int CompareTo(Plugin other) => Metadata.Priority.CompareTo(other.Metadata.Priority);
+
+        public bool Equals(Plugin other) =>
+            Metadata.Priority == other.Metadata.Priority
+            && Metadata.Id == other.Metadata.Id
+            && Metadata.Name == other.Metadata.Name
+            && Metadata.Configuration == other.Metadata.Configuration;
+        // todo: version comparison
+
+        public override bool Equals(object obj) => obj is Plugin plugin && Equals(plugin);
+
+        public override int GetHashCode()
         {
-            return Metadata.Priority.CompareTo(other.Metadata.Priority);
+            unchecked
+            {
+                var hash = Metadata.Id.GetHashCode();
+                hash = (hash * PluginManager.PRIME_OF_SUFFICIENT_SIZE) ^ Metadata.Priority.GetHashCode();
+
+                if (!(Metadata.Name is null))
+                    hash = (hash * PluginManager.PRIME_OF_SUFFICIENT_SIZE) ^ Metadata.Name.GetHashCode();
+                if (!(Metadata.Authors is null))
+                    hash = (hash * PluginManager.PRIME_OF_SUFFICIENT_SIZE) ^ Metadata.Authors.GetHashCode();
+                if (!(Metadata.Collaborators is null))
+                    hash = (hash * PluginManager.PRIME_OF_SUFFICIENT_SIZE) ^ Metadata.Collaborators.GetHashCode();
+
+                return hash;
+            }
         }
+
+        public static bool operator ==(Plugin pl1, Plugin pl2) => pl1.Equals(pl2);
+
+        public static bool operator !=(Plugin pl1, Plugin pl2) => !(pl1 == pl2);
 
         #endregion
     }

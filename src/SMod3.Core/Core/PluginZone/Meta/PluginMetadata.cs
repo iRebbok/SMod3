@@ -39,7 +39,7 @@ namespace SMod3.Core
         /// <summary>
         ///     Extra data provided by plugins for modules.
         /// </summary>
-        public IReadOnlyCollection<IExtraData> ExtraDatas { get; }
+        public ReadOnlyCollection<IExtraData> ExtraDatas { get; }
 
         internal PluginMetadata(PluginMetadataAttribute attribute, Assembly assembly, IList<IExtraData> extraDatas) : base(assembly)
         {
