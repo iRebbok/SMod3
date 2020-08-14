@@ -24,9 +24,9 @@ namespace SMod3.Core
         public static readonly string PLUGIN_FOLDER_NAME = "sm_plugins";
         public static readonly string GLOBAL_FOLDER_NAME = "common";
 
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+#nullable disable
         public static PluginManager Manager { get; private set; }
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+#nullable restore
 
         #endregion
 
