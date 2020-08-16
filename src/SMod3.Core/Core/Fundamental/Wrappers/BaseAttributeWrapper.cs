@@ -28,7 +28,7 @@ namespace SMod3.Core.Fundamental
 
         public TargetType Type { get; }
 
-        public BaseAttributeWrapper(Plugin owner, object? instance, MemberInfo target) : base(owner)
+        public BaseAttributeWrapper(Plugin partOwner, object? instance, MemberInfo target) : base(partOwner)
         {
             Instance = instance;
             Target = target;

@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\SMod3.targets"/>
+  <Import Project="..\..\SMod3.targets" />
 
   <PropertyGroup>
     <AssemblyName>SMod3.Config</AssemblyName>

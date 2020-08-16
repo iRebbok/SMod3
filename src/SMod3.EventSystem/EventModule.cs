@@ -54,9 +54,9 @@ namespace SMod3.Module.EventSystem
         #region Fields & Properties
 
         private static EventModule? _instance;
-#pragma warning disable CS8603 // Possible null reference return.
+#nullable disable
         public static EventModule Module { get => _instance ??= ModuleManager.Manager.FindModule<EventModule>(); }
-#pragma warning restore CS8603 // Possible null reference return.
+#nullable restore
 
         public override string LoggingTag { get; } = StringMisc.ToFullyUpperSnakeCase(nameof(EventModule));
 
