@@ -6,7 +6,7 @@ using SMod3.Module.Config.Attributes;
 
 namespace SMod3.Module.Config.Meta
 {
-    internal sealed class ConfigAttributeWrapper : BaseAttributeWrapper
+    public sealed class ConfigAttributeWrapper : BaseAttributeWrapper
     {
         public ConfigOptionAttribute Source { get; }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -21,7 +22,7 @@ namespace SMod3.Module.Config
         public IConfigProvider GameplayConfig { get; internal set; }
 #nullable restore
 
-        private readonly ITypeReader[] _typeReaders;
+        private readonly List<ITypeReader> _typeReaders;
 
         private ConfigModule()
         {
@@ -30,14 +31,22 @@ namespace SMod3.Module.Config
                 .Where(t => !(t.GetInterface(nameof(ITypeReader)) is null))
                 .Select(t => Activator.CreateInstance(t, true))
                 .Cast<ITypeReader>()
-                .ToArray();
+                .ToList();
         }
 
-        private bool IsReadableType(Type type) => TryGetTypeReader(type, out _);
-
-        private bool TryGetTypeReader(Type type, out ITypeReader? reader)
+        public void AddTypeReader(ITypeReader reader)
         {
-            for (var z = 0; z < _typeReaders.Length; z++)
+            if (reader is null)
+                throw new ArgumentNullException(nameof(reader));
+
+            _typeReaders.Add(reader);
+        }
+
+        public bool IsReadableType(Type type) => TryGetTypeReader(type, out _);
+
+        public bool TryGetTypeReader(Type type, out ITypeReader? reader)
+        {
+            for (var z = 0; z < _typeReaders.Count; z++)
             {
                 reader = _typeReaders[z];
                 if (reader.CanRead(type))

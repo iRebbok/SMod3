@@ -6,7 +6,7 @@ using SMod3.Core.Misc;
 
 namespace SMod3.Module.Config.Meta.TypeReaders
 {
-    internal static class ReaderExtensions
+    public static class ReaderExtensions
     {
         public static void AssertCorrentType(this ITypeReader reader, ConfigAttributeWrapper wrapper)
         {

@@ -2,7 +2,7 @@ using System;
 
 namespace SMod3.Module.Config.Meta.TypeReaders
 {
-    internal interface ITypeReader
+    public interface ITypeReader
     {
         bool CanRead(Type type);
 
