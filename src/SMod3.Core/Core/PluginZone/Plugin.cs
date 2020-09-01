@@ -7,12 +7,12 @@ namespace SMod3.Core
 {
     public enum PluginStatus : byte
     {
-        DISABLED,
-        ENABLED,
+        DISABLED = 0,
+        ENABLED = 1,
         /// <summary>
         ///     Plugin has been disposed and awaiting GC collection.
         /// </summary>
-        DISPOSED
+        DISPOSED = 2
     }
 
     /// <summary>

@@ -90,14 +90,14 @@ namespace SMod3.API
         /// <summary>
         ///     Item on the surface.
         /// </summary>
-        SURFACE,
+        SURFACE = 0,
         /// <summary>
         ///     Item in the inventory.
         /// </summary>
-        INVENTORY,
+        INVENTORY = 1,
         /// <summary>
         ///     Item in the locker.
         /// </summary>
-        LOCKER
+        LOCKER = 2
     }
 }

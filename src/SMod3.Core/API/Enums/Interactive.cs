@@ -8,12 +8,12 @@ namespace SMod3.API
 
     public enum IntercomStatus : byte
     {
-        MUTED,
-        RESTARING,
-        TRANSMITTING_ADMIN,
-        TRANSMITTING_BYPASS,
-        TRANSMITTING,
-        READY
+        MUTED = 0,
+        RESTARING = 1,
+        TRANSMITTING_ADMIN = 2,
+        TRANSMITTING_BYPASS = 3,
+        TRANSMITTING = 4,
+        READY = 5
     }
 
     public enum RadioStatus : byte
@@ -69,8 +69,8 @@ namespace SMod3.API
     public enum BanType : sbyte
     {
         NONE = -1,
-        USER_ID,
-        IP
+        USER_ID = 0,
+        IP = 1
     }
 
     public enum TeslaActivationType
@@ -78,15 +78,15 @@ namespace SMod3.API
         /// <summary>
         ///     Waits 30 frames before activating.
         /// </summary>
-        NORMAL,
+        NORMAL = 0,
         /// <summary>
         ///     Waits 5 frames before activating.
         ///     Scp079 uses this to activate tesla.
         /// </summary>
-        INSTANT_BRUSH,
+        INSTANT_BRUSH = 1,
         /// <summary>
         ///     No waiting.
         /// </summary>
-        INSTANT
+        INSTANT = 2
     }
 }

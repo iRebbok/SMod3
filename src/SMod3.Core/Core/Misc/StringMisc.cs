@@ -13,11 +13,11 @@ namespace SMod3.Core.Misc
             /// <summary>
             ///     A type of register that uses '_' between.
             /// </summary>
-            SnakeInterval,
+            SnakeInterval = 0,
             /// <summary>
             ///     A type of register that uses '.' between.
             /// </summary>
-            DotInterval
+            DotInterval = 1
         }
 
         /// <summary>
@@ -25,12 +25,12 @@ namespace SMod3.Core.Misc
         /// </summary>
         public enum CaseType
         {
-            UpperCase,
-            LowerCase,
+            UpperCase = 0,
+            LowerCase = 1,
             /// <summary>
             ///     The next letter after the interval will not be aligned.
             /// </summary>
-            SourceCase
+            SourceCase = 2
         }
 
         #region High-level

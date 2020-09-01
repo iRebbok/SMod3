@@ -12,8 +12,8 @@ namespace SMod3.API
 
     public enum ElevatorStatus : byte
     {
-        UP,
-        DOWN,
-        MOVING
+        UP = 0,
+        DOWN = 1,
+        MOVING = 2
     }
 }

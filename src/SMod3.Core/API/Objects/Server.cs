@@ -13,9 +13,9 @@ namespace SMod3.API
     /// </summary>
     public enum CommandEntry
     {
-        REMOTE_ADMIN,
-        SERVER_CONSOLE,
-        GAME_CONSOLE
+        REMOTE_ADMIN = 0,
+        SERVER_CONSOLE = 1,
+        GAME_CONSOLE = 2
     }
 
     public abstract class Server : ICommandSender

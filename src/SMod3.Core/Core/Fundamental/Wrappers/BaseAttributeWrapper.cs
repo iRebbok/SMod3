@@ -11,9 +11,9 @@ namespace SMod3.Core.Fundamental
     {
         public enum TargetType
         {
-            Method,
-            Field,
-            Property
+            Method = 0,
+            Field = 1,
+            Property = 2
         }
 
         /// <summary>

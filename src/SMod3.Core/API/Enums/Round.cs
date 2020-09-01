@@ -10,13 +10,13 @@ namespace SMod3.API
 
     public enum RoundEndStatus : byte
     {
-        ON_GOING,
-        MTF_VICTORY,
-        SCP_VICTORY,
-        SCP_CI_VICTORY,
-        CI_VICTORY,
-        NO_VICTORY,
-        FORCE_END,
-        OTHER_VICTORY
+        ON_GOING = 0,
+        MTF_VICTORY = 1,
+        SCP_VICTORY = 2,
+        SCP_CI_VICTORY = 3,
+        CI_VICTORY = 4,
+        NO_VICTORY = 5,
+        FORCE_END = 6,
+        OTHER_VICTORY = 7
     }
 }

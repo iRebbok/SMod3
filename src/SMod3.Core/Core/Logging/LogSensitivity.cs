@@ -5,19 +5,19 @@ namespace SMod3.Core.Logging
         /// <summary>
         ///     A type of log that requires immediate user intervention.
         /// </summary>
-        CRITICAL,
+        CRITICAL = 0,
         /// <summary>
         ///     A type of log that requires attention.
         /// </summary>
-        ERROR,
+        ERROR = 1,
         /// <summary>
         ///     A type of log that needs to be fixed by the user, but doesn't violate the runtime.
         /// </summary>
-        WARN,
+        WARN = 2,
         /// <summary>
         ///     A type of log that informs the user about the general flow.
         /// </summary>
-        INFO,
+        INFO = 3,
         /// <summary>
         ///     A type of log that shows what is happening.
         /// </summary>
@@ -29,7 +29,7 @@ namespace SMod3.Core.Logging
         ///         ProTip: use this type of log only for exceptions and errors that will NOT affect the main workflow that might be hidden.
         ///     </para>
         /// </remarks>
-        VERBOSE,
+        VERBOSE = 4,
         /// <summary>
         ///     A type of log that shows the details of what is happening.
         /// </summary>
@@ -41,6 +41,6 @@ namespace SMod3.Core.Logging
         ///         ProTip: use this type of log only for exceptions and errors that will NOT affect the main workflow that might be hidden.
         ///     </para>
         /// </remarks>
-        DEBUG
+        DEBUG = 5
     }
 }

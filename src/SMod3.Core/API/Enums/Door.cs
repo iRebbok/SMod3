@@ -30,9 +30,9 @@ namespace SMod3.API
     /// </summary>
     public enum DoorType : byte
     {
-        STANDARD,
-        HEAVY_GATE,
-        CHECKPOINT
+        STANDARD = 0,
+        HEAVY_GATE = 1,
+        CHECKPOINT = 2
     }
 
     /// <summary>
@@ -40,10 +40,10 @@ namespace SMod3.API
     /// </summary>
     public enum DoorButtonType : byte
     {
-        LIGHT_CONTAINMENT,
-        HEAVY_CONTAIMENT,
-        ACCESS_REQUIRED,
-        CHECKPOINT
+        LIGHT_CONTAINMENT = 0,
+        HEAVY_CONTAIMENT = 1,
+        ACCESS_REQUIRED = 2,
+        CHECKPOINT = 3
     }
 
     /// <summary>
@@ -51,11 +51,11 @@ namespace SMod3.API
     /// </summary>
     public enum DoorStatus : byte
     {
-        CLOSED,
-        OPEN,
-        MOVING,
-        DENIED,
-        LCOKED,
-        MISC
+        CLOSED = 0,
+        OPEN = 1,
+        MOVING = 2,
+        DENIED = 3,
+        LCOKED = 4,
+        MISC = 5
     }
 }
