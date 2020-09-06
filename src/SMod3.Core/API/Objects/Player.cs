@@ -99,7 +99,7 @@ namespace SMod3.API
         /// <summary>
         ///     Displayed player nickname in player list and remote admin.
         /// </summary>
-        public abstract string? DisplayNickname { get; set; }
+        public abstract string? DisplayedNickname { get; set; }
 
         #endregion
 
