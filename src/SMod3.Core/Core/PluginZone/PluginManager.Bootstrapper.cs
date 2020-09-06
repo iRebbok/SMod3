@@ -46,7 +46,7 @@ namespace SMod3.Core
         /// <exception cref="ArgumentNullException">
         ///     Files is null.
         /// </exception>
-        public void LoadDependencies(FileInfo[] files)
+        public void LoadDependencies(IEnumerable<FileInfo> files)
         {
             if (files is null)
                 throw new ArgumentNullException("Files cannot be null", nameof(files));
@@ -94,7 +94,7 @@ namespace SMod3.Core
         /// <exception cref="ArgumentNullException">
         ///     Files is null.
         /// </exception>
-        public void LoadPlugins(FileInfo[] files)
+        public void LoadPlugins(IEnumerable<FileInfo> files)
         {
             if (files is null)
                 throw new ArgumentNullException("Files cannot be null", nameof(files));
@@ -102,7 +102,7 @@ namespace SMod3.Core
             // We load all plugin assemblies before initializing them
             // This avoids issues such as TypeInitializationException/FileNotFoundException,
             // when a plugin accesses another plugin, although this is bad practice and there is Piping for this
-            var assemblies = ListPool<Assembly>.Shared.Rent(files.Length);
+            var assemblies = ListPool<Assembly>.Shared.Rent(files.Count());
 
             try
             {
@@ -281,6 +281,8 @@ namespace SMod3.Core
                         Error("Somehow the plugin instance is null, skipping...");
                         continue;
                     }
+
+                    plugin.Status = PluginStatus.LOADED;
 
                     plugin.Metadata = new PluginMetadata(metadataAttribute, assembly, ev.ExtraDatas);
                     Verbose($"The plugin is remembered as: {plugin}");

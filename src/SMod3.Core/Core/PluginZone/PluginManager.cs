@@ -99,7 +99,16 @@ namespace SMod3.Core
 
         #region Plugin related properties
 
-        public IReadOnlyDictionary<Plugin, Assembly> PluginsAndAssemblies { get; }
+        public ReadOnlyDictionary<Plugin, Assembly> PluginsAndAssemblies { get; }
+
+        /// <summary>
+        ///     Returns plugins that have been loaded.
+        /// </summary>
+        /// <remarks>
+        ///     Loaded plugins mean that they have a status <see cref="PluginStatus.LOADED"/>,
+        ///     which is assigned only when the plugin is loaded but not enabled.
+        /// </remarks>
+        public IEnumerable<Plugin> LoadedPlugins => from p in _plugins.Keys where p.Status == PluginStatus.LOADED select p;
 
         /// <summary>
         ///     Returns plugins that have been enabled.
@@ -114,7 +123,7 @@ namespace SMod3.Core
         /// <summary>
         ///     Returns all plugins.
         /// </summary>
-        public IEnumerable<Plugin> Plugins => from p in _plugins.Keys orderby p.Status select p;
+        public IEnumerable<Plugin> Plugins => _plugins.Keys;
 
         #endregion
 
@@ -211,7 +220,7 @@ namespace SMod3.Core
         /// </returns>
         public bool IsNotUniqueId(string id)
         {
-            return !_plugins.Keys.Any(pl => pl.Metadata!.Id.Equals(id));
+            return !_plugins.Keys.Any(pl => pl.Metadata.Id.Equals(id, StringComparison.Ordinal));
         }
 
         /// <summary>
@@ -342,7 +351,14 @@ namespace SMod3.Core
         }
 
         /// <summary>
-        ///     Enable all disabled plugins.
+        ///     Enables add loaded plugins.
+        /// </summary>
+        /// <remarks><inheritdoc cref="LoadedPlugins"/></remarks>
+        /// <returns><inheritdoc cref="EnablePlugins" /></returns>
+        public bool EnableLoadedPlugins() => LoadedPlugins.All(Enable);
+
+        /// <summary>
+        ///     Enables all disabled plugins.
         /// </summary>
         /// <returns>
         ///     true if all plugins have been successfully enabled,
@@ -351,7 +367,7 @@ namespace SMod3.Core
         public bool EnablePlugins() => DisabledPlugins.All(Enable);
 
         /// <summary>
-        ///     Enable plugin.
+        ///     Enables plugin.
         /// </summary>
         /// <returns>
         ///     true if the plugin hasn't thrown an exception when it's enabling,
@@ -412,7 +428,7 @@ namespace SMod3.Core
         }
 
         /// <summary>
-        ///     Enable plugin by its id.
+        ///     Enables plugin by its id.
         /// </summary>
         /// <returns>
         ///     true if the plugin hasn't thrown an exception when it's enabling,
@@ -432,7 +448,7 @@ namespace SMod3.Core
         }
 
         /// <summary>
-        ///     Disable all enabled plugins.
+        ///     Disables all enabled plugins.
         /// </summary>
         /// <returns>
         ///     true if all plugins have been successfully disabled,
@@ -441,7 +457,7 @@ namespace SMod3.Core
         public bool DisablePlugins() => EnabledPlugins.All(Disable);
 
         /// <summary>
-        ///     Disable plugin.
+        ///     Disables plugin.
         /// </summary>
         /// <returns>
         ///     true if the plugin hasn't thrown an exception when it's disabling,
@@ -495,7 +511,7 @@ namespace SMod3.Core
         }
 
         /// <summary>
-        ///     Disable plugin by its id.
+        ///     Disables plugin by its id.
         /// </summary>
         /// <returns>
         ///     true if the plugin hasn't thrown an exception when it's disabling,
