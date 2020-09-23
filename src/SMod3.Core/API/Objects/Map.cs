@@ -182,17 +182,20 @@ namespace SMod3.API
         public abstract ISurfaceItemInfo SpawnItem(AmmoType type, uint ammo, Vector3 position, Quaternion? rotation = null);
 
         /// <summary>
-        ///     Sets intercom content with status.
+        ///     Sets an intercom content by state.
         /// </summary>
-        /// <exception cref="ArgumentNullException">
-        ///     Content is null.
-        /// </exception>
-        public abstract void SetIntercomContent(IntercomStatus intercomStatus, string content);
+        /// <param name="content">
+        ///     A content, a null or empty value resets it.
+        /// </param>
+        public abstract void SetIntercomContent(IntercomState intercomStatus, string content);
 
         /// <summary>
-        ///     Gets intercom content by status.
+        ///     Gets an intercom content by state.
         /// </summary>
-        public abstract string GetIntercomContent(IntercomStatus intercomStatus);
+        /// <returns>
+        ///     A content or null if wasn't set.
+        /// </returns>
+        public abstract string GetIntercomContent(IntercomState intercomStatus);
 
         /// <summary>
         ///     Announces custom message.

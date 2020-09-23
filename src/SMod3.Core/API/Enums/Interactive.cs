@@ -6,14 +6,15 @@ namespace SMod3.API
         EXIT = 1
     }
 
-    public enum IntercomStatus : byte
+    public enum IntercomState : byte
     {
-        MUTED = 0,
-        RESTARING = 1,
-        TRANSMITTING_ADMIN = 2,
-        TRANSMITTING_BYPASS = 3,
-        TRANSMITTING = 4,
-        READY = 5
+        READY = 0,
+        TRANSMITTING = 1,
+        TRANSMITTING_BYPASS = 2,
+        RESTARING = 3,
+        ADMIN_SPEAKING = 4,
+        MUTED = 5,
+        CUSTOM = 6
     }
 
     public enum RadioStatus : byte
