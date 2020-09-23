@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\SMod3.props" />
+  <Import Project="..\..\SMod3.props;..\..\SMod3.targets" />
 
   <PropertyGroup>
     <AssemblyName>SMod3.Permission</AssemblyName>

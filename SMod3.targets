@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <SMBootStrapperPublicKey>
+      002400000480000094000000060200000024000052534131000400000100010031f818a4bfb73d
+      010ef018f5603ebbc1b3cf3b47e4fecbf60bcdb5c8368b0578a4a2cbc3630bd6561929fc289e3f
+      18e9d831a4ce1809f01eff0bdd8e2597dd8f277281d1163ab639b9fc53953ac9ef0813ba47181c
+      657003364afc4ce2c690eecb8468d92b00dda651d97eb11ed9f473f6858dcb88eae5719e32e03a
+      8527fac0
+    </SMBootStrapperPublicKey>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalTo Include="SMBootstrapper.Core, PublicKeyToken=$(SMBootStrapperPublicKey)" />
+    <InternalTo Include="SMBootstrapper.Harmony, PublicKeyToken=$(SMBootStrapperPublicKey)" />
+  </ItemGroup>
+
+  <Target Name="IncludeSModAttributes"
+          AfterTargets="GetAssemblyAttributes">
+    <ItemGroup>
+
+      <!-- Include cultural attribute -->
+      <AssemblyAttribute Include="System.Reflection.AssemblyCultureAttribute">
+        <_Parameter1>en-US</_Parameter1>
+      </AssemblyAttribute>
+
+      <!-- Somehow I don't have the `AssemblyMetadata` attribute -->
+      <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+        <_Parameter1>RepositoryUrl</_Parameter1>
+        <_Parameter2>$(RepositoryUrl)</_Parameter2>
+      </AssemblyAttribute>
+
+      <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+        <_Parameter1>%(InternalTo.Identity)</_Parameter1>
+      </AssemblyAttribute>
+
+    </ItemGroup>
+  </Target>
+
+</Project>

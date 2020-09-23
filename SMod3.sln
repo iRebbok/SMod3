@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0ther", "0ther", "{1B495E96-F391-4C9B-932A-CD6A085D4F94}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		SMod3.props = SMod3.props
 		SMod3.targets = SMod3.targets
 	EndProjectSection
 EndProject
